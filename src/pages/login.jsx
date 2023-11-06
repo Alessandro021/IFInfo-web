@@ -26,9 +26,8 @@ const Login = () => {
 
 					<div className="grid w-full max-w-sm items-center gap-2">
 						<Label htmlFor="email">Senha</Label>
-						<div className="flex flex-row px-4 items-center border rounded-md gap-4">
-							<Input variant={"outline"} type={passwordVisible ? "text" : "password"} name="Senha" placeholder="Senha" className="border-none px-0 focus:outline-none"
-								value={password} onChange={e => setPassword(e.target.value)} />
+						<div className="flex flex-row gap-4">
+							<Input variant={"outline"} type={passwordVisible ? "text" : "password"} name="Senha" placeholder="Senha" value={password} onChange={e => setPassword(e.target.value)} />
 							{!passwordVisible && <button onClick={() => setPasswordVisible(current => !current)}><EyeIcon/></button>}
 							{passwordVisible && <button onClick={() => setPasswordVisible(current => !current)}><EyeOffIcon/></button>}
 						</div>
