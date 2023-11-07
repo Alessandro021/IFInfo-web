@@ -47,7 +47,7 @@ const AtualizarNoticia = () => {
 
 						<div className="flex flex-row gap-4 items-center">
 							<Label className="text-lg font-bold" >titulo:</Label>
-							<Input  type="titulo" name="titulo" placeholder="titulo" value={titulo} onChange={e => setTitulo(e.target.value)} className="focus:outline-none focus:ring-0"/>
+							<Input type="titulo" name="titulo" placeholder="titulo" value={titulo} onChange={e => setTitulo(e.target.value)} className="focus:outline-none focus:ring-0"/>
 						</div>
 
 						<div className="flex flex-row gap-4 items-start">

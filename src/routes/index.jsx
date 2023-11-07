@@ -9,7 +9,7 @@ import Horarios from "../pages/horarios";
 import VerNoticia from "../pages/noticias/verNoticia";
 import AtualizarNoticia from "../pages/noticias/atualizarNoticia";
 export const Rotas = () => {
-	const logado = true;
+	const logado = false;
 	return (
 		<BrowserRouter>
 			{logado && <Header />}
