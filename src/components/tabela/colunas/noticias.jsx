@@ -1,7 +1,7 @@
-// import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import { CarrotIcon, MoreHorizontal} from "lucide-react";
+import { ImageIcon, ImageOffIcon, MoreHorizontal} from "lucide-react";
+import { useNavigate} from "react-router-dom";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -31,19 +31,22 @@ export const colunasNoticias = [
 		enableSorting: false,
 		enableHiding: false,
 	},
-	
+	{
+		accessorKey: "id",
+		header: "id",
+	},
 	{
 		accessorKey: "titulo",
 		header: "titulo",
 		cell: ({ row }) => {
-			return <p className=" font-medium line-clamp-2">{row.getValue("conteudo")}</p>;
+			return <p className=" font-medium line-clamp-2 max-w-[350px]">{row.getValue("titulo")}</p>;
 		},
 	},
 	{
 		accessorKey: "conteudo",
 		header: "conteudo",
 		cell: ({ row }) => {
-			return <p className=" font-medium line-clamp-2">{row.getValue("conteudo")}</p>;
+			return <p className=" font-medium line-clamp-2 max-w-[500px]">{row.getValue("conteudo")}</p>;
 		},
 	},
 	{
@@ -57,11 +60,25 @@ export const colunasNoticias = [
 	{
 		accessorKey: "url_foto",
 		header: "foto",
+		cell: ({ row }) => {
+			return <div>{row.getValue("url_foto") !== "null" ? <ImageIcon /> : <ImageOffIcon />}</div>;
+		},
+	},
+	{
+		accessorKey: "link",
+		header: "link",
+		cell: ({ row }) => {
+			return <a href={row.getValue("link")} target="_blank" className="font-medium line-clamp-2 max-w-[500px] hover:text-sky-600" rel="noreferrer">{row.getValue("link")}</a>;
+		},
 	},
 	{
 		id: "actions",
 		cell: ({ row }) => { 
 			const noticia = row.original;
+			const navigate = useNavigate();
+			const verNoticia = (id) => {
+				return navigate(`/${id}`);
+			};
 
 			return (
 				<DropdownMenu>
@@ -76,7 +93,7 @@ export const colunasNoticias = [
 						<DropdownMenuSeparator />
 						<DropdownMenuItem onClick={() => console.log(noticia.id)}>Deletar</DropdownMenuItem>
 						<DropdownMenuItem onClick={() => console.log(noticia.id)}>Atualizar</DropdownMenuItem>
-						<DropdownMenuItem onClick={() => console.log(noticia.id)}>Ver</DropdownMenuItem>
+						<DropdownMenuItem onClick={() => verNoticia(noticia.id)}>Ver</DropdownMenuItem>
 					</DropdownMenuContent>
 				</DropdownMenu>
 			);

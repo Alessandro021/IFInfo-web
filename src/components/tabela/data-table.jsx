@@ -45,7 +45,7 @@ export function DataTable({ columns , data,}) {
 			<DropdownMenu>
 				<DropdownMenuTrigger asChild>
 					<Button variant="outline" className="ml-auto">
-              Colunas
+              colunas
 					</Button>
 				</DropdownMenuTrigger>
 				<DropdownMenuContent align="end">
@@ -117,7 +117,7 @@ export function DataTable({ columns , data,}) {
 			<div className="flex justify-between">
 				<div className="flex text-sm text-muted-foreground space-x-2 py-4">
 					{table.getFilteredSelectedRowModel().rows.length} of{" "}
-					{table.getFilteredRowModel().rows.length} row(s) selected.
+					{table.getFilteredRowModel().rows.length} linhas(s) selecionadas.
 				</div>
 				<div className="flex items-center justify-end gap-4">
 					<Button
