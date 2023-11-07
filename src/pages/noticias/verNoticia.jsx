@@ -22,7 +22,6 @@ const VerNoticia = () => {
 			<Card className="w-11/12 h-full">
 				<CardHeader>
 					<CardTitle>Detalhes da notícia</CardTitle>
-					{/* <CardDescription>Deploy your new project in one-click.</CardDescription> */}
 				</CardHeader>
 				<CardContent className="flex flex-col gap-4">
 					<div>
@@ -79,7 +78,7 @@ const VerNoticia = () => {
 				</CardContent>
 				<CardFooter className="flex justify-between">
 					<Button variant="outline" onClick={() => navigate("/")}>Voltar</Button>
-					<Button>Atualizar</Button>
+					<Button onClick={() => navigate(`/atualizar/${id}`)}>Atualizar</Button>
 				</CardFooter>
 			</Card>
 		</div>

@@ -80,6 +80,10 @@ export const colunasNoticias = [
 				return navigate(`/${id}`);
 			};
 
+			const atualizarNoticia = (id) => {
+				return navigate(`/atualizar/${id}`);
+			};
+
 			return (
 				<DropdownMenu>
 					<DropdownMenuTrigger asChild>
@@ -92,7 +96,7 @@ export const colunasNoticias = [
 						<DropdownMenuLabel>Selecione</DropdownMenuLabel>
 						<DropdownMenuSeparator />
 						<DropdownMenuItem onClick={() => console.log(noticia.id)}>Deletar</DropdownMenuItem>
-						<DropdownMenuItem onClick={() => console.log(noticia.id)}>Atualizar</DropdownMenuItem>
+						<DropdownMenuItem onClick={() => atualizarNoticia(noticia.id)}>Atualizar</DropdownMenuItem>
 						<DropdownMenuItem onClick={() => verNoticia(noticia.id)}>Ver</DropdownMenuItem>
 					</DropdownMenuContent>
 				</DropdownMenu>
