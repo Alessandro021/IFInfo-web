@@ -61,7 +61,7 @@ export const colunasNoticias = [
 		accessorKey: "url_foto",
 		header: "foto",
 		cell: ({ row }) => {
-			return <div>{row.getValue("url_foto") !== "null" ? <ImageIcon /> : <ImageOffIcon />}</div>;
+			return <div>{row.getValue("url_foto") ? <ImageIcon /> : <ImageOffIcon />}</div>;
 		},
 	},
 	{

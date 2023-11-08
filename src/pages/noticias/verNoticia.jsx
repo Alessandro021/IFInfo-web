@@ -59,7 +59,7 @@ const VerNoticia = () => {
 
 					<div>
 						<h1 className="text-xl font-bold">imagem da notícia:</h1>
-						{noticia?.url_foto !== "null" ? (
+						{noticia?.url_foto ? (
 							<div className="rounded-md w-[340px] border-2 p-2 ">
 								<img className="w-80 h-96" src={noticia?.url_foto} alt={noticia?.titulo} />
 							</div>
