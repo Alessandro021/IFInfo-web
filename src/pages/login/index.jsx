@@ -1,24 +1,25 @@
 /* eslint-disable no-undef */
+import "../../utils/yup/index.js";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { useState } from "react";
-import * as z from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
 
 const Login = () => {
 	const [senhaVisivel, setSenhaVisivel] = useState(false);
 	
-	const formSchema = z.object({
-		email: z.string().email().min(6),
-		senha: z.string().min(6),
+	const formSchema = yup.object().shape({
+		email: yup.string().email().min(6).required(),
+		senha: yup.string().min(6).required(),
 	});
 
 	const form = useForm({
-		resolver: zodResolver(formSchema ),
+		resolver: yupResolver(formSchema),
 		defaultValues: {
 			email: "",
 			senha: "",
