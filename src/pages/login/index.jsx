@@ -4,18 +4,23 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
+import { useLogin } from "@/src/queries/login.js";
 
 const Login = () => {
+
 	const [senhaVisivel, setSenhaVisivel] = useState(false);
+	const [isSubmitted, setIsSubmitted] = useState(false);
+	const [usuario, setUsuario] = useState(null);
+	const {data, status, error} = useLogin(usuario, isSubmitted);
 	
 	const formSchema = yup.object().shape({
 		email: yup.string().email().min(6).required(),
-		senha: yup.string().min(6).required(),
+		senha: yup.string().min(8).required(),
 	});
 
 	const form = useForm({
@@ -25,9 +30,18 @@ const Login = () => {
 			senha: "",
 		},
 	});
+
+	useEffect(() => {
+		if(status === "error") {
+			alert(error.response.data.errors.default);
+			setIsSubmitted(false);
+			// console.log(error.response.data.errors.default);
+		}
+	}, [status]);
+
 	const onSubmit = (values) => {
-		console.log(values);
-		form.reset();
+		setIsSubmitted(true);
+		setUsuario(values);
 	};
 	return ( 
 		<div className="flex h-screen justify-center items-center bg-slate-400">

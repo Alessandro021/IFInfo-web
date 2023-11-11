@@ -8,8 +8,14 @@ import Login from "../pages/login";
 import Horarios from "../pages/horarios";
 import VerNoticia from "../pages/noticias/verNoticia";
 import AtualizarNoticia from "../pages/noticias/atualizarNoticia";
+import { useLogado } from "../useHooks/useLogado";
+
 export const Rotas = () => {
-	const logado = true;
+	const {logado, loading} = useLogado();
+
+	if(loading){
+		return <p>Carregahdo..</p>;
+	}
 	return (
 		<BrowserRouter>
 			{logado && <Header />}

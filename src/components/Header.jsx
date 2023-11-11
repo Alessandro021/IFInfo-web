@@ -3,12 +3,13 @@ import { Card } from "@/components/ui/card";
 import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { BookUserIcon, CalendarClockIcon, GraduationCapIcon, LogOutIcon, MenuIcon, NewspaperIcon, Users2Icon } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useUsuario } from "../store/useUsuario";
 
 const Header = () => {
-
+	const deslogarUsuario = useUsuario(state => state.deslogarUsuario);
 	return (
 		<Card className="flex flex-row items-center justify-between p-5" >
-			<Sheet defaultOpen={true}>
+			<Sheet>
 				<SheetTrigger asChild >
 					<Button size="icon" variant="outline">
 						<MenuIcon color="black"/>
@@ -90,7 +91,7 @@ const Header = () => {
 			<h1 className="text-2xl font-bold text-green-700">IFInfo</h1>
 
 			<Link to="/login">
-				<Button>
+				<Button onClick={() => deslogarUsuario()}>
 					<span>Sair</span>
 				</Button>
 			</Link>
