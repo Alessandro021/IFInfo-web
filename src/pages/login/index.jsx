@@ -32,8 +32,12 @@ const Login = () => {
 	});
 
 	useEffect(() => {
-		if(status === "error") {
-			alert(error.response.data.errors.default);
+		if(error?.message === "Network Error") {
+			alert("Sem conexão com o servidor");
+			setIsSubmitted(false);
+		}
+		if(error?.message !== "Network Error" && status === "error") {
+			alert(error?.response?.data?.errors?.default);
 			setIsSubmitted(false);
 			// console.log(error.response.data.errors.default);
 		}

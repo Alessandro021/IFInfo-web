@@ -23,6 +23,7 @@ export const useLogin = (usuario, isSubmitted) => {
 		queryKey: ["login", usuario],
 		queryFn: () => login(usuario),
 		enabled: isSubmitted,
+		// networkMode: "offlineFirst",
 		retry: false,
 		staleTime: 0,
 		cacheTime: 0
