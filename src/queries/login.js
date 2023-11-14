@@ -26,7 +26,7 @@ export const useLogin = (usuario, isSubmitted) => {
 		// networkMode: "offlineFirst",
 		retry: false,
 		staleTime: 0,
-		cacheTime: 0
+		cacheTime: 0,
 	});
 
 	useEffect(() => {

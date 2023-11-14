@@ -9,15 +9,50 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
 
-import noticias from "@/src/utils/objetoNoticias";
+import api from "@/src/services/api";
+import { useMutation } from "@tanstack/react-query";
+import { useState } from "react";
+import { useNoticia } from "@/src/store/useNoticias";
+import { useStorage } from "@/src/useHooks/useStorage";
 
 const AtualizarNoticia = () => {
 	const {id} = useParams();
-	const noticia = noticias?.result.find(noticia => noticia.id === id);
+
+	const {pegar} = useStorage();
+
+	const token = JSON.parse(pegar());
+
+	const [loading, setLoading] = useState(false);
+
+	const atualizarNoticia = useNoticia(state => state.atualizarNoticia);
+	const pegarNoticiaPorId = useNoticia(state => state.pegarNoticiaPorId);
+	pegarNoticiaPorId(id);
+	const noticia = useNoticia(state => state.noticia);
+
 	const navigate = useNavigate();
 
+	const atualizarNoticias = async (values) => {
+		const {data} = await api.put(`/noticia/${id}`, values, {
+			headers:{
+				Authorization: `Bearer ${token.accessToken}`
+			}
+		});
+		return data;
+	};
+
+	const mutation = useMutation({mutationKey: ["noticias"], mutationFn: atualizarNoticias , onSuccess: (data) => {
+		setLoading(false);
+		atualizarNoticia(id, data?.result);
+	},
+	onError: (data) => {
+		setLoading(false);
+		alert("Update nao relizado");
+		console.log(data.message);
+	}
+	});
+
 	const formSchema = yup.object().shape({
-		id: yup.string().min(9).max(10).optional(),
+		// id: yup.string().min(9).max(10).optional(),
 		titulo: yup.string().min(3).optional(),
 		hora: yup.string().matches(/^([01]\d|2[0-3]):([0-5]\d)$/, "O formato da hora deve ser hh:mm").min(3).optional(),
 		data: yup.string().matches(/^(0[1-9]|[12]\d|3[01])\/(0[1-9]|1[0-2])\/\d{2}$/, "O formato da data deve ser dd/mm/aa").min(3).optional(),
@@ -37,11 +72,18 @@ const AtualizarNoticia = () => {
 			link: noticia?.link,
 			url_foto: noticia?.url_foto,
 		},
+
 	});
 	const onSubmit = (values) => {
-		console.log(values);
-		form.reset();
-	};	
+		setLoading(true);
+		delete values?.id;
+		mutation.mutate(values);
+	
+	};
+
+	if(loading){
+		return <p>Carregando...</p>;
+	}
 	return ( 
 		<div className="flex h-auto justify-center p-8 bg-slate-100">
 			<Card className="w-11/12 h-full">

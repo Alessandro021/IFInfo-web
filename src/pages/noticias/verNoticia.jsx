@@ -1,13 +1,16 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { useNoticia } from "@/src/store/useNoticias";
 
-import noticias from "@/src/utils/objetoNoticias";
 import { useEffect, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 const VerNoticia = () => {
 	const {id} = useParams();
-	const noticia = noticias?.result.find(noticia => noticia.id === id);
+	const pegarNoticiaPorId = useNoticia(state => state.pegarNoticiaPorId);
+	pegarNoticiaPorId(id);
+	const noticia = useNoticia(state => state.noticia);
+
 	const textAreaRef = useRef(null);
 	const navigate = useNavigate();
 
