@@ -90,14 +90,7 @@ export const colunasNoticias = [
 				return navigate(`/atualizar/${id}`);
 			};
 			const excluirNoticia = async (id) => {
-				const {pegar} = useStorage();
-				const token = JSON.parse(pegar());
-			
-				const {data} = await api.delete(`/noticia/${id}`, {
-					headers:{
-						Authorization: `Bearer ${token.accessToken}`
-					}
-				});
+				const {data} = await api.delete(`/noticia/${id}`);
 				return data;
 			};
 			const mutation = useMutation({mutationKey: ["noticias"], mutationFn: excluirNoticia, 
@@ -105,6 +98,7 @@ export const colunasNoticias = [
 					deletarNoticia(data?.result);
 					alert("Notícia deletada com sucesso.");
 				}, onError: (err) => {
+					console.log(err.message);
 					alert("Erro ao deletar noticia");
 				}});
 
