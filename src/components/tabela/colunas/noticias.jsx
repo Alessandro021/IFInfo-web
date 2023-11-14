@@ -10,6 +10,10 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useNoticia } from "@/src/store/useNoticias";
+import { useMutation } from "@tanstack/react-query";
+import { useStorage } from "@/src/useHooks/useStorage";
+import api from "@/src/services/api";
 
 export const colunasNoticias = [
 	{
@@ -75,6 +79,8 @@ export const colunasNoticias = [
 		id: "actions",
 		cell: ({ row }) => { 
 			const noticia = row.original;
+			const deletarNoticia = useNoticia(state => state.deletarNoticia);
+
 			const navigate = useNavigate();
 			const verNoticia = (id) => {
 				return navigate(`/${id}`);
@@ -83,6 +89,24 @@ export const colunasNoticias = [
 			const atualizarNoticia = (id) => {
 				return navigate(`/atualizar/${id}`);
 			};
+			const excluirNoticia = async (id) => {
+				const {pegar} = useStorage();
+				const token = JSON.parse(pegar());
+			
+				const {data} = await api.delete(`/noticia/${id}`, {
+					headers:{
+						Authorization: `Bearer ${token.accessToken}`
+					}
+				});
+				return data;
+			};
+			const mutation = useMutation({mutationKey: ["noticias"], mutationFn: excluirNoticia, 
+				onSuccess: (data) => {
+					deletarNoticia(data?.result);
+					alert("Notícia deletada com sucesso.");
+				}, onError: (err) => {
+					alert("Erro ao deletar noticia");
+				}});
 
 			return (
 				<DropdownMenu>
@@ -95,7 +119,7 @@ export const colunasNoticias = [
 					<DropdownMenuContent align="end">
 						<DropdownMenuLabel>Selecione</DropdownMenuLabel>
 						<DropdownMenuSeparator />
-						<DropdownMenuItem onClick={() => console.log(noticia.id)}>Deletar</DropdownMenuItem>
+						<DropdownMenuItem onClick={() => mutation.mutate(noticia.id)}>Deletar</DropdownMenuItem>
 						<DropdownMenuItem onClick={() => atualizarNoticia(noticia.id)}>Atualizar</DropdownMenuItem>
 						<DropdownMenuItem onClick={() => verNoticia(noticia.id)}>Ver</DropdownMenuItem>
 					</DropdownMenuContent>
