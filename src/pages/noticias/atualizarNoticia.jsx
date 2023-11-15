@@ -19,10 +19,13 @@ const AtualizarNoticia = () => {
 	const [loading, setLoading] = useState(false);
 
 	const pegarNoticiaPorId = useNoticia(state => state.pegarNoticiaPorId);
-	pegarNoticiaPorId(id);
 	const noticia = useNoticia(state => state.noticia);
 
 	const navigate = useNavigate();
+
+	useEffect(() => {
+		pegarNoticiaPorId(id);
+	}, [id, pegarNoticiaPorId]);
 
 	const formSchema = yup.object().shape({
 		// id: yup.string().min(9).max(10).optional(),
@@ -38,12 +41,12 @@ const AtualizarNoticia = () => {
 		resolver: yupResolver(formSchema),
 		defaultValues: {
 			id: noticia?.id,
-			titulo: noticia?.titulo,
-			conteudo: noticia?.conteudo.trim(),
-			hora: noticia?.hora,
-			data: noticia?.data,
-			link: noticia?.link,
-			url_foto: noticia?.url_foto,
+			titulo: noticia?.titulo || "",
+			conteudo: noticia?.conteudo.trim() || "",
+			hora: noticia?.hora || "",
+			data: noticia?.data || "",
+			link: noticia?.link || "",
+			url_foto: noticia?.url_foto || "",
 		},
 
 	});

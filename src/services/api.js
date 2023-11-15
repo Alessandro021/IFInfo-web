@@ -22,4 +22,17 @@ const api = axios.create({
 // 	}
 // });
 
+api.interceptors.response.use(
+	response => response,
+	error => {
+		const deslogarUsuario = useUsuario(state => state.deslogarUsuario);
+		console.log("passei");
+		if (error.response.status === 500) {
+			deslogarUsuario();
+		}
+		return Promise.reject(error);
+	}
+);
+  
+
 export default api;

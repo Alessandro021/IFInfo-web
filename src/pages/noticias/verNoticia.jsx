@@ -8,8 +8,11 @@ import { useNavigate, useParams } from "react-router-dom";
 const VerNoticia = () => {
 	const {id} = useParams();
 	const pegarNoticiaPorId = useNoticia(state => state.pegarNoticiaPorId);
-	pegarNoticiaPorId(id);
 	const noticia = useNoticia(state => state.noticia);
+
+	useEffect(() => {
+		pegarNoticiaPorId(id);
+	}, [id, pegarNoticiaPorId]);
 
 	const textAreaRef = useRef(null);
 	const navigate = useNavigate();
