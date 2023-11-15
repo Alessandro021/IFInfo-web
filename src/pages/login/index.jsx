@@ -9,7 +9,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
-import { useLogin } from "@/src/queries/login.js";
+import { useLogin } from "@/src/queries/usuario/login.js";
 
 const Login = () => {
 

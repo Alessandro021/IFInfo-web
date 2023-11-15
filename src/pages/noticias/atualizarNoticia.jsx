@@ -9,47 +9,20 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
 
-import api from "@/src/services/api";
-import { useMutation } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNoticia } from "@/src/store/useNoticias";
-import { useStorage } from "@/src/useHooks/useStorage";
+import { useAtualizarNoticia } from "@/src/queries/noticias/atualizarNoticia";
 
 const AtualizarNoticia = () => {
 	const {id} = useParams();
 
-	const {pegar} = useStorage();
-
-	const token = JSON.parse(pegar());
-
 	const [loading, setLoading] = useState(false);
 
-	const atualizarNoticia = useNoticia(state => state.atualizarNoticia);
 	const pegarNoticiaPorId = useNoticia(state => state.pegarNoticiaPorId);
 	pegarNoticiaPorId(id);
 	const noticia = useNoticia(state => state.noticia);
 
 	const navigate = useNavigate();
-
-	const atualizarNoticias = async (values) => {
-		const {data} = await api.put(`/noticia/${id}`, values, {
-			headers:{
-				Authorization: `Bearer ${token.accessToken}`
-			}
-		});
-		return data;
-	};
-
-	const mutation = useMutation({mutationKey: ["noticias"], mutationFn: atualizarNoticias , onSuccess: (data) => {
-		setLoading(false);
-		atualizarNoticia(id, data?.result);
-	},
-	onError: (data) => {
-		setLoading(false);
-		alert("Update nao relizado");
-		console.log(data.message);
-	}
-	});
 
 	const formSchema = yup.object().shape({
 		// id: yup.string().min(9).max(10).optional(),
@@ -74,12 +47,21 @@ const AtualizarNoticia = () => {
 		},
 
 	});
-	const onSubmit = (values) => {
+
+	const {mutate, isError, isSuccess} = useAtualizarNoticia(id, form.getValues());
+
+	const onSubmit = () => {
 		setLoading(true);
-		delete values?.id;
-		mutation.mutate(values);
-	
+		mutate();
 	};
+
+	useEffect(() => {
+		if(isError || isSuccess) {
+			setLoading(false);
+		}
+	},[isError, isSuccess]);
+
+	
 
 	if(loading){
 		return <p>Carregando...</p>;

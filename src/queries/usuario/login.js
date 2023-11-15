@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import api from "../services/api";
+import api from "../../services/api";
 import { useEffect } from "react";
-import { useStorage } from "../useHooks/useStorage";
-import { useUsuario } from "../store/useUsuario";
+import { useStorage } from "../../useHooks/useStorage";
+import { useUsuario } from "../../store/useUsuario";
 
 const login = async (usuario) => {
 	const {data} = await api.post("/entrar", usuario, {

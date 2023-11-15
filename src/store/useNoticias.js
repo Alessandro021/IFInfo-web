@@ -1,6 +1,5 @@
 import { create } from "zustand";
 import {persist} from "zustand/middleware";
-// import api from "../services/api";
 
 export const useNoticia = create(persist((set) => ({
 	noticias: [],

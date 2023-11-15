@@ -26,6 +26,7 @@ export const useUsuario = create((set) => ({
 		}
 	},
 	deslogarUsuario: () => {
+		console.log("TESTE");
 		deletar();
 		set({user: null, logado: false});
 	}

@@ -14,7 +14,7 @@ export const Rotas = () => {
 	const {logado, loading} = useLogado();
 
 	if(loading){
-		return <p>Carregahdo..</p>;
+		return <p>Carregando...</p>;
 	}
 	return (
 		<BrowserRouter>
