@@ -4,11 +4,15 @@ import { useNoticia } from "@/src/store/useNoticias";
 import { useBuscarNoticias } from "@/src/queries/noticias/buscarTodasNoticias";
 
 const Noticias = () => {
-	const {isLoading} = useBuscarNoticias();
+	const {isLoading, status} = useBuscarNoticias();
 	const noticias = useNoticia(state => state.noticias);
 	
-	if (isLoading) {
+	if(isLoading) {
 		return <p>Carregando...</p>;
+	}
+	
+	if(status === "error") {
+		return <p>Erro ao acessar api...</p>;
 	}
 
 	return ( 

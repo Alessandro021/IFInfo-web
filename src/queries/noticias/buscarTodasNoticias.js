@@ -17,7 +17,6 @@ export const useBuscarNoticias = () => {
 		if(query.status === "success"){
 			pegarToadaAsNoticias(query.data?.result);
 		}
-		//TODO: FAZER TRATAMENTO DE ERROR
     
 	},[query.status]);
 	return query;

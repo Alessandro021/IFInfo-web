@@ -17,7 +17,7 @@ export const useAtualizarNoticia = (id, values) => {
 
 	},
 	onError: (data) => {
-		alert("Update não relizado");
+		alert(data.message);
 	}
 	});
 
