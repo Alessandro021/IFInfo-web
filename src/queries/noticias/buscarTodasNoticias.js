@@ -14,7 +14,6 @@ export const useBuscarNoticias = () => {
 	const query = useQuery({queryKey: ["noticias"], queryFn: buscarNoticias});
 
 	useEffect(() => {
-		console.log("passei");
 		if(query.status === "success"){
 			pegarToadaAsNoticias(query.data?.result);
 		}

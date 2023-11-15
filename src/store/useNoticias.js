@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import {persist} from "zustand/middleware";
+import {persist, createJSONStorage} from "zustand/middleware";
 
 export const useNoticia = create(persist((set) => ({
 	noticias: [],
@@ -10,5 +10,5 @@ export const useNoticia = create(persist((set) => ({
 	deletarNoticia: (id) => set((state) => ({noticias: state.noticias.filter((noticia) => noticia.id !== id)})),
 }),{
 	name: "noticias",
-	getStorage: () => localStorage
+	storage: createJSONStorage(() => localStorage)
 }));

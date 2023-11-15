@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useUsuario } from "../store/useUsuario";
 
 export const useLogado = () => {
@@ -9,6 +9,6 @@ export const useLogado = () => {
 	useEffect(() => {
 		setUsuario();
 	},[setUsuario]);
-
+	
 	return {logado, loading};
 };
