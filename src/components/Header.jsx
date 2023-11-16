@@ -1,12 +1,15 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { BookUserIcon, CalendarClockIcon, GraduationCapIcon, LogOutIcon, MenuIcon, NewspaperIcon, Users2Icon } from "lucide-react";
+import { BookUserIcon, CalendarClockIcon, GraduationCapIcon, LogOutIcon, MenuIcon, NewspaperIcon, ShieldCheckIcon, Users2Icon } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useUsuario } from "../store/useUsuario";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator,DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
 const Header = () => {
 	const deslogarUsuario = useUsuario(state => state.deslogarUsuario);
+	const user = useUsuario(state => state.user);
 	return (
 		<Card className="flex flex-row items-center justify-between p-5" >
 			<Sheet>
@@ -27,6 +30,17 @@ const Header = () => {
 						>
 							<LogOutIcon size={16} /> Fazer Logout
 						</Button>
+
+						{user?.eAdmin && (
+							<SheetClose asChild>
+								<Button
+									variant={"outline"}
+									className="w-full justify-start gap-2 mt-4"
+								>
+									<ShieldCheckIcon size={16} /> Administrador
+								</Button>
+							</SheetClose>
+						)}
 
 						<SheetClose asChild>
 							<Link to="/">
@@ -90,11 +104,31 @@ const Header = () => {
 
 			<h1 className="text-2xl font-bold text-green-700">IFInfo</h1>
 
-			<Link to="/login">
+			{/* <Link to="/login">
 				<Button onClick={() => deslogarUsuario()}>
 					<span>Sair</span>
 				</Button>
-			</Link>
+			</Link> */}
+
+			<DropdownMenu>
+				<DropdownMenuTrigger asChild>
+					<Avatar className="w-12 h-12 hover:outline cursor-pointer">
+						<AvatarFallback>
+							{user?.nome?.[0].toUpperCase()}
+						</AvatarFallback>
+					</Avatar>
+				</DropdownMenuTrigger>
+				<DropdownMenuContent className="mr-4">
+					<DropdownMenuLabel>Minha conta</DropdownMenuLabel>
+					<DropdownMenuSeparator />
+					<DropdownMenuGroup>
+						<Link to="/perfil">
+							<DropdownMenuItem>Minhas informações</DropdownMenuItem>
+						</Link>
+						<DropdownMenuItem onClick={() => deslogarUsuario()}>Sair da conta</DropdownMenuItem>
+					</DropdownMenuGroup>
+				</DropdownMenuContent>
+			</DropdownMenu>
 		</Card>
 	);
 };

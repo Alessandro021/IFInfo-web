@@ -12,22 +12,12 @@ const api = axios.create({
 	}
 });
 
-// api.interceptors.response.use(response => {
-// 	return response;
-// }, (error) => {
-// 	const deslogarUsuario = useUsuario(state => state.deslogarUsuario);
-
-// 	if(error.response.status === 500) {
-// 		deslogarUsuario();
-// 	}
-// });
-
 api.interceptors.response.use(
 	response => response,
 	error => {
 		const deslogarUsuario = useUsuario(state => state.deslogarUsuario);
 		console.log("passei");
-		if (error.response.status === 500) {
+		if (error.response.status === 401) {
 			deslogarUsuario();
 		}
 		return Promise.reject(error);
