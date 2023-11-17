@@ -10,10 +10,6 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useNoticia } from "@/src/store/useNoticias";
-import { useMutation } from "@tanstack/react-query";
-import { useStorage } from "@/src/useHooks/useStorage";
-import api from "@/src/services/api";
 import { useDeletarNoticia } from "@/src/queries/noticias/deletarNoticia";
 
 export const colunasNoticias = [

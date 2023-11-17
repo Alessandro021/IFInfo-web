@@ -11,7 +11,7 @@ const Header = () => {
 	const deslogarUsuario = useUsuario(state => state.deslogarUsuario);
 	const user = useUsuario(state => state.user);
 	return (
-		<Card className="flex flex-row items-center justify-between p-5" >
+		<Card className="flex flex-row items-center justify-between p-4" >
 			<Sheet>
 				<SheetTrigger asChild >
 					<Button size="icon" variant="outline">

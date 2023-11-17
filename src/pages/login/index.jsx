@@ -9,7 +9,8 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
-import { useLogin } from "@/src/queries/usuario/login.js";
+import { useLogin } from "../../queries/usuario/login.js";
+
 
 const Login = () => {
 
@@ -37,9 +38,10 @@ const Login = () => {
 			setIsSubmitted(false);
 		}
 		if(error?.message !== "Network Error" && status === "error") {
-			alert(error?.response?.data?.errors?.default);
+			
 			setIsSubmitted(false);
-			// console.log(error.response.data.errors.default);
+			alert(error?.response?.data?.errors?.default);
+			
 		}
 	}, [status]);
 

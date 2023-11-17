@@ -9,6 +9,7 @@ import Horarios from "../pages/horarios";
 import VerNoticia from "../pages/noticias/verNoticia";
 import AtualizarNoticia from "../pages/noticias/atualizarNoticia";
 import { useLogado } from "../useHooks/useLogado";
+import Perfil from "../pages/usuario";
 
 export const Rotas = () => {
 	const {logado, loading} = useLogado();
@@ -17,12 +18,13 @@ export const Rotas = () => {
 		return <p>Carregando...</p>;
 	}
 	return (
-		<BrowserRouter>
+		<BrowserRouter className="flex flex-col h-screen">
 			{logado && <Header />}
-			<Routes>
+			<Routes className="flex-grow">
 				<Route  path="/" element={logado ? <Noticias /> : <Navigate to={"/login"} /> } />
 				<Route  path="/:id" element={logado ? <VerNoticia /> : <Navigate to={"/login"} /> } />
 				<Route  path="/atualizar/:id" element={logado ? <AtualizarNoticia /> : <Navigate to={"/login"} /> } />
+				<Route  path="/perfil" element={logado ? <Perfil /> : <Navigate to={"/login"} /> } />
 				<Route  path="/cursos" element={logado ? <Cursos /> : <Navigate to={"/login"} /> } />
 				<Route  path="/horarios" element={logado ? <Horarios /> : <Navigate to={"/login"} /> } />
 				<Route  path="/contatos" element={logado ? <Contatos /> : <Navigate to={"/login"} /> } />

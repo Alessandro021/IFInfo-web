@@ -3,6 +3,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useNoticia } from "@/src/store/useNoticias.js";
 
 
+
 const atualizarNoticias = async (id, values) => {
 	const {data} = await api.put(`/noticia/${id}`, values);
 	return data;

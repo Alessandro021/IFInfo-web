@@ -25,6 +25,9 @@ export const useUsuario = create((set) => ({
 			set({user: null, logado: false, loading: false});
 		}
 	},
+	alterarUsuario: (user) => {
+		set({user: user, logado: true, loading: false});
+	},
 	deslogarUsuario: () => {
 		deletar();
 		set({user: null, logado: false});
