@@ -42,7 +42,7 @@ const AtualizarNoticia = () => {
 		defaultValues: {
 			id: noticia?.id,
 			titulo: noticia?.titulo || "",
-			conteudo: noticia?.conteudo.trim() || "",
+			conteudo: noticia?.conteudo?.trim() || "",
 			hora: noticia?.hora || "",
 			data: noticia?.data || "",
 			link: noticia?.link || "",
