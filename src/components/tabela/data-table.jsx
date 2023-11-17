@@ -44,11 +44,11 @@ export function DataTable({ columns , data,}) {
 		<div className="flex flex-col gap-4 p-8">
 			<DropdownMenu>
 				<DropdownMenuTrigger asChild>
-					<Button variant="outline" className="ml-auto">
+					<Button variant="outline" className="mr-auto">
               colunas
 					</Button>
 				</DropdownMenuTrigger>
-				<DropdownMenuContent align="end">
+				<DropdownMenuContent align="start">
 					{table
 						.getAllColumns()
 						.filter(
@@ -70,6 +70,7 @@ export function DataTable({ columns , data,}) {
 						})}
 				</DropdownMenuContent>
 			</DropdownMenu>
+	
 			<div className="rounded-md border">
 				<Table>
 					<TableHeader>

@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { BookUserIcon, CalendarClockIcon, GraduationCapIcon, LogOutIcon, MenuIcon, NewspaperIcon, ShieldCheckIcon, Users2Icon } from "lucide-react";
+import { BookUserIcon, CalendarClockIcon, CalendarDaysIcon, GraduationCapIcon, LogOutIcon, MenuIcon, NewspaperIcon, ShieldCheckIcon, Users2Icon } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useUsuario } from "../store/useUsuario";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -49,6 +49,17 @@ const Header = () => {
 									className="w-full justify-start gap-2 mt-4"
 								>
 									<NewspaperIcon size={16} /> Notícias
+								</Button>
+							</Link>
+						</SheetClose>
+
+						<SheetClose asChild>
+							<Link to="/calendario">
+								<Button
+									variant={"outline"}
+									className="w-full justify-start gap-2 mt-4"
+								>
+									<CalendarDaysIcon size={16} /> Calendário
 								</Button>
 							</Link>
 						</SheetClose>

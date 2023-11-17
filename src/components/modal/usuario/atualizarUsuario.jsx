@@ -43,8 +43,6 @@ export function AtualizUrusaurio() {
 
 	const onSubmit = (values) => {
 		// setLoading(true);
-		
-		console.log(values);
 		mutate();
 	};
 
