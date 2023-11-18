@@ -24,22 +24,26 @@ export function AlterarSenha() {
 	const [loading, setLoading] = useState(false);
 	const [isOpen, setIsOpen] = useState(false);
 
+	const {mutate, isError, isSuccess} = useAtualizarUsuario();
+
+
 	const formSchema = yup.object().shape({
 		senha: yup.string().optional().nonNullable().min(8),
+		confirmarSenha: yup.string().optional().nonNullable().min(8).oneOf([yup.ref("senha"), null], "As senhas devem coincidir"),
 	});
 
 	const form = useForm({
 		resolver: yupResolver(formSchema),
 		defaultValues: {
 			senha: "",
+			confirmarSenha: "",
 		}
 	});
 
-	const {mutate, isError, isSuccess} = useAtualizarUsuario(form.getValues());
 
-	const onSubmit = () => {
-		// setLoading(true);
-		mutate();
+	const onSubmit = (values) => {
+		delete values.confirmarSenha;
+		mutate({values: values});
 		
 	};
 
@@ -82,6 +86,19 @@ export function AlterarSenha() {
 									<FormLabel className="text-lg font-bold">Senha</FormLabel>
 									<FormControl>
 										<Input placeholder="Senha" {...field} />
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+						<FormField
+							control={form.control}
+							name="confirmarSenha"
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel className="text-lg font-bold">Confirmar senha</FormLabel>
+									<FormControl>
+										<Input placeholder="Confirmar senha" {...field} />
 									</FormControl>
 									<FormMessage />
 								</FormItem>

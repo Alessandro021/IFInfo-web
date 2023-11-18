@@ -3,15 +3,16 @@ import { useUsuario } from "@/src/store/useUsuario.js";
 import api from "@/src/services/api";
 
 
-const atualizarUsuario = async (value) => {
-	const {data} = await api.put("/usuario", value);
+const atualizarUsuario = async ({values}) => {
+	console.log(values);
+	const {data} = await api.put("/usuario", values);
 	return data;
 };
 
-export const useAtualizarUsuario = (value) => {
+export const useAtualizarUsuario = () => {
 	const alterarUsuario = useUsuario(state => state.alterarUsuario);
 
-	const mutation = useMutation({mutationKey: ["usuario"], mutationFn: () => atualizarUsuario(value), 
+	const mutation = useMutation({mutationKey: ["usuario"], mutationFn: atualizarUsuario, 
 		onSuccess: (data) => {
 			alterarUsuario(data?.result);
 			alert("Perfil atualizado com sucesso");
@@ -21,5 +22,5 @@ export const useAtualizarUsuario = (value) => {
 		}
 	});
 
-	return mutation;
+	return mutation; 
 };

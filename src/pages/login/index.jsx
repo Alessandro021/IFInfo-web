@@ -15,9 +15,7 @@ import { useLogin } from "../../queries/usuario/login.js";
 const Login = () => {
 
 	const [senhaVisivel, setSenhaVisivel] = useState(false);
-	const [isSubmitted, setIsSubmitted] = useState(false);
-	const [usuario, setUsuario] = useState(null);
-	const {data, status, error} = useLogin(usuario, isSubmitted);
+	const {mutate} = useLogin();
 	
 	const formSchema = yup.object().shape({
 		email: yup.string().email().min(6).required(),
@@ -32,22 +30,8 @@ const Login = () => {
 		},
 	});
 
-	useEffect(() => {
-		if(error?.message === "Network Error") {
-			alert("Sem conexão com o servidor");
-			setIsSubmitted(false);
-		}
-		if(error?.message !== "Network Error" && status === "error") {
-			
-			setIsSubmitted(false);
-			alert(error?.response?.data?.errors?.default);
-			
-		}
-	}, [status]);
-
 	const onSubmit = (values) => {
-		setIsSubmitted(true);
-		setUsuario(values);
+		mutate({usuario: values});
 	};
 	return ( 
 		<div className="flex h-screen justify-center items-center bg-slate-400">

@@ -1,10 +1,9 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import api from "../../services/api";
-import { useEffect } from "react";
 import { useStorage } from "../../useHooks/useStorage";
 import { useUsuario } from "../../store/useUsuario";
 
-const login = async (usuario) => {
+const fecthLogin = async ({usuario}) => {
 	const {data} = await api.post("/entrar", usuario, {
 		headers: { "Content-Type": "application/json" },
 	});
@@ -16,25 +15,25 @@ const login = async (usuario) => {
 	return data;
 };
 
-export const useLogin = (usuario, isSubmitted) => {
-	const {setUsuario} = useUsuario();
+export const useLogin = () => {
+	const setUsuario = useUsuario(state => state.setUsuario);
 	const {salvar} = useStorage();
-	const query =  useQuery({
-		queryKey: ["login", usuario],
-		queryFn: () => login(usuario),
-		enabled: isSubmitted,
-		// networkMode: "offlineFirst",
-		retry: false,
-		staleTime: 0,
-		cacheTime: 0,
+	const mutation = useMutation({mutationKey: ["login"], mutationFn: fecthLogin,
+		onSuccess: (data) => {
+			salvar(data?.result);
+			setUsuario();
+		}, 
+		onError: (error) => {
+			if(error?.message === "Network Error") {
+				alert("Sem conexão com o servidor");
+			}
+
+			if(error?.message !== "Network Error") {
+				
+				alert(error?.response?.data?.errors?.default);
+			}
+		}
 	});
 
-	useEffect(() => {
-		if(query.status === "success"){
-			salvar(query.data?.result);
-			setUsuario();
-		}
-	}, [query.data, query.status]);
-
-	return query;
+	return mutation;
 };
