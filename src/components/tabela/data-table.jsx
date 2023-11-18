@@ -1,25 +1,8 @@
-import {
-	flexRender,
-	getCoreRowModel,
-	useReactTable,
-	getPaginationRowModel
-} from "@tanstack/react-table";
+import { flexRender, getCoreRowModel, useReactTable, getPaginationRowModel, getSortedRowModel } from "@tanstack/react-table";
 
-import {
-	Table,
-	TableBody,
-	TableCell,
-	TableHead,
-	TableHeader,
-	TableRow,
-} from "@/components/ui/table";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table";
 
-import {
-	DropdownMenu,
-	DropdownMenuCheckboxItem,
-	DropdownMenuContent,
-	DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
@@ -27,6 +10,8 @@ import { useState } from "react";
 export function DataTable({ columns , data, ComponenteCriarItem, criarCalendario, ...props}) {
 	const [rowSelection, setRowSelection] = useState({});
 	const [columnVisibility, setColumnVisibility] = useState({});
+	const [sorting, setSorting] = useState([]);
+
 	const table = useReactTable({
 		data,
 		columns,
@@ -34,9 +19,12 @@ export function DataTable({ columns , data, ComponenteCriarItem, criarCalendario
 		getPaginationRowModel: getPaginationRowModel(),
 		onRowSelectionChange: setRowSelection,
 		onColumnVisibilityChange: setColumnVisibility,
+		onSortingChange: setSorting,
+		getSortedRowModel: getSortedRowModel(),
 		state: {
 			rowSelection,
 			columnVisibility,
+			sorting,
 		},
 	});
 
@@ -45,9 +33,7 @@ export function DataTable({ columns , data, ComponenteCriarItem, criarCalendario
 			<div className="flex">
 				<DropdownMenu>
 					<DropdownMenuTrigger asChild>
-						<Button variant="outline" className="mr-auto">
-              colunas
-						</Button>
+						<Button variant="outline" className="mr-auto">colunas</Button>
 					</DropdownMenuTrigger>
 					<DropdownMenuContent align="start">
 						{table
@@ -111,9 +97,7 @@ export function DataTable({ columns , data, ComponenteCriarItem, criarCalendario
 							))
 						) : (
 							<TableRow>
-								<TableCell colSpan={columns.length} className="h-24 text-center">
-                    No results.
-								</TableCell>
+								<TableCell colSpan={columns.length} className="h-24 text-center">Nenhum resultado.</TableCell>
 							</TableRow>
 						)}
 					</TableBody>
@@ -121,6 +105,7 @@ export function DataTable({ columns , data, ComponenteCriarItem, criarCalendario
 			</div>
 			<div className="flex justify-between">
 				<div className="flex text-sm text-muted-foreground space-x-2 py-4">
+					{/* {table.getFilteredSelectedRowModel().rows.map(item => console.log(item.original.id))} */}
 					{table.getFilteredSelectedRowModel().rows.length} of{" "}
 					{table.getFilteredRowModel().rows.length} linhas(s) selecionadas.
 				</div>
