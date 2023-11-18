@@ -38,10 +38,10 @@ export function AtualizarCalendario({id, open, onClose}) {
     
 
 	const onSubmit = (values) => {
-		if (values.pdf && values.pdf !== calendario?.pdf && values.pdf[0] && values.pdf[0].type !== "application/pdf") {
-			alert("Por favor, carregue um arquivo PDF.");
-			return;
-		}
+		// if (values.pdf && values.pdf !== calendario?.pdf && values.pdf[0] && values.pdf[0].type !== "application/pdf") {
+		// 	alert("Por favor, carregue um arquivo PDF.");
+		// 	return;
+		// }
 		setLoading(true);
 
 		const formData = new FormData();
@@ -51,6 +51,11 @@ export function AtualizarCalendario({id, open, onClose}) {
 			}
 		}
 		if (fileInputRef.current.files[0]) {
+			if (fileInputRef.current.files[0].type !== "application/pdf") {
+				alert("Por favor, carregue um arquivo PDF.");
+				return;
+			}
+			
 			formData.append("pdf", fileInputRef.current.files[0]);
 		}
 

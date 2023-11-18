@@ -54,14 +54,14 @@ export const colunasCalendario = [
 			// const deletarNoticia = useNoticia(state => state.deletarNoticia);
 
 			const [abrirAtualizar, setAbrirAtualizar] = useState(false);
-			const [abrirCriarAtualizar, setAbrirCriarAtualizar] = useState(false);
+			const [abrirCriar, setAbrirCriar] = useState(false);
 
 			const atualizarCalendario = () => {
 				setAbrirAtualizar(true);
 			};
 
 			const criarCalendario = () => {
-				setAbrirCriarAtualizar(true);
+				setAbrirCriar(true);
 			};
 			const {mutate} = useDeletarCalendario();
 
@@ -82,7 +82,7 @@ export const colunasCalendario = [
 						</DropdownMenuContent>
 					</DropdownMenu>
 					{abrirAtualizar && <AtualizarCalendario open={abrirAtualizar} id={calendario?.id} onClose={() => setAbrirAtualizar(false)} />}
-					{abrirCriarAtualizar && <CriarCalendario open={abrirCriarAtualizar} onClose={() => setAbrirCriarAtualizar(false)} />}
+					{abrirCriar && <CriarCalendario open={abrirCriar} onClose={() => setAbrirCriar(false)} />}
 				</>
 			);
 		},

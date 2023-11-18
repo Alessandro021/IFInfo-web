@@ -24,7 +24,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 
-export function DataTable({ columns , data,}) {
+export function DataTable({ columns , data, ComponenteCriarItem, criarCalendario, ...props}) {
 	const [rowSelection, setRowSelection] = useState({});
 	const [columnVisibility, setColumnVisibility] = useState({});
 	const table = useReactTable({
@@ -42,34 +42,38 @@ export function DataTable({ columns , data,}) {
 
 	return (
 		<div className="flex flex-col gap-4 p-8">
-			<DropdownMenu>
-				<DropdownMenuTrigger asChild>
-					<Button variant="outline" className="mr-auto">
+			<div className="flex">
+				<DropdownMenu>
+					<DropdownMenuTrigger asChild>
+						<Button variant="outline" className="mr-auto">
               colunas
-					</Button>
-				</DropdownMenuTrigger>
-				<DropdownMenuContent align="start">
-					{table
-						.getAllColumns()
-						.filter(
-							(column) => column.getCanHide()
-						)
-						.map((column) => {
-							return (
-								<DropdownMenuCheckboxItem
-									key={column.id}
-									className="capitalize"
-									checked={column.getIsVisible()}
-									onCheckedChange={(value) =>
-										column.toggleVisibility(!!value)
-									}
-								>
-									{column.id}
-								</DropdownMenuCheckboxItem>
-							);
-						})}
-				</DropdownMenuContent>
-			</DropdownMenu>
+						</Button>
+					</DropdownMenuTrigger>
+					<DropdownMenuContent align="start">
+						{table
+							.getAllColumns()
+							.filter(
+								(column) => column.getCanHide()
+							)
+							.map((column) => {
+								return (
+									<DropdownMenuCheckboxItem
+										key={column.id}
+										className="capitalize"
+										checked={column.getIsVisible()}
+										onCheckedChange={(value) =>
+											column.toggleVisibility(!!value)
+										}
+									>
+										{column.id}
+									</DropdownMenuCheckboxItem>
+								);
+							})}
+					</DropdownMenuContent>
+				</DropdownMenu>
+				{ComponenteCriarItem && <Button onClick={criarCalendario} >Criar</Button>}
+				{ComponenteCriarItem &&  <ComponenteCriarItem  {...props}/>}
+			</div>
 	
 			<div className="rounded-md border">
 				<Table>

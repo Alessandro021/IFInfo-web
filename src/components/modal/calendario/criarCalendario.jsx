@@ -42,6 +42,10 @@ export function CriarCalendario({open, onClose}) {
 			}
 		}
 		if (fileInputRef.current.files[0]) {
+			if (fileInputRef.current.files[0].type !== "application/pdf") {
+				alert("Por favor, carregue um arquivo PDF.");
+				return;
+			}
 			formData.append("pdf", fileInputRef.current.files[0]);
 		} else {
 			alert("Por favor, carregue um arquivo PDF.");
@@ -59,6 +63,7 @@ export function CriarCalendario({open, onClose}) {
 
 		if(isSuccess) {
 			onClose();
+			form.reset();
 		}
 	},[isError, isSuccess]);
 
@@ -68,7 +73,7 @@ export function CriarCalendario({open, onClose}) {
 	// 	return <p>Carregando...</p>;
 	// }
 	return (
-		<Dialog open={open} onOpenChange={() => onClose()}>
+		<Dialog open={open} onOpenChange={() =>{ onClose();  form.reset();}}>
 			<DialogContent className="sm:max-w-[425px]">
 				<DialogHeader>
 					<DialogTitle >Criar calendário</DialogTitle>
