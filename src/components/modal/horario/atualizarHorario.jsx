@@ -1,42 +1,42 @@
 import { Button } from "@/components/ui/button";
 import {Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger} from "@/components/ui/dialog";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useEffect, useRef, useState } from "react";
-import { useCalendario } from "@/src/store/useCalendario";
-import { useAtualizarCalendario } from "@/src/queries/calendario/atualizarCalendario";
 
-export function AtualizarCalendario({id, open, onClose}) {
+import { useHorarios } from "@/src/store/useHorarios";
+import { useAtualizarHorario } from "@/src/queries/horarios/atualizarHorario";
+
+export function AtualizarHorario({id, open, onClose}) {
 	const fileInputRef = useRef();
-	const pegarCalendarioPorId = useCalendario(state => state.pegarCalendarioPorId);
-	pegarCalendarioPorId(id);
-	const calendario = useCalendario(state => state.calendario);
+	const pegarHorarioPorId = useHorarios(state => state.pegarHorarioPorId);
+	pegarHorarioPorId(id);
+	const horario = useHorarios(state => state.horario);
 
 	const [loading, setLoading] = useState(false);
 
 	const formSchema = yup.object().shape({
 		nome: yup.string().strict().optional().nonNullable().min(3),
+		tipo: yup.string().optional().oneOf(["tecnico", "superior", "outros"]),
 	});
 
 	const form = useForm({
 		resolver: yupResolver(formSchema),
 		defaultValues: {
-			nome: calendario?.nome,
+			nome: horario?.nome,
+			tipo: horario?.tipo,
 			pdf: null,
 		}
 	});
 
-	const {mutate, isError, isSuccess, status} = useAtualizarCalendario();
+	const {mutate, isError, isSuccess, status} = useAtualizarHorario();
     
 
 	const onSubmit = (values) => {
-		// if (values.pdf && values.pdf !== calendario?.pdf && values.pdf[0] && values.pdf[0].type !== "application/pdf") {
-		// 	alert("Por favor, carregue um arquivo PDF.");
-		// 	return;
-		// }
 		setLoading(true);
 
 		const formData = new FormData();
@@ -77,9 +77,9 @@ export function AtualizarCalendario({id, open, onClose}) {
 		<Dialog open={open} onOpenChange={() => onClose()}>
 			<DialogContent className="sm:max-w-[425px]">
 				<DialogHeader>
-					<DialogTitle >Editar calendário</DialogTitle>
+					<DialogTitle >Editar horário</DialogTitle>
 					<DialogDescription>
-                    Faça alterações em seu calendário aqui. Clique em salvar quando terminar.
+                    Faça alterações em seu horário aqui. Clique em salvar quando terminar.
 					</DialogDescription>
 				</DialogHeader>
 				<Form {...form}>
@@ -93,6 +93,29 @@ export function AtualizarCalendario({id, open, onClose}) {
 									<FormControl>
 										<Input placeholder="Nome" {...field} />
 									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+
+						<FormField
+							control={form.control}
+							name="tipo"
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>Tipo</FormLabel>
+									<Select onValueChange={field.onChange} defaultValue={field.value}>
+										<FormControl>
+											<SelectTrigger>
+												<SelectValue placeholder="Escolha o nível educacional do horário" />
+											</SelectTrigger>
+										</FormControl>
+										<SelectContent>
+											<SelectItem value="tecnico">técnico</SelectItem>
+											<SelectItem value="superior">superior</SelectItem>
+											<SelectItem value="outros">outros</SelectItem>
+										</SelectContent>
+									</Select>
 									<FormMessage />
 								</FormItem>
 							)}
