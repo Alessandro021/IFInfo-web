@@ -42,21 +42,11 @@ export function AtualizarContato({open, onClose, idSetor, idContato}) {
 			telefone: contato?.telefone
 		}
 	});
-
-	// useEffect(() => {
-	// 	if(form.getValues("telefone") === ""){
-	// 		form.setValue("telefone", null);
-	// 	}
-	// },[form.getValues("telefone")]);
     
 	const onSubmit = (values) => {
-		
 		setLoading(true);
 		values.idContato = idContato; //passando o idContato para o objeto value que possui os contatos
-		// console.log(values);
-
 		mutate({values: values, idSetor: contato?.setor_id});
-
 	};
 
 	useEffect(() => {

@@ -3,9 +3,6 @@ import { Checkbox } from "@/components/ui/checkbox";
 import {MoreHorizontal,  ArrowUpDown} from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger} from "@/components/ui/dropdown-menu";
 import { useState } from "react";
-import { AtualizarHorario } from "../../modal/horario/atualizarHorario";
-import { CriarHorario } from "../../modal/horario/criarHorario";
-import { useDeletarHorario } from "@/src/queries/horarios/deletarHorario";
 import { VerContatos } from "../../modal/contatos/verContatos";
 import { CriarSetorEContato } from "../../modal/contatos/criarSetorEContato";
 import { useDeletarSetorEContato } from "@/src/queries/contatos/deletarSetorEContato";
@@ -63,8 +60,6 @@ export const colunasSetorEContatos = [
 		id: "actions",
 		cell: ({ row }) => {
 			const setorEContatos = row.original;
-			// console.log(setorEContatos);
-			// const deletarNoticia = useNoticia(state => state.deletarNoticia);
 
 			const [abrirAtualizar, setAbrirAtualizar] = useState(false);
 			const [abrirCriar, setAbrirCriar] = useState(false);

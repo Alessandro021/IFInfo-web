@@ -15,7 +15,6 @@ export const useDeletarSetorEContato = () => {
 			alert("Setor e contatos deletados com sucesso.");
 			deletarSetorEContato(data?.result);
 		}, onError: (err) => {
-			// console.log(err.message);
 			alert("Erro ao deletar setor e contatos");
 		}});
 
