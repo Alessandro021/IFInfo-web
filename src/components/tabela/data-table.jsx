@@ -7,7 +7,7 @@ import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMe
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 
-export function DataTable({ columns , data, ComponenteCriarItem, criarCalendario, ...props}) {
+export function DataTable({ columns , data, ComponenteCriarItem, criar, ...props}) {
 	const [rowSelection, setRowSelection] = useState({});
 	const [columnVisibility, setColumnVisibility] = useState({});
 	const [sorting, setSorting] = useState([]);
@@ -57,7 +57,7 @@ export function DataTable({ columns , data, ComponenteCriarItem, criarCalendario
 							})}
 					</DropdownMenuContent>
 				</DropdownMenu>
-				{ComponenteCriarItem && <Button onClick={criarCalendario} >Criar</Button>}
+				{ComponenteCriarItem && <Button onClick={criar} >Criar</Button>}
 				{ComponenteCriarItem &&  <ComponenteCriarItem  {...props}/>}
 			</div>
 	

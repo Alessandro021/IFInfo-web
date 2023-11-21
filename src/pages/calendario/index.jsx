@@ -24,7 +24,7 @@ const Calendario = () => {
 
 	return ( 
 		<div className="container mx-auto py-10">
-			<DataTable columns={colunasCalendario} data={calendarios} criarCalendario={() => criarCalendario()} ComponenteCriarItem={CriarCalendario} open={abrirCriar} onClose={() => setAbrirCriar(false)}  />
+			<DataTable columns={colunasCalendario} data={calendarios} criar={() => criarCalendario()} ComponenteCriarItem={CriarCalendario} open={abrirCriar} onClose={() => setAbrirCriar(false)}  />
 		</div>
 	);
 };

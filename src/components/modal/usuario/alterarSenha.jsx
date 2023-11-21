@@ -104,8 +104,6 @@ export function AlterarSenha() {
 								</FormItem>
 							)}
 						/>
-						{/* TODO: Criar confirmação de senha */}
-
 						<DialogFooter>
 							<Button type="submit">Salvar</Button>
 						</DialogFooter>

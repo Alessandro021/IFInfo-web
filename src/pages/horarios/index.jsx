@@ -24,7 +24,7 @@ const Horarios = () => {
 
 	return ( 
 		<div className="container mx-auto py-10">
-			<DataTable columns={colunasHorarios} data={horarios} criarCalendario={() => criarHorario()} ComponenteCriarItem={CriarHorario} open={abrirCriar} onClose={() => setAbrirCriar(false)} /> 
+			<DataTable columns={colunasHorarios} data={horarios} criar={() => criarHorario()} ComponenteCriarItem={CriarHorario} open={abrirCriar} onClose={() => setAbrirCriar(false)} /> 
 		</div>
 	);
 };

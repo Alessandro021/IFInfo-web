@@ -1,6 +1,32 @@
+import { CriarSetorEContato } from "@/src/components/modal/contatos/criarSetorEContato";
+import { colunasSetorEContatos } from "@/src/components/tabela/colunas/SetorEContatos";
+import { DataTable } from "@/src/components/tabela/data-table";
+import { useBuscarContatos } from "@/src/queries/contatos/buscarContatos";
+import { useContatos } from "@/src/store/useContatos";
+import { useState } from "react";
+
 const Contatos = () => {
+	const {isLoading, status} = useBuscarContatos();
+	const contatos = useContatos(state => state.contatos);
+
+	const [abrirCriar, setAbrirCriar] = useState(false);
+	const criarSetorEContato = () => {
+		setAbrirCriar(true);
+	};
+	
+	if(isLoading) {
+		return <p>Carregando...</p>;
+	}
+	
+	if(status === "error") {
+		return <p>Erro ao acessar api...</p>;
+	}
+
 	return ( 
-		<div>Contatos</div>
+		<div className="container mx-auto py-10">
+			<DataTable columns={colunasSetorEContatos} data={contatos} criar={() => criarSetorEContato()} ComponenteCriarItem={CriarSetorEContato} 
+				open={abrirCriar} onClose={() => setAbrirCriar(false)}  />  
+		</div>
 	);
 };
  
