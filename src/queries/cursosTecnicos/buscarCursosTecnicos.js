@@ -1,7 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import api from "../../services/api";
 import { useEffect } from "react";
-import { useHorarios } from "@/src/store/useHorarios";
 import { useCursos } from "@/src/store/useCursos";
 
 const fetchBuscarCursosTecnicos = async () => {

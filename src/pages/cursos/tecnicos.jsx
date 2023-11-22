@@ -10,7 +10,7 @@ const CursosTecnicos = () => {
 	const cursosTecnicos = useCursos(state => state.cursosTecnicos);
 
 	const [abrirCriar, setAbrirCriar] = useState(false);
-	const criarHorario = () => {
+	const criarCursoTecnico = () => {
 		setAbrirCriar(true);
 	};
 	
@@ -24,7 +24,7 @@ const CursosTecnicos = () => {
 
 	return ( 
 		<div className="container mx-auto py-10">
-			<DataTable columns={colunasCursosTecnicos} data={cursosTecnicos}  criar={() => criarHorario()} 
+			<DataTable columns={colunasCursosTecnicos} data={cursosTecnicos}  criar={() => criarCursoTecnico()} 
 				ComponenteCriarItem={CriarCursoTecnico} open={abrirCriar} onClose={() => setAbrirCriar(false)}   />
 		</div>
 	);

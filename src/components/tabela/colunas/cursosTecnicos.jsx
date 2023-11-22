@@ -63,11 +63,11 @@ export const colunasCursosTecnicos = [
 			const [abrirAtualizar, setAbrirAtualizar] = useState(false);
 			const [abrirCriar, setAbrirCriar] = useState(false);
 
-			const atualizarHorario = () => {
+			const atualizarCursoTecnico = () => {
 				setAbrirAtualizar(true);
 			};
 
-			const criarHorario = () => {
+			const criarCursoSuperior = () => {
 				setAbrirCriar(true);
 			};
 			const { mutate } = useDeletarCursoTecnico();
@@ -83,9 +83,9 @@ export const colunasCursosTecnicos = [
 						<DropdownMenuContent align="end">
 							<DropdownMenuLabel>Selecione</DropdownMenuLabel>
 							<DropdownMenuSeparator />
-							<DropdownMenuItem onClick={() => criarHorario()}>Criar</DropdownMenuItem>
+							<DropdownMenuItem onClick={() => criarCursoSuperior()}>Criar</DropdownMenuItem>
 							<DropdownMenuItem onClick={() => mutate({ id: Number(cursoTecnico.id) })}>Deletar</DropdownMenuItem>
-							<DropdownMenuItem onClick={() => atualizarHorario()}>Atualizar</DropdownMenuItem>
+							<DropdownMenuItem onClick={() => atualizarCursoTecnico()}>Atualizar</DropdownMenuItem>
 						</DropdownMenuContent>
 					</DropdownMenu>
 					{abrirAtualizar && (<AtualizarCursoTecnico open={abrirAtualizar} id={cursoTecnico?.id} onClose={() => setAbrirAtualizar(false)}/>)}
