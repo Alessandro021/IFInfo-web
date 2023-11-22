@@ -12,6 +12,7 @@ import { useLogado } from "../useHooks/useLogado";
 import Perfil from "../pages/usuario";
 import Calendario from "../pages/calendario";
 import CursosTecnicos from "../pages/cursos/tecnicos";
+import CursosSuperiores from "../pages/cursos/superiores";
 
 export const Rotas = () => {
 	const {logado, loading} = useLogado();
@@ -31,6 +32,7 @@ export const Rotas = () => {
 				<Route  path="/horarios" element={logado ? <Horarios /> : <Navigate to={"/login"} /> } />
 				<Route  path="/contatos" element={logado ? <Contatos /> : <Navigate to={"/login"} /> } />
 				<Route  path="/cursos/tecnicos" element={logado ? <CursosTecnicos /> : <Navigate to={"/login"} /> } />
+				<Route  path="/cursos/superiores" element={logado ? <CursosSuperiores /> : <Navigate to={"/login"} /> } />
 				<Route  path="/servidores/:servidor" element={logado ? <Servidores /> : <Navigate to={"/login"} /> } />
 				<Route  path="/login" element={!logado ? <Login /> : <Navigate to={"/"} /> } />
 				

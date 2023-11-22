@@ -6,8 +6,11 @@ import { useState } from "react";
 import { CriarCursoTecnico } from "../../modal/cursosTecnicos/criarCursoTecnico";
 import { useDeletarCursoTecnico } from "@/src/queries/cursosTecnicos/deletarCursoTecnico";
 import { AtualizarCursoTecnico } from "../../modal/cursosTecnicos/atualizarCursoTecnico";
+import { CriarCursoSuperior } from "../../modal/cursosSuperiores/criarCursoSuperior";
+import { useDeletarCursoSuperior } from "@/src/queries/cursosSuperiores/deletarCursoSuperior";
+import { AtualizarCursoSuperior } from "../../modal/cursosSuperiores/atualizarCursoSuperior";
 
-export const colunasCursosTecnicos = [
+export const colunasCursosSuperiores = [
 	{
 		id: "select",
 		header: ({ table }) => (
@@ -58,19 +61,19 @@ export const colunasCursosTecnicos = [
 	{
 		id: "actions",
 		cell: ({ row }) => {
-			const cursoTecnico = row.original;
+			const cursoSuperior = row.original;
 
 			const [abrirAtualizar, setAbrirAtualizar] = useState(false);
 			const [abrirCriar, setAbrirCriar] = useState(false);
 
-			const atualizarHorario = () => {
+			const atualizarCursoSuperior = () => {
 				setAbrirAtualizar(true);
 			};
 
-			const criarHorario = () => {
+			const criarCursoSuperior = () => {
 				setAbrirCriar(true);
 			};
-			const { mutate } = useDeletarCursoTecnico();
+			const { mutate } = useDeletarCursoSuperior();
 
 			return (
 				<>
@@ -83,13 +86,13 @@ export const colunasCursosTecnicos = [
 						<DropdownMenuContent align="end">
 							<DropdownMenuLabel>Selecione</DropdownMenuLabel>
 							<DropdownMenuSeparator />
-							<DropdownMenuItem onClick={() => criarHorario()}>Criar</DropdownMenuItem>
-							<DropdownMenuItem onClick={() => mutate({ id: Number(cursoTecnico.id) })}>Deletar</DropdownMenuItem>
-							<DropdownMenuItem onClick={() => atualizarHorario()}>Atualizar</DropdownMenuItem>
+							<DropdownMenuItem onClick={() => criarCursoSuperior()}>Criar</DropdownMenuItem>
+							<DropdownMenuItem onClick={() => mutate({ id: Number(cursoSuperior.id) })}>Deletar</DropdownMenuItem>
+							<DropdownMenuItem onClick={() => atualizarCursoSuperior()}>Atualizar</DropdownMenuItem>
 						</DropdownMenuContent>
 					</DropdownMenu>
-					{abrirAtualizar && (<AtualizarCursoTecnico open={abrirAtualizar} id={cursoTecnico?.id} onClose={() => setAbrirAtualizar(false)}/>)}
-					{abrirCriar && ( <CriarCursoTecnico open={abrirCriar} onClose={() => setAbrirCriar(false)}/>)}
+					{abrirAtualizar && (<AtualizarCursoSuperior open={abrirAtualizar} id={cursoSuperior?.id} onClose={() => setAbrirAtualizar(false)}/>)}
+					{abrirCriar && ( <CriarCursoSuperior open={abrirCriar} onClose={() => setAbrirCriar(false)}/>)}
 				</>
 			);
 		},
