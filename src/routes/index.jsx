@@ -1,7 +1,7 @@
 import {BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
 import Header from "../components/Header";
 import Noticias from "../pages/noticias";
-import Cursos from "../pages/cursos";
+import Cursos from "../pages/cursos/tecnicos";
 import Contatos from "../pages/contatos";
 import Servidores from "../pages/servidores";
 import Login from "../pages/login";
@@ -11,6 +11,7 @@ import AtualizarNoticia from "../pages/noticias/atualizarNoticia";
 import { useLogado } from "../useHooks/useLogado";
 import Perfil from "../pages/usuario";
 import Calendario from "../pages/calendario";
+import CursosTecnicos from "../pages/cursos/tecnicos";
 
 export const Rotas = () => {
 	const {logado, loading} = useLogado();
@@ -29,8 +30,8 @@ export const Rotas = () => {
 				<Route  path="/calendario" element={logado ? <Calendario /> : <Navigate to={"/login"} /> } />
 				<Route  path="/horarios" element={logado ? <Horarios /> : <Navigate to={"/login"} /> } />
 				<Route  path="/contatos" element={logado ? <Contatos /> : <Navigate to={"/login"} /> } />
-				<Route  path="/cursos/*" element={logado ? <Cursos /> : <Navigate to={"/login"} /> } />
-				<Route  path="/servidores/*" element={logado ? <Servidores /> : <Navigate to={"/login"} /> } />
+				<Route  path="/cursos/tecnicos" element={logado ? <CursosTecnicos /> : <Navigate to={"/login"} /> } />
+				<Route  path="/servidores/:servidor" element={logado ? <Servidores /> : <Navigate to={"/login"} /> } />
 				<Route  path="/login" element={!logado ? <Login /> : <Navigate to={"/"} /> } />
 				
 			</Routes>

@@ -131,14 +131,14 @@ const Header = () => {
 	
 								<CollapsibleContent className={`flex flex-col px-2 ${abrirServidor && "border"} rounded-lg mt-1`}>
 									<SheetClose asChild onClick={() => setAbrirServidor(false)} >
-										<Link to="/cursos/tecnicos">
+										<Link to="/cursos/docente">
 											<Button variant={"link"} className="w-full">
-										Tecnicos
+										Docente
 											</Button>
 										</Link>
 									</SheetClose>
 									<SheetClose asChild onClick={() => setAbrirServidor(false)}>
-										<Link to="/cursos/administrativos">
+										<Link to="/cursos/administrativo">
 											<Button variant={"link"} className="w-full">
 										Administrativos
 											</Button>

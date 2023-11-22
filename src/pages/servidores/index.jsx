@@ -1,6 +1,9 @@
+import { useParams } from "react-router-dom";
+
 const Servidores = () => {
+	let { servidor } = useParams();
 	return ( 
-		<div>Servidores</div>
+		<div>Servidores = {servidor}</div>
 	);
 };
  
