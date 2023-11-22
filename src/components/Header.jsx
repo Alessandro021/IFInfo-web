@@ -1,15 +1,21 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { BookUserIcon, CalendarClockIcon, CalendarDaysIcon, GraduationCapIcon, LogOutIcon, MenuIcon, NewspaperIcon, ShieldCheckIcon, Users2Icon } from "lucide-react";
+import { BookUserIcon, CalendarClockIcon, CalendarDaysIcon, ChevronDown, ChevronsUpDownIcon, GraduationCapIcon, LogOutIcon, MenuIcon, NewspaperIcon, ShieldCheckIcon, Users2Icon } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useUsuario } from "../store/useUsuario";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator,DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger} from "@/components/ui/collapsible";
+import { useState } from "react";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 const Header = () => {
 	const deslogarUsuario = useUsuario(state => state.deslogarUsuario);
 	const user = useUsuario(state => state.user);
+
+	const [abrirCurso, setAbrirCurso] = useState(false);
+	const [abrirServidor, setAbrirServidor] = useState(false);
 	return (
 		<Card className="flex flex-row items-center justify-between p-4" >
 			<Sheet>
@@ -19,97 +25,130 @@ const Header = () => {
 					</Button>
 				</SheetTrigger>
 
-				<SheetContent side={"left"} className="bg-current w-60" >
+				<SheetContent side={"left"} className="w-72" >
 					<SheetHeader>
-						<SheetTitle className="text-center text-lg font-semibol text-white">Menu</SheetTitle>
+						<SheetTitle className="text-center text-lg font-semibo">Menu</SheetTitle>
 					</SheetHeader>
-					<div className="mt-4 flex flex-col gap-2">
-						<Button
-							variant={"outline"}
-							className="w-full justify-start gap-2 mt-4"
-						>
-							<LogOutIcon size={16} /> Fazer Logout
-						</Button>
 
-						{user?.eAdmin && (
+					<ScrollArea  className="h-full">
+						<div className="mt-4 flex flex-col gap-2">
+							{user?.eAdmin && (
+								<SheetClose asChild>
+									<Button
+										variant={"outline"}
+										className="w-full justify-start gap-2 mt-4"
+									>
+										<ShieldCheckIcon size={16} /> Administrador
+									</Button>
+								</SheetClose>
+							)}
+
 							<SheetClose asChild>
-								<Button
-									variant={"outline"}
-									className="w-full justify-start gap-2 mt-4"
-								>
-									<ShieldCheckIcon size={16} /> Administrador
-								</Button>
+								<Link to="/">
+									<Button
+										variant={"outline"}
+										className="w-full justify-start gap-2 mt-4"
+									>
+										<NewspaperIcon size={16} /> Notícias
+									</Button>
+								</Link>
 							</SheetClose>
-						)}
 
-						<SheetClose asChild>
-							<Link to="/">
-								<Button
-									variant={"outline"}
-									className="w-full justify-start gap-2 mt-4"
-								>
-									<NewspaperIcon size={16} /> Notícias
-								</Button>
-							</Link>
-						</SheetClose>
+							<SheetClose asChild>
+								<Link to="/calendario">
+									<Button
+										variant={"outline"}
+										className="w-full justify-start gap-2 mt-4"
+									>
+										<CalendarDaysIcon size={16} /> Calendário
+									</Button>
+								</Link>
+							</SheetClose>
 
-						<SheetClose asChild>
-							<Link to="/calendario">
-								<Button
-									variant={"outline"}
-									className="w-full justify-start gap-2 mt-4"
-								>
-									<CalendarDaysIcon size={16} /> Calendário
-								</Button>
-							</Link>
-						</SheetClose>
+							<Collapsible open={abrirCurso} onOpenChange={setAbrirCurso} className="w-full mt-4">
+								<CollapsibleTrigger asChild>
+									<Button variant="outline" className="w-full justify-between transition-all [&[data-state=open]>svg]:rotate-180">
+										<div className="flex flex-row items-center gap-2">
+											<GraduationCapIcon size={16} /> Cursos
+										</div>
+										<ChevronDown className="h-4 w-4 shrink-0 transition-transform duration-200" />
 
-						<SheetClose asChild>
-							<Link to="/cursos">
-								<Button
-									variant={"outline"}
-									className="w-full justify-start gap-2 mt-4"
-								>
-									<GraduationCapIcon size={16} /> Cursos
-								</Button>
-							</Link>
-						</SheetClose>
+									</Button>
+								</CollapsibleTrigger>
+	
+								<CollapsibleContent className={`flex flex-col px-2 ${abrirCurso && "border"} rounded-lg mt-1`}>
+									<SheetClose asChild onClick={() => setAbrirCurso(false)}>
+										<Link to="/cursos/tecnicos">
+											<Button variant={"link"} className="w-full">
+										Tecnicos
+											</Button>
+										</Link>
+									</SheetClose>
+									<SheetClose asChild onClick={() => setAbrirCurso(false)} >
+										<Link to="/cursos/superiores">
+											<Button variant={"link"} className="w-full">
+										Superiores
+											</Button>
+										</Link>
+									</SheetClose>
+								</CollapsibleContent>
+							</Collapsible>
 					
-						<SheetClose asChild>
-							<Link to="/horarios">
-								<Button
-									variant={"outline"}
-									className="w-full justify-start gap-2 mt-4"
-								>
-									<CalendarClockIcon size={16} /> Horários
-								</Button>
-							</Link>
-						</SheetClose>
+							<SheetClose asChild>
+								<Link to="/horarios">
+									<Button
+										variant={"outline"}
+										className="w-full justify-start gap-2 mt-4"
+									>
+										<CalendarClockIcon size={16} /> Horários
+									</Button>
+								</Link>
+							</SheetClose>
 					
 
-						<SheetClose asChild>
-							<Link to="/contatos">
-								<Button
-									variant={"outline"}
-									className="w-full justify-start gap-2 mt-4"
-								>
-									<BookUserIcon size={16} /> Contatos
-								</Button>
-							</Link>
+							<SheetClose asChild>
+								<Link to="/contatos">
+									<Button
+										variant={"outline"}
+										className="w-full justify-start gap-2 mt-4"
+									>
+										<BookUserIcon size={16} /> Contatos
+									</Button>
+								</Link>
 
-						</SheetClose>
-					
-						<SheetClose asChild>
-							<Link to="/servidores">
-								<Button
-									variant={"outline"}
-									className="w-full justify-start gap-2 mt-4"
-								>
-									<Users2Icon size={16} /> Servidores
-								</Button>
-							</Link>
-						</SheetClose>
-					</div>
+							</SheetClose>
+
+							<Collapsible open={abrirServidor} onOpenChange={setAbrirServidor} className="w-full mt-4">
+								<CollapsibleTrigger asChild>
+									<Button variant="outline" className="w-full justify-between transition-all [&[data-state=open]>svg]:rotate-180">
+										<div className="flex flex-row items-center gap-2">
+											<GraduationCapIcon size={16} /> Servidores
+										</div>
+										<ChevronDown className="h-4 w-4 shrink-0 transition-transform duration-200" />
+
+									</Button>
+								</CollapsibleTrigger>
+	
+								<CollapsibleContent className={`flex flex-col px-2 ${abrirServidor && "border"} rounded-lg mt-1`}>
+									<SheetClose asChild onClick={() => setAbrirServidor(false)} >
+										<Link to="/cursos/tecnicos">
+											<Button variant={"link"} className="w-full">
+										Tecnicos
+											</Button>
+										</Link>
+									</SheetClose>
+									<SheetClose asChild onClick={() => setAbrirServidor(false)}>
+										<Link to="/cursos/administrativos">
+											<Button variant={"link"} className="w-full">
+										Administrativos
+											</Button>
+										</Link>
+									</SheetClose>
+								</CollapsibleContent>
+							</Collapsible>
+				
+						</div>
+					</ScrollArea>
 				</SheetContent>
 			</Sheet>
 

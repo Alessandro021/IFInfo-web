@@ -26,11 +26,11 @@ export const Rotas = () => {
 				<Route  path="/:id" element={logado ? <VerNoticia /> : <Navigate to={"/login"} /> } />
 				<Route  path="/atualizar/:id" element={logado ? <AtualizarNoticia /> : <Navigate to={"/login"} /> } />
 				<Route  path="/perfil" element={logado ? <Perfil /> : <Navigate to={"/login"} /> } />
-				<Route  path="/cursos" element={logado ? <Cursos /> : <Navigate to={"/login"} /> } />
 				<Route  path="/calendario" element={logado ? <Calendario /> : <Navigate to={"/login"} /> } />
 				<Route  path="/horarios" element={logado ? <Horarios /> : <Navigate to={"/login"} /> } />
 				<Route  path="/contatos" element={logado ? <Contatos /> : <Navigate to={"/login"} /> } />
-				<Route  path="/servidores" element={logado ? <Servidores /> : <Navigate to={"/login"} /> } />
+				<Route  path="/cursos/*" element={logado ? <Cursos /> : <Navigate to={"/login"} /> } />
+				<Route  path="/servidores/*" element={logado ? <Servidores /> : <Navigate to={"/login"} /> } />
 				<Route  path="/login" element={!logado ? <Login /> : <Navigate to={"/"} /> } />
 				
 			</Routes>
