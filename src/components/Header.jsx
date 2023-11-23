@@ -31,13 +31,13 @@ const Header = () => {
 					</SheetHeader>
 
 					<ScrollArea  className="h-full">
-						<div className="mt-4 flex flex-col gap-2">
+						<div className="mt-4 flex flex-col gap-4">
 							{user?.eAdmin && (
 								<SheetClose asChild>
 									<Link to="/admin">
 										<Button
 											variant={"outline"}
-											className="w-full justify-start gap-2 mt-4"
+											className="w-full justify-start gap-2"
 										>
 											<ShieldCheckIcon size={16} /> Administrador
 										</Button>
@@ -49,7 +49,7 @@ const Header = () => {
 								<Link to="/">
 									<Button
 										variant={"outline"}
-										className="w-full justify-start gap-2 mt-4"
+										className="w-full justify-start gap-2"
 									>
 										<NewspaperIcon size={16} /> Notícias
 									</Button>
@@ -60,14 +60,14 @@ const Header = () => {
 								<Link to="/calendario">
 									<Button
 										variant={"outline"}
-										className="w-full justify-start gap-2 mt-4"
+										className="w-full justify-start gap-2"
 									>
 										<CalendarDaysIcon size={16} /> Calendário
 									</Button>
 								</Link>
 							</SheetClose>
 
-							<Collapsible open={abrirCurso} onOpenChange={setAbrirCurso} className="w-full mt-4">
+							<Collapsible open={abrirCurso} onOpenChange={setAbrirCurso} className="w-full">
 								<CollapsibleTrigger asChild>
 									<Button variant="outline" className="w-full justify-between transition-all [&[data-state=open]>svg]:rotate-180">
 										<div className="flex flex-row items-center gap-2">
@@ -100,7 +100,7 @@ const Header = () => {
 								<Link to="/horarios">
 									<Button
 										variant={"outline"}
-										className="w-full justify-start gap-2 mt-4"
+										className="w-full justify-start gap-2"
 									>
 										<CalendarClockIcon size={16} /> Horários
 									</Button>
@@ -112,7 +112,7 @@ const Header = () => {
 								<Link to="/contatos">
 									<Button
 										variant={"outline"}
-										className="w-full justify-start gap-2 mt-4"
+										className="w-full justify-start gap-2"
 									>
 										<BookUserIcon size={16} /> Contatos
 									</Button>
@@ -120,7 +120,7 @@ const Header = () => {
 
 							</SheetClose>
 
-							<Collapsible open={abrirServidor} onOpenChange={setAbrirServidor} className="w-full mt-4">
+							<Collapsible open={abrirServidor} onOpenChange={setAbrirServidor} className="w-full">
 								<CollapsibleTrigger asChild>
 									<Button variant="outline" className="w-full justify-between transition-all [&[data-state=open]>svg]:rotate-180">
 										<div className="flex flex-row items-center gap-2">
@@ -154,13 +154,7 @@ const Header = () => {
 				</SheetContent>
 			</Sheet>
 
-			<h1 className="text-2xl font-bold text-green-700">IFInfo</h1>
-
-			{/* <Link to="/login">
-				<Button onClick={() => deslogarUsuario()}>
-					<span>Sair</span>
-				</Button>
-			</Link> */}
+			<h1 className="text-3xl font-extrabold text-green-700">IF<span className="font-extrabold text-black">Info</span></h1>
 
 			<DropdownMenu>
 				<DropdownMenuTrigger asChild>
