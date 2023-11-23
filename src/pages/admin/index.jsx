@@ -25,6 +25,7 @@ const Administrador = () => {
 
 	return ( 
 		<div className="container mx-auto py-10">
+			<h2 className="text-center text-2xl font-bold">Area do administrador</h2>
 			<DataTable columns={colunasAdministrador} data={usuarios} 
 				criar={() => criarUsuario()} ComponenteCriarItem={CriarUsuario} open={abrirCriar} onClose={() => setAbrirCriar(false)} 
 			/>  

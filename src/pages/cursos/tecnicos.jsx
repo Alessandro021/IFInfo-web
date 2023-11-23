@@ -24,6 +24,8 @@ const CursosTecnicos = () => {
 
 	return ( 
 		<div className="container mx-auto py-10">
+			<h2 className="text-center text-2xl font-bold">Cursos tecnicos</h2>
+
 			<DataTable columns={colunasCursosTecnicos} data={cursosTecnicos}  criar={() => criarCursoTecnico()} 
 				ComponenteCriarItem={CriarCursoTecnico} open={abrirCriar} onClose={() => setAbrirCriar(false)}   />
 		</div>
