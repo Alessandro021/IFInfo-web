@@ -10,6 +10,8 @@ export const useUsuario = create((set) => ({
 	logado: false,
 	loading: true,
 	setUsuario: async () => {
+
+		// TODO: criar uam queri para buscar dados do ususario
 		const token = JSON.parse(pegar());
 		
 		if(token && token?.accessToken){

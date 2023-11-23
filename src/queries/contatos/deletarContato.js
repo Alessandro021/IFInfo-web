@@ -13,6 +13,7 @@ export const useDeletarContato = () => {
 	const mutation = useMutation({mutationKey: ["contato"], mutationFn: fecthDeletarEContato, 
 		onSuccess: (data) => {
 			alert("Contato deletado com sucesso.");
+			// TODO: ver possivel erro ao deltar cotato e ele nao sumir da estato
 			deletarContatoPorId(data?.result);
 		}, onError: (err) => {
 			// console.log(err.message);

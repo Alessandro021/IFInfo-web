@@ -34,12 +34,14 @@ const Header = () => {
 						<div className="mt-4 flex flex-col gap-2">
 							{user?.eAdmin && (
 								<SheetClose asChild>
-									<Button
-										variant={"outline"}
-										className="w-full justify-start gap-2 mt-4"
-									>
-										<ShieldCheckIcon size={16} /> Administrador
-									</Button>
+									<Link to="/admin">
+										<Button
+											variant={"outline"}
+											className="w-full justify-start gap-2 mt-4"
+										>
+											<ShieldCheckIcon size={16} /> Administrador
+										</Button>
+									</Link>
 								</SheetClose>
 							)}
 
@@ -131,14 +133,14 @@ const Header = () => {
 	
 								<CollapsibleContent className={`flex flex-col px-2 ${abrirServidor && "border"} rounded-lg mt-1`}>
 									<SheetClose asChild onClick={() => setAbrirServidor(false)} >
-										<Link to="/cursos/docente">
+										<Link to="/servidores/docente">
 											<Button variant={"link"} className="w-full">
 										Docente
 											</Button>
 										</Link>
 									</SheetClose>
 									<SheetClose asChild onClick={() => setAbrirServidor(false)}>
-										<Link to="/cursos/administrativo">
+										<Link to="/servidores/administrativo">
 											<Button variant={"link"} className="w-full">
 										Administrativos
 											</Button>
