@@ -74,7 +74,7 @@ export function CriarCalendario({open, onClose}) {
 	// }
 	return (
 		<Dialog open={open} onOpenChange={() =>{ onClose();  form.reset();}}>
-			<DialogContent className="sm:max-w-[425px]">
+			<DialogContent className="sm:max-w-xl">
 				<DialogHeader>
 					<DialogTitle >Criar calendário</DialogTitle>
 					<DialogDescription>
@@ -88,7 +88,7 @@ export function CriarCalendario({open, onClose}) {
 							name="nome"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel className="text-lg font-bold">Nome</FormLabel>
+									<FormLabel className="text-lg font-bold">Nome*</FormLabel>
 									<FormControl>
 										<Input placeholder="Nome" {...field} />
 									</FormControl>
@@ -98,15 +98,16 @@ export function CriarCalendario({open, onClose}) {
 						/>
 
 						<FormItem className="flex flex-col">
-							<FormLabel className="text-lg font-bold">Pdf</FormLabel>
+							<FormLabel className="text-lg font-bold">Pdf*</FormLabel>
 							<FormControl className="border p-2 rounded-md text-sm">
 								<input ref={fileInputRef} type="file" name="pdf" />
 							</FormControl>
 						</FormItem>
 
-						<DialogFooter>
+						<div className="flex items-center justify-between">
+							<p className="text-sm font-semibold ml-8"><span className="text-xl font-extrabold">*</span> obrigatorio</p>
 							<Button type="submit">Criar</Button>
-						</DialogFooter>
+						</div>
 					</form>
 				</Form>
 			</DialogContent>

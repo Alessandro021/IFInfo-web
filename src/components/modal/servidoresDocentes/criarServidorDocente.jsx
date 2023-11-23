@@ -56,7 +56,7 @@ export function CriarServidorDocente({open, onClose}) {
 	// }
 	return (
 		<Dialog open={open} onOpenChange={() =>{ onClose();  form.reset();}}>
-			<DialogContent className="sm:max-w-[425px]">
+			<DialogContent className="sm:max-w-xl">
 				<DialogHeader>
 					<DialogTitle >Criar servidor docente</DialogTitle>
 					<DialogDescription>
@@ -121,9 +121,10 @@ export function CriarServidorDocente({open, onClose}) {
 							)}
 						/>
 
-						<DialogFooter>
+						<div className="flex items-center justify-between">
+							<p className="text-sm font-semibold ml-8"><span className="text-xl font-extrabold">*</span> obrigatorio</p>
 							<Button type="submit">Criar</Button>
-						</DialogFooter>
+						</div>
 					</form>
 				</Form>
 			</DialogContent>

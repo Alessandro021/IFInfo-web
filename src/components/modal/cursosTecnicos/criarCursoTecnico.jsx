@@ -52,7 +52,7 @@ export function CriarCursoTecnico({open, onClose}) {
 	// }
 	return (
 		<Dialog open={open} onOpenChange={() =>{ onClose();  form.reset();}}>
-			<DialogContent className="sm:max-w-[425px]">
+			<DialogContent className="sm:max-w-xl">
 				<DialogHeader>
 					<DialogTitle >Criar curso tecnico</DialogTitle>
 					<DialogDescription>
@@ -66,7 +66,7 @@ export function CriarCursoTecnico({open, onClose}) {
 							name="nome"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel className="text-lg font-bold">Nome do curso</FormLabel>
+									<FormLabel className="text-lg font-bold">Nome do curso*</FormLabel>
 									<FormControl>
 										<Input placeholder="Nome do curso" {...field} />
 									</FormControl>
@@ -80,7 +80,7 @@ export function CriarCursoTecnico({open, onClose}) {
 							name="link"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel className="text-lg font-bold">Url da pagina do curso</FormLabel>
+									<FormLabel className="text-lg font-bold">Url da pagina do curso*</FormLabel>
 									<FormControl>
 										<Input placeholder="Url da pagina do curso" {...field} />
 									</FormControl>
@@ -89,9 +89,10 @@ export function CriarCursoTecnico({open, onClose}) {
 							)}
 						/>
 
-						<DialogFooter>
+						<div className="flex items-center justify-between">
+							<p className="text-sm font-semibold ml-8"><span className="text-xl font-extrabold">*</span> obrigatorio</p>
 							<Button type="submit">Criar</Button>
-						</DialogFooter>
+						</div>
 					</form>
 				</Form>
 			</DialogContent>

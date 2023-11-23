@@ -77,7 +77,7 @@ export function AtualizarServidorDocente({open, onClose, id}) {
 							name="nome"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel className="text-lg font-bold">Nome do servidor*</FormLabel>
+									<FormLabel className="text-lg font-bold">Nome do servidor</FormLabel>
 									<FormControl>
 										<Input placeholder="Nome do servidor" {...field} />
 									</FormControl>
@@ -91,7 +91,7 @@ export function AtualizarServidorDocente({open, onClose, id}) {
 							name="area"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel className="text-lg font-bold">Area de ensino*</FormLabel>
+									<FormLabel className="text-lg font-bold">Area de ensino</FormLabel>
 									<FormControl>
 										<Input placeholder="Area de ensino" {...field} />
 									</FormControl>

@@ -71,7 +71,7 @@ export function AtualizarServidorAdministrativo({open, onClose, id}) {
 							name="nome"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel className="text-lg font-bold">Nome do servidor*</FormLabel>
+									<FormLabel className="text-lg font-bold">Nome do servidor</FormLabel>
 									<FormControl>
 										<Input placeholder="Nome do servidor" {...field} />
 									</FormControl>
@@ -85,7 +85,7 @@ export function AtualizarServidorAdministrativo({open, onClose, id}) {
 							name="cargo"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel className="text-lg font-bold">Cargo do servidor*</FormLabel>
+									<FormLabel className="text-lg font-bold">Cargo do servidor</FormLabel>
 									<FormControl>
 										<Input placeholder="Cargo do servidor" {...field} />
 									</FormControl>

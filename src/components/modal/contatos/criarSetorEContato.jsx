@@ -68,18 +68,18 @@ export function CriarSetorEContato({open, onClose}) {
 				<DialogHeader>
 					<DialogTitle >Criar setor e contatos</DialogTitle>
 					<DialogDescription>
-                    Crie seu setor aqui. Clique em salvar quando terminar.
+                    Crie seu setor aqui. Clique em criar quando terminar.
 					</DialogDescription>
 				</DialogHeader>
 				
 				<Form {...form}>
-					<form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-6">
+					<form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4">
 						<FormField
 							control={form.control}
 							name="setor"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel className="text-lg font-bold">Setor</FormLabel>
+									<FormLabel className="text-lg font-bold">Setor*</FormLabel>
 									<FormControl>
 										<Input placeholder="Setor" {...field} />
 									</FormControl>
@@ -97,7 +97,7 @@ export function CriarSetorEContato({open, onClose}) {
 											name={`contato[${index}].nome`}
 											render={({ field }) => (
 												<FormItem>
-													<FormLabel className="text-lg font-bold">Nome</FormLabel>
+													<FormLabel className="text-lg font-bold">Nome*</FormLabel>
 													<FormControl>
 														<Input placeholder="Nome" {...field} />
 													</FormControl>
@@ -111,7 +111,7 @@ export function CriarSetorEContato({open, onClose}) {
 											name={`contato[${index}].email`}
 											render={({ field }) => (
 												<FormItem>
-													<FormLabel className="text-lg font-bold">Email</FormLabel>
+													<FormLabel className="text-lg font-bold">Email*</FormLabel>
 													<FormControl>
 														<Input placeholder="Email" {...field} />
 													</FormControl>
@@ -140,12 +140,14 @@ export function CriarSetorEContato({open, onClose}) {
 								))}
 							</div>
 						</ScrollArea>
-                        
-						<DialogFooter>
-							<Button onClick={() => setContatos([...contatos, { email: "", nome: "", telefone: "" }])}>  Adicionar contato </Button>
-							<Button type="submit">Salvar</Button>
-							
-						</DialogFooter>
+
+						<div className="flex items-center justify-between">
+							<p className="text-sm font-semibold ml-8"><span className="text-xl font-extrabold">*</span> obrigatorio</p>
+							<div className="flex gap-4 mr-1">
+								<Button onClick={() => setContatos([...contatos, { email: "", nome: "", telefone: "" }])}>  Adicionar contato </Button>
+								<Button type="submit">Criar</Button>
+							</div>
+						</div>
 					</form>
 				</Form>
 			</DialogContent>

@@ -74,7 +74,7 @@ export function CriarHorario({open, onClose}) {
 	// }
 	return (
 		<Dialog open={open} onOpenChange={() => {onClose(); form.reset();}}>
-			<DialogContent className="sm:max-w-[425px]">
+			<DialogContent className="sm:max-w-xl">
 				<DialogHeader>
 					<DialogTitle >Criar horário</DialogTitle>
 					<DialogDescription>
@@ -88,7 +88,7 @@ export function CriarHorario({open, onClose}) {
 							name="nome"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel className="text-lg font-bold">Nome</FormLabel>
+									<FormLabel className="text-lg font-bold">Nome*</FormLabel>
 									<FormControl>
 										<Input placeholder="Nome" {...field} />
 									</FormControl>
@@ -102,7 +102,7 @@ export function CriarHorario({open, onClose}) {
 							name="tipo"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>Tipo</FormLabel>
+									<FormLabel className="font-bold text-lg">Tipo*</FormLabel>
 									<Select onValueChange={field.onChange} defaultValue={field.value}>
 										<FormControl>
 											<SelectTrigger>
@@ -121,15 +121,16 @@ export function CriarHorario({open, onClose}) {
 						/>
 
 						<FormItem className="flex flex-col">
-							<FormLabel className="text-lg font-bold">Pdf</FormLabel>
+							<FormLabel className="text-lg font-bold">Pdf*</FormLabel>
 							<FormControl className="border p-2 rounded-md text-sm">
 								<input ref={fileInputRef} type="file" name="pdf" />
 							</FormControl>
 						</FormItem>
 
-						<DialogFooter>
-							<Button type="submit">Salvar</Button>
-						</DialogFooter>
+						<div className="flex items-center justify-between">
+							<p className="text-sm font-semibold ml-8"><span className="text-xl font-extrabold">*</span> obrigatorio</p>
+							<Button type="submit">Criar</Button>
+						</div>
 					</form>
 				</Form>
 			</DialogContent>

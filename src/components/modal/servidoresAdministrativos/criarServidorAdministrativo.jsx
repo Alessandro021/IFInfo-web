@@ -88,9 +88,10 @@ export function CriarServidorAdministrativo({open, onClose}) {
 								</FormItem>
 							)}
 						/>
-						<DialogFooter>
+						<div className="flex items-center justify-between">
+							<p className="text-sm font-semibold ml-8"><span className="text-xl font-extrabold">*</span> obrigatorio</p>
 							<Button type="submit">Criar</Button>
-						</DialogFooter>
+						</div>
 					</form>
 				</Form>
 			</DialogContent>

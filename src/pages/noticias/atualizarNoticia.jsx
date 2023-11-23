@@ -28,7 +28,6 @@ const AtualizarNoticia = () => {
 	}, [id, pegarNoticiaPorId]);
 
 	const formSchema = yup.object().shape({
-		// id: yup.string().min(9).max(10).optional(),
 		titulo: yup.string().min(3).optional(),
 		hora: yup.string().matches(/^([01]\d|2[0-3]):([0-5]\d)$/, "O formato da hora deve ser hh:mm").min(3).optional(),
 		data: yup.string().matches(/^(0[1-9]|[12]\d|3[01])\/(0[1-9]|1[0-2])\/\d{2}$/, "O formato da data deve ser dd/mm/aa").min(3).optional(),

@@ -6,7 +6,6 @@ import { useForm } from "react-hook-form";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useEffect, useState } from "react";
-import { useCriarCursoTecnico } from "@/src/queries/cursosTecnicos/criarCursoTecnico";
 import { useCriarUsuario } from "@/src/queries/administrador/criarUsuario";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 
@@ -75,7 +74,7 @@ export function CriarUsuario({open, onClose}) {
 							name="nome"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel className="text-lg font-bold">Nome</FormLabel>
+									<FormLabel className="text-lg font-bold">Nome*</FormLabel>
 									<FormControl>
 										<Input placeholder="Nome" {...field} />
 									</FormControl>
@@ -89,7 +88,7 @@ export function CriarUsuario({open, onClose}) {
 							name="email"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel className="text-lg font-bold">Email</FormLabel>
+									<FormLabel className="text-lg font-bold">Email*</FormLabel>
 									<FormControl>
 										<Input placeholder="Email" {...field} />
 									</FormControl>
@@ -103,7 +102,7 @@ export function CriarUsuario({open, onClose}) {
 							name="senha"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel className="text-lg font-bold">Senha</FormLabel>
+									<FormLabel className="text-lg font-bold">Senha*</FormLabel>
 									<FormControl>
 										<div className="flex flex-row gap-4">
 											<Input {...field} type={senhaVisivel ? "text" : "password"} name="senha" placeholder="senha" />
@@ -121,7 +120,7 @@ export function CriarUsuario({open, onClose}) {
 							name="confirmarSenha"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel className="text-lg font-bold">Confirmar senha</FormLabel>
+									<FormLabel className="text-lg font-bold">Confirmar senha*</FormLabel>
 									<FormControl>
 										<div className="flex flex-row gap-4">
 											<Input {...field} type={confirmarSenhaVisivel ? "text" : "password"} name="senha" placeholder="senha" />
@@ -133,9 +132,10 @@ export function CriarUsuario({open, onClose}) {
 								</FormItem>
 							)}
 						/>
-						<DialogFooter>
+						<div className="flex items-center justify-between">
+							<p className="text-sm font-semibold ml-8"><span className="text-xl font-extrabold">*</span> obrigatorio</p>
 							<Button type="submit">Criar</Button>
-						</DialogFooter>
+						</div>
 					</form>
 				</Form>
 			</DialogContent>
