@@ -16,7 +16,7 @@ export const useAtualizarContato = () => {
 			if (error) {
 				alert(error.message);
 			} else {
-				console.log(data);
+				// console.log(data);
 				atualizarContato(variables?.idSetor, data?.result?.contato);
 				alert("Update realizado com sucesso");
 			}

@@ -45,7 +45,7 @@ export function EditarUsuario({open, onClose, id}) {
 			delete values?.senha;
 			delete values?.confirmarSenha;
 		}
-		console.log(values);
+		// console.log(values);
 
 		mutate({id: id, values: values});
 

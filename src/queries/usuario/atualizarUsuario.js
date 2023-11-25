@@ -4,7 +4,6 @@ import api from "@/src/services/api";
 
 
 const atualizarUsuario = async ({values}) => {
-	console.log(values);
 	const {data} = await api.put("/usuario", values);
 	return data;
 };

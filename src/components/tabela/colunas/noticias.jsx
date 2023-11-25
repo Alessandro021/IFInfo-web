@@ -47,7 +47,7 @@ export const colunasNoticias = [
 		accessorKey: "conteudo",
 		header: "conteudo",
 		cell: ({ row }) => {
-			return <p className=" font-medium line-clamp-2 max-w-[500px]">{row.getValue("conteudo")}</p>;
+			return <p className=" font-medium line-clamp-2 max-w-[400px]">{row.getValue("conteudo")}</p>;
 		},
 	},
 	{
@@ -76,7 +76,6 @@ export const colunasNoticias = [
 		id: "actions",
 		cell: ({ row }) => { 
 			const noticia = row.original;
-			// const deletarNoticia = useNoticia(state => state.deletarNoticia);
 
 			const navigate = useNavigate();
 			const verNoticia = (id) => {
@@ -86,18 +85,6 @@ export const colunasNoticias = [
 			const atualizarNoticia = (id) => {
 				return navigate(`/atualizar/${id}`);
 			};
-			// const excluirNoticia = async (id) => {
-			// 	const {data} = await api.delete(`/noticia/${id}`);
-			// 	return data;
-			// };
-			// const mutation = useMutation({mutationKey: ["noticias"], mutationFn: excluirNoticia, 
-			// 	onSuccess: (data) => {
-			// 		deletarNoticia(data?.result);
-			// 		alert("Notícia deletada com sucesso.");
-			// 	}, onError: (err) => {
-			// 		console.log(err.message);
-			// 		alert("Erro ao deletar noticia");
-			// 	}});
 			const {mutate} = useDeletarNoticia(noticia?.id);
 
 			return (

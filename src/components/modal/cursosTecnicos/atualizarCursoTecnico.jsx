@@ -37,7 +37,7 @@ export function AtualizarCursoTecnico({id, open, onClose}) {
 	const onSubmit = (values) => {
 		setLoading(true);
 
-		console.log(values);
+		// console.log(values);
 
 		mutate({id,  values: values});
 
