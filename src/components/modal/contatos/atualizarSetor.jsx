@@ -5,10 +5,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { useContatos } from "@/src/store/useContatos";
 import { useAtualizarSetor } from "@/src/queries/contatos/atualizarSetor";
+import { Loader2 } from "lucide-react";
 
 export function AtualizarSetor({open, onClose, idSetor}) {
 
@@ -17,8 +18,6 @@ export function AtualizarSetor({open, onClose, idSetor}) {
 	const setor = useContatos(state => state.setor);
 
 	const {mutate, isError, isSuccess, status} = useAtualizarSetor();
-
-	const [loading, setLoading] = useState(false);
 
 	const formSchema = yup.object().shape({
 		setor: yup.string().strict().optional().nonNullable().min(3),
@@ -32,23 +31,15 @@ export function AtualizarSetor({open, onClose, idSetor}) {
 	});
     
 	const onSubmit = (values) => {
-		setLoading(true);
 		mutate({values: values, idSetor: idSetor});
 	};
 
 	useEffect(() => {
-		if(isError || isSuccess) {
-			setLoading(false);
-		}
-
 		if(isSuccess) {
 			onClose();
 		}
 	},[isError, isSuccess]);
 
-	// if(loading){
-	// 	return <p>Carregando...</p>;
-	// }
 	return (
 		<Dialog open={open} onOpenChange={() => {onClose(); form.reset();}}>
 			<DialogContent className="sm:max-w-screen-lg">
@@ -77,8 +68,9 @@ export function AtualizarSetor({open, onClose, idSetor}) {
 							/>
 						</Card>
 						<DialogFooter>
-							<Button type="submit">Salvar</Button>
-							
+							<Button type="submit" disabled={status === "pending" ? true : false}>
+								{status === "pending" ? <> <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Carregando...</>: "Salvar"}
+							</Button>
 						</DialogFooter>
 					</form>
 				</Form>

@@ -8,17 +8,14 @@ import { Input } from "@/components/ui/input";
 import { useEffect, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { XIcon } from "lucide-react";
+import { Loader2, XIcon } from "lucide-react";
 import ReactInputMask from "react-input-mask";
 import { useCriarContato } from "@/src/queries/contatos/criarContato";
 
 export function CriarContato({open, onClose, idSetor}) {
-
-	const [loading, setLoading] = useState(false);
 	const [contatos, setContatos] = useState([{ email: "", nome: "", telefone: ""}]);
 
 	const {mutate, isError, isSuccess, status} = useCriarContato();
-
 
 	const validarContato = yup.object().shape({
 		email: yup.string().required().email().min(5),
@@ -35,19 +32,12 @@ export function CriarContato({open, onClose, idSetor}) {
 	});
 
 	const onSubmit = (values) => {
-		setLoading(true);
 		values.idSetor = idSetor; //passando o idSetor para o objeto value que possui os contatos
 		// console.log( values);
-
 		mutate({values: values});
-
 	};
 
 	useEffect(() => {
-		if(isError || isSuccess) {
-			setLoading(false);
-		}
-
 		if(isSuccess) {
 			onClose();
 		}
@@ -59,10 +49,6 @@ export function CriarContato({open, onClose, idSetor}) {
 		setContatos(array);
 		//TODO: as vezes quando voce deleta e dpois faz o envio o telefone pode ficar null
 	};
-
-	// if(loading){
-	// 	return <p>Carregando...</p>;
-	// }
 	return (
 		<Dialog open={open} onOpenChange={() => {onClose(); form.reset();}}>
 			<DialogContent className="sm:max-w-screen-lg">
@@ -133,7 +119,9 @@ export function CriarContato({open, onClose, idSetor}) {
 							<p className="text-sm font-semibold ml-8"><span className="text-xl font-extrabold">*</span> obrigatorio</p>
 							<div className="flex gap-4 mr-1">
 								<Button onClick={() => setContatos([...contatos, { email: "", nome: "", telefone: "" }])}>  Adicionar contato </Button>
-								<Button type="submit">Criar</Button>
+								<Button type="submit" disabled={status === "pending" ? true : false}>
+									{status === "pending" ? <> <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Carregando...</>: "Criar"}
+								</Button>
 							</div>
 						</div>
 					</form>

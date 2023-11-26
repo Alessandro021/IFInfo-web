@@ -1,6 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import api from "../../services/api";
 import { useContatos } from "@/src/store/useContatos";
+import { toast } from "react-toastify";
 
 const fecthDeletarSetorEContato = async ({idSetor}) => {
 	const {data} = await api.delete(`/contatos/setor/${idSetor}`);
@@ -12,10 +13,10 @@ export const useDeletarSetorEContato = () => {
 
 	const mutation = useMutation({mutationKey: ["contato"], mutationFn: fecthDeletarSetorEContato, 
 		onSuccess: (data) => {
-			alert("Setor e contatos deletados com sucesso.");
+			toast.success("Setor e contatos deletados com sucesso.");
 			deletarSetorEContato(data?.result);
 		}, onError: (err) => {
-			alert("Erro ao deletar setor e contatos");
+			toast.error("Erro ao deletar setor e contatos");
 		}});
 
 	return mutation;

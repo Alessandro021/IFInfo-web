@@ -1,6 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import api from "../../services/api";
 import { useContatos } from "@/src/store/useContatos";
+import { toast } from "react-toastify";
 
 const fecthCriarContato = async ({values}) => {
 	const {data} = await api.post("/contato", values);
@@ -12,11 +13,10 @@ export const useCriarContato = () => {
 
 	const mutation = useMutation({mutationKey: ["contato"], mutationFn: fecthCriarContato, 
 		onSuccess: (data, variables) => {
-			alert("Contato criado com sucesso.");
+			toast.success("Contato criado com sucesso.");
 			adicionarContato(variables?.values?.idSetor, data?.result);
 		}, onError: (err) => {
-
-			alert("Erro ao criar contato");
+			toast.error("Erro ao criar contato");
 		}});
 
 	return mutation;

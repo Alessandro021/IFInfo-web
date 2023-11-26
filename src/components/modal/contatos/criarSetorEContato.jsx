@@ -9,12 +9,10 @@ import { useEffect, useState } from "react";
 import { useCriarSetorEContato } from "@/src/queries/contatos/criarSetorEContato";
 import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { XIcon } from "lucide-react";
+import { Loader2, XIcon } from "lucide-react";
 import ReactInputMask from "react-input-mask";
 
 export function CriarSetorEContato({open, onClose}) {
-
-	const [loading, setLoading] = useState(false);
 	const [contatos, setContatos] = useState([{ email: "", nome: "", telefone: null }]);
 
 	const {mutate, isError, isSuccess, status} = useCriarSetorEContato();
@@ -38,16 +36,10 @@ export function CriarSetorEContato({open, onClose}) {
 	});    
 
 	const onSubmit = (values) => {
-		setLoading(true);
-		// console.log(values);
 		mutate({values: values});
 	};
 
 	useEffect(() => {
-		if(isError || isSuccess) {
-			setLoading(false);
-		}
-
 		if(isSuccess) {
 			onClose();
 		}
@@ -59,9 +51,6 @@ export function CriarSetorEContato({open, onClose}) {
 		setContatos(array);
 	};
 
-	// if(loading){
-	// 	return <p>Carregando...</p>;
-	// }
 	return (
 		<Dialog open={open} onOpenChange={() => {onClose(); form.reset();}}>
 			<DialogContent className="sm:max-w-screen-lg">
@@ -145,7 +134,9 @@ export function CriarSetorEContato({open, onClose}) {
 							<p className="text-sm font-semibold ml-8"><span className="text-xl font-extrabold">*</span> obrigatorio</p>
 							<div className="flex gap-4 mr-1">
 								<Button onClick={() => setContatos([...contatos, { email: "", nome: "", telefone: "" }])}>  Adicionar contato </Button>
-								<Button type="submit">Criar</Button>
+								<Button type="submit" disabled={status === "pending" ? true : false}>
+									{status === "pending" ? <> <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Carregando...</>: "Criar"}
+								</Button>
 							</div>
 						</div>
 					</form>

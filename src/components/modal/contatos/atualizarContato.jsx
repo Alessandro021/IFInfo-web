@@ -5,11 +5,12 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import ReactInputMask from "react-input-mask";
 import { useAtualizarContato } from "@/src/queries/contatos/atualizarContato";
 import { useContatos } from "@/src/store/useContatos";
+import { Loader2 } from "lucide-react";
 
 export function AtualizarContato({open, onClose, idSetor, idContato}) {
 
@@ -23,10 +24,6 @@ export function AtualizarContato({open, onClose, idSetor, idContato}) {
 	useEffect(() => {
 		pegarContatoPorId(idSetor, idContato);
 	}, [idSetor, idContato]);
-
-
-	const [loading, setLoading] = useState(false);
-	// const [contatos, setContatos] = useState([{ email: contato?.email, nome: contato?.nome, telefone: contato?.telefone||  null }]);
 
 	const formSchema = yup.object().shape({
 		email: yup.string().optional().email().min(5),
@@ -44,24 +41,16 @@ export function AtualizarContato({open, onClose, idSetor, idContato}) {
 	});
     
 	const onSubmit = (values) => {
-		setLoading(true);
 		values.idContato = idContato; //passando o idContato para o objeto value que possui os contatos
 		mutate({values: values, idSetor: contato?.setor_id});
 	};
 
 	useEffect(() => {
-		if(isError || isSuccess) {
-			setLoading(false);
-		}
-
 		if(isSuccess) {
 			onClose();
 		}
 	},[isError, isSuccess]);
 
-	// if(loading){
-	// 	return <p>Carregando...</p>;
-	// }
 	return (
 		<Dialog open={open} onOpenChange={() => {onClose(); form.reset();}}>
 			<DialogContent className="sm:max-w-screen-lg">
@@ -120,8 +109,9 @@ export function AtualizarContato({open, onClose, idSetor, idContato}) {
 							/>
 						</Card>
 						<DialogFooter>
-							<Button type="submit">Salvar</Button>
-							
+							<Button type="submit" disabled={status === "pending" ? true : false}>
+								{status === "pending" ? <> <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Carregando...</>: "Salvar"}
+							</Button>
 						</DialogFooter>
 					</form>
 				</Form>
