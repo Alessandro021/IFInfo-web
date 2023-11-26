@@ -5,9 +5,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useCursos } from "@/src/store/useCursos";
 import { useAtualizarCursoTecnico } from "@/src/queries/cursosTecnicos/atualizarCursoTecnico";
+import { Loader2 } from "lucide-react";
 
 export function AtualizarCursoTecnico({id, open, onClose}) {
 
@@ -16,9 +17,6 @@ export function AtualizarCursoTecnico({id, open, onClose}) {
 	const cursoTecnico = useCursos(state => state.cursoTecnico);
 
 	const {mutate, isError, isSuccess, status} = useAtualizarCursoTecnico();
-
-
-	const [loading, setLoading] = useState(false);
 
 	const formSchema = yup.object().shape({
 		nome: yup.string().strict().optional().nonNullable().min(3),
@@ -35,29 +33,16 @@ export function AtualizarCursoTecnico({id, open, onClose}) {
     
 
 	const onSubmit = (values) => {
-		setLoading(true);
-
 		// console.log(values);
-
 		mutate({id,  values: values});
-
 	};
 
 	useEffect(() => {
-		if(isError || isSuccess) {
-			setLoading(false);
-		}
-
 		if(isSuccess) {
 			onClose();
 		}
 	},[isError, isSuccess]);
 
-	
-
-	// if(loading){
-	// 	return <p>Carregando...</p>;
-	// }
 	return (
 		<Dialog open={open} onOpenChange={() => onClose()}>
 			<DialogContent className="sm:max-w-xl">
@@ -97,9 +82,10 @@ export function AtualizarCursoTecnico({id, open, onClose}) {
 							)}
 						/>
 
-
 						<DialogFooter>
-							<Button type="submit">Salvar</Button>
+							<Button type="submit" disabled={status === "pending" ? true : false}>
+								{status === "pending" ? <> <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Carregando...</>: "Salvar"}
+							</Button>
 						</DialogFooter>
 					</form>
 				</Form>

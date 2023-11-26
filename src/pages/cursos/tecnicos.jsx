@@ -1,3 +1,5 @@
+import Error from "@/src/components/Error";
+import Loading from "@/src/components/Loading";
 import { CriarCursoTecnico } from "@/src/components/modal/cursosTecnicos/criarCursoTecnico";
 import { colunasCursosTecnicos } from "@/src/components/tabela/colunas/cursosTecnicos";
 import { DataTable } from "@/src/components/tabela/data-table";
@@ -15,11 +17,11 @@ const CursosTecnicos = () => {
 	};
 	
 	if(isLoading) {
-		return <p>Carregando...</p>;
+		return <Loading />;
 	}
 	
 	if(status === "error") {
-		return <p>Erro ao acessar api...</p>;
+		return <Error messagem={"Erro ao acessar api."}/>;
 	}
 
 	return ( 

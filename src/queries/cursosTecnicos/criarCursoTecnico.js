@@ -1,6 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import api from "../../services/api";
 import { useCursos } from "@/src/store/useCursos";
+import { toast } from "react-toastify";
 
 const fetchCriarCursotecnico = async ({values}) => {
 	const {data} = await api.post("/cursos/tecnicos", values);
@@ -12,11 +13,10 @@ export const useCriarCursoTecnico = () => {
 
 	const mutation = useMutation({mutationKey: ["cursos-tecnicos"], mutationFn: fetchCriarCursotecnico, 
 		onSuccess: (data) => {
-			alert("Curso tecnico criado com sucesso.");
+			toast.success("Curso tecnico criado com sucesso.");
 			adicionarcursoTecnico(data?.result);
 		}, onError: (err) => {
-
-			alert("Erro ao curso tecnico");
+			toast.error("Erro ao curso tecnico");
 		}});
 
 	return mutation;
