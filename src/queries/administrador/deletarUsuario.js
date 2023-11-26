@@ -1,6 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import api from "../../services/api";
 import { useAdministrador } from "@/src/store/useAdministrador";
+import { toast } from "react-toastify";
 
 const fetchDeletarUsuario = async ({id}) => {
 	const {data} = await api.delete(`/admin/usuario/${id}`);
@@ -12,11 +13,10 @@ export const useDeletarUsuario = () => {
 
 	const mutation = useMutation({mutationKey: ["administrador"], mutationFn: fetchDeletarUsuario, 
 		onSuccess: (data) => {
-			alert("Usuario deletado com sucesso.");
+			toast.success("Usuario deletado com sucesso.");
 			deletarUsuario(data?.result);
 		}, onError: (err) => {
-			// console.log(err.message);
-			alert("Erro ao deletar usuario");
+			toast.error("Erro ao deletar usuario");
 		}});
 
 	return mutation;

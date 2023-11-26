@@ -1,3 +1,5 @@
+import Error from "@/src/components/Error";
+import Loading from "@/src/components/Loading";
 import { CriarUsuario } from "@/src/components/modal/administrador/criarUsuario";
 import { colunasAdministrador } from "@/src/components/tabela/colunas/administrador";
 import { DataTable } from "@/src/components/tabela/data-table";
@@ -16,11 +18,11 @@ const Administrador = () => {
 	};
 	
 	if(isLoading) {
-		return <p>Carregando...</p>;
+		return <Loading />;
 	}
 	
 	if(status === "error") {
-		return <p>Erro ao acessar api...</p>;
+		return <Error messagem={"Error ao acessar servidor."}/>;
 	}
 
 	return ( 

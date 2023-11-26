@@ -6,12 +6,11 @@ import { useForm } from "react-hook-form";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useEffect, useState } from "react";
-import { EyeIcon, EyeOffIcon } from "lucide-react";
+import { EyeIcon, EyeOffIcon, Loader2 } from "lucide-react";
 import { useAdministrador } from "@/src/store/useAdministrador";
 import { useEditarUsuario } from "@/src/queries/administrador/editarUsuario";
 
 export function EditarUsuario({open, onClose, id}) {
-	const [loading, setLoading] = useState(false);
 	const [senhaVisivel, setSenhaVisivel] = useState(false);
 	const [confirmarSenhaVisivel, setConfirmarSenhaVisivel] = useState(false);
 
@@ -40,33 +39,20 @@ export function EditarUsuario({open, onClose, id}) {
 	});
 
 	const onSubmit = (values) => {
-		setLoading(true);
 		if(!values?.senha){
 			delete values?.senha;
 			delete values?.confirmarSenha;
 		}
-		// console.log(values);
-
 		mutate({id: id, values: values});
-
 	};
 
 	useEffect(() => {
-		if(isError || isSuccess) {
-			setLoading(false);
-		}
-
 		if(isSuccess) {
 			onClose();
 			form.reset();
 		}
-	},[isError, isSuccess]);
+	},[isSuccess]);
 
-	
-
-	// if(loading){
-	// 	return <p>Carregando...</p>;
-	// }
 	return (
 		<Dialog open={open} onOpenChange={() =>{ onClose();  form.reset();}}>
 			<DialogContent className="sm:max-w-xl">
@@ -142,7 +128,9 @@ export function EditarUsuario({open, onClose, id}) {
 							)}
 						/>
 						<DialogFooter>
-							<Button type="submit">Criar</Button>
+							<Button type="submit" disabled={status === "pending" ? true : false}>
+								{status === "pending" ? <> <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Carregando...</>: "Salvar"}
+							</Button>
 						</DialogFooter>
 					</form>
 				</Form>

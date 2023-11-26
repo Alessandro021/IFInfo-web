@@ -1,6 +1,7 @@
 import api from "../../services/api.js";
 import { useMutation } from "@tanstack/react-query";
 import { useAdministrador } from "@/src/store/useAdministrador.js";
+import { toast } from "react-toastify";
 
 
 const fetchAtualizarUsuario = async ({id, values}) => {
@@ -14,10 +15,10 @@ export const useEditarUsuario = () => {
 	const mutation = useMutation({mutationKey: ["administrador"], mutationFn: fetchAtualizarUsuario,
 		onSettled: (data, error, variables) => {
 			if (error) {
-				alert(error.message);
+				toast.error(error.message);
 			} else {
 				atualizarUsuario(variables.id, data?.result);
-				alert("Update realizado com sucesso");
+				toast.success("Update realizado com sucesso");
 			}
 		}    
 	});
