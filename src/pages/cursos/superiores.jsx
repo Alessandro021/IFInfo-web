@@ -1,3 +1,5 @@
+import Error from "@/src/components/Error";
+import Loading from "@/src/components/Loading";
 import { CriarCursoSuperior } from "@/src/components/modal/cursosSuperiores/criarCursoSuperior";
 import { colunasCursosSuperiores } from "@/src/components/tabela/colunas/cursosSuperiores";
 import { DataTable } from "@/src/components/tabela/data-table";
@@ -15,11 +17,11 @@ const CursosSuperiores = () => {
 	};
 	
 	if(isLoading) {
-		return <p>Carregando...</p>;
+		return <Loading />;
 	}
 	
 	if(status === "error") {
-		return <p>Erro ao acessar api...</p>;
+		return <Error messagem={"Error ao acessar servidor."} />;
 	}
 
 	return ( 

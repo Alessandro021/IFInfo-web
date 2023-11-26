@@ -1,6 +1,7 @@
 import api from "../../services/api.js";
 import { useMutation } from "@tanstack/react-query";
 import { useCursos } from "@/src/store/useCursos.js";
+import { toast } from "react-toastify";
 
 
 const fetchAtualizarCursoSuperior = async ({id, values}) => {
@@ -14,10 +15,10 @@ export const useAtualizarCursoSuperior = () => {
 	const mutation = useMutation({mutationKey: ["cursos-superiores"], mutationFn: fetchAtualizarCursoSuperior,
 		onSettled: (data, error, variables) => {
 			if (error) {
-				alert(error.message);
+				toast.error(error.message);
 			} else {
 				atualizarCursoSuperior(variables.id, data?.result);
-				alert("Update realizado com sucesso");
+				toast.success("Curso superior atualizado com sucesso");
 			}
 		}    
 	});
