@@ -15,13 +15,14 @@ import Administrador from "../pages/admin";
 import { useUsuario } from "../store/useUsuario";
 import ServidoresAdministrativo from "../pages/servidores/administrativo"; 
 import ServidoresDocentes from "../pages/servidores/docente";
+import Loading from "../components/Loading";
 
 export const Rotas = () => {
 	const {logado, loading} = useLogado();
 	const user = useUsuario(state => state.user);
 
 	if(loading){
-		return <p>Carregando...</p>;
+		return <Loading />;
 	}
 	return (
 		<BrowserRouter className="flex flex-col h-screen">

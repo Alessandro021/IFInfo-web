@@ -2,6 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import api from "../../services/api";
 import { useStorage } from "../../useHooks/useStorage";
 import { useUsuario } from "../../store/useUsuario";
+import { toast } from "react-toastify";
 
 const fecthLogin = async ({usuario}) => {
 	const {data} = await api.post("/entrar", usuario, {
@@ -25,12 +26,11 @@ export const useLogin = () => {
 		}, 
 		onError: (error) => {
 			if(error?.message === "Network Error") {
-				alert("Sem conexão com o servidor");
+				toast.error("Sem conexão com o servidor");
 			}
 
 			if(error?.message !== "Network Error") {
-				
-				alert(error?.response?.data?.errors?.default);
+				toast.error(error?.response?.data?.errors?.default);
 			}
 		}
 	});

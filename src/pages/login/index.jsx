@@ -3,19 +3,20 @@ import "../../utils/yup/index.js";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { EyeIcon, EyeOffIcon } from "lucide-react";
+import { EyeIcon, EyeOffIcon, Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
 import { useLogin } from "../../queries/usuario/login.js";
+import Loading from "@/src/components/Loading.jsx";
 
 
 const Login = () => {
 
 	const [senhaVisivel, setSenhaVisivel] = useState(false);
-	const {mutate} = useLogin();
+	const {mutate, status} = useLogin();
 	
 	const formSchema = yup.object().shape({
 		email: yup.string().email().min(6).required(),
@@ -69,7 +70,9 @@ const Login = () => {
 								</FormItem>
 							)}
 						/>
-						<Button type="submit" className="w-full max-w-sm">Entrar</Button>
+						<Button type="submit" disabled={status === "pending" ? true : false} className="w-full max-w-sm">
+							{status === "pending" ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Carregando... </> : "Entrar"}
+						</Button>
 					</form>
 				</Form>
 			</Card>

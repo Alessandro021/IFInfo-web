@@ -2,13 +2,14 @@ import { colunasNoticias } from "../../components/tabela/colunas/noticias";
 import { DataTable } from "../../components/tabela/data-table";
 import { useNoticia } from "@/src/store/useNoticias";
 import { useBuscarNoticias } from "@/src/queries/noticias/buscarTodasNoticias";
+import Loading from "@/src/components/Loading";
 
 const Noticias = () => {
 	const {isLoading, status} = useBuscarNoticias();
 	const noticias = useNoticia(state => state.noticias);
 	
 	if(isLoading) {
-		return <p>Carregando...</p>;
+		return <Loading />;
 	}
 	
 	if(status === "error") {

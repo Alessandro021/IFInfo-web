@@ -1,7 +1,14 @@
 import { Rotas } from "./routes";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const App = () => {
 	return (
-		<Rotas />
+		<>
+			<Rotas />
+			<ToastContainer autoClose={2600} position="top-center"  />
+		</>
+
 	);
 };
 
