@@ -6,18 +6,18 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 import { useHorarios } from "@/src/store/useHorarios";
 import { useAtualizarHorario } from "@/src/queries/horarios/atualizarHorario";
+import { toast } from "react-toastify";
+import { Loader2 } from "lucide-react";
 
 export function AtualizarHorario({id, open, onClose}) {
 	const fileInputRef = useRef();
 	const pegarHorarioPorId = useHorarios(state => state.pegarHorarioPorId);
 	pegarHorarioPorId(id);
 	const horario = useHorarios(state => state.horario);
-
-	const [loading, setLoading] = useState(false);
 
 	const formSchema = yup.object().shape({
 		nome: yup.string().strict().optional().nonNullable().min(3),
@@ -35,10 +35,7 @@ export function AtualizarHorario({id, open, onClose}) {
 
 	const {mutate, isError, isSuccess, status} = useAtualizarHorario();
     
-
 	const onSubmit = (values) => {
-		setLoading(true);
-
 		const formData = new FormData();
 		for (const key in values) {
 			if (key !== "pdf") {
@@ -47,7 +44,7 @@ export function AtualizarHorario({id, open, onClose}) {
 		}
 		if (fileInputRef.current.files[0]) {
 			if (fileInputRef.current.files[0].type !== "application/pdf") {
-				alert("Por favor, carregue um arquivo PDF.");
+				toast.warn("Por favor, carregue um arquivo PDF.");
 				return;
 			}
 			
@@ -55,26 +52,16 @@ export function AtualizarHorario({id, open, onClose}) {
 		}
 
 		mutate({id,  values: formData});
-
 	};
 
 	useEffect(() => {
-		if(isError || isSuccess) {
-			setLoading(false);
-		}
-
 		if(isSuccess) {
 			onClose();
 		}
 	},[isError, isSuccess]);
 
-	
-
-	// if(loading){
-	// 	return <p>Carregando...</p>;
-	// }
 	return (
-		<Dialog open={open} onOpenChange={() => onClose()}>
+		<Dialog open={open} onOpenChange={() => {onClose(), form.reset();}}>
 			<DialogContent className="sm:max-w-[425px]">
 				<DialogHeader>
 					<DialogTitle >Editar horário</DialogTitle>
@@ -129,7 +116,9 @@ export function AtualizarHorario({id, open, onClose}) {
 						</FormItem>
 
 						<DialogFooter>
-							<Button type="submit">Salvar</Button>
+							<Button type="submit" disabled={status === "pending" ? true : false}>
+								{status === "pending" ? <> <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Carregando...</>: "Salvar"}
+							</Button>
 						</DialogFooter>
 					</form>
 				</Form>

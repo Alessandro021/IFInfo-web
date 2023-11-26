@@ -1,6 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import api from "../../services/api";
 import { useHorarios } from "@/src/store/useHorarios";
+import { toast } from "react-toastify";
 
 const fecthDeletarHorario = async ({id}) => {
 	const {data} = await api.delete(`/horarios/${id}`);
@@ -12,11 +13,10 @@ export const useDeletarHorario = () => {
 
 	const mutation = useMutation({mutationKey: ["horario"], mutationFn: fecthDeletarHorario, 
 		onSuccess: (data) => {
-			alert("Horário deletado com sucesso.");
+			toast.success("Horário deletado com sucesso.");
 			deletarHorario(data?.result);
 		}, onError: (err) => {
-			// console.log(err.message);
-			alert("Erro ao deletar horário");
+			toast.error("Erro ao deletar horário");
 		}});
 
 	return mutation;

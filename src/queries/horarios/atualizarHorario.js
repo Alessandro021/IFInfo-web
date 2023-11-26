@@ -1,6 +1,7 @@
 import api from "../../services/api.js";
 import { useMutation } from "@tanstack/react-query";
 import { useHorarios } from "@/src/store/useHorarios.js";
+import { toast } from "react-toastify";
 
 
 const fecthHorario = async ({id, values}) => {
@@ -14,10 +15,10 @@ export const useAtualizarHorario = () => {
 	const mutation = useMutation({mutationKey: ["horario"], mutationFn: fecthHorario,
 		onSettled: (data, error, variables) => {
 			if (error) {
-				alert(error.message);
+				toast.error(error.message);
 			} else {
 				atualizarHorario(variables.id, data?.result);
-				alert("Update realizado com sucesso");
+				toast.success("Horario atualizado com sucesso");
 			}
 		}    
 	});

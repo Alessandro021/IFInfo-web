@@ -4,6 +4,8 @@ import { colunasHorarios } from "@/src/components/tabela/colunas/horarios";
 import { useBuscarHorarios } from "@/src/queries/horarios/buscarHorarios";
 import { useHorarios } from "@/src/store/useHorarios";
 import { useState } from "react";
+import Loading from "@/src/components/Loading";
+import Error from "@/src/components/Error";
 
 const Horarios = () => {
 	const {isLoading, status} = useBuscarHorarios();
@@ -15,11 +17,11 @@ const Horarios = () => {
 	};
 	
 	if(isLoading) {
-		return <p>Carregando...</p>;
+		return <Loading />;
 	}
 	
 	if(status === "error") {
-		return <p>Erro ao acessar api...</p>;
+		return <Error messagem={"Error ao acessar servidor."} />;
 	}
 
 	return ( 

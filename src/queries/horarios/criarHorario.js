@@ -1,6 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import api from "../../services/api";
 import { useHorarios } from "@/src/store/useHorarios";
+import { toast } from "react-toastify";
 
 const fecthCriarHorario = async ({values}) => {
 	const {data} = await api.post("/horarios", values);
@@ -12,11 +13,10 @@ export const useCriarHorario = () => {
 
 	const mutation = useMutation({mutationKey: ["horario"], mutationFn: fecthCriarHorario, 
 		onSuccess: (data) => {
-			alert("Horário criado com sucesso.");
+			toast.success("Horário criado com sucesso.");
 			adicionarHorario(data?.result);
 		}, onError: (err) => {
-
-			alert("Erro ao criar horário");
+			toast.error("Erro ao criar horário");
 		}});
 
 	return mutation;

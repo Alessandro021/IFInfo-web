@@ -6,14 +6,14 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 import { useCriarHorario } from "@/src/queries/horarios/criarHorario";
+import { Loader2 } from "lucide-react";
+import { toast } from "react-toastify";
 
 export function CriarHorario({open, onClose}) {
 	const fileInputRef = useRef();
-
-	const [loading, setLoading] = useState(false);
 
 	const formSchema = yup.object().shape({
 		nome: yup.string().strict().optional().nonNullable().min(3),
@@ -31,10 +31,7 @@ export function CriarHorario({open, onClose}) {
 
 	const {mutate, isError, isSuccess, status} = useCriarHorario();
     
-
 	const onSubmit = (values) => {
-		setLoading(true);
-
 		const formData = new FormData();
 		for (const key in values) {
 			if (key !== "pdf") {
@@ -43,35 +40,25 @@ export function CriarHorario({open, onClose}) {
 		}
 		if (fileInputRef.current.files[0]) {
 			if (fileInputRef.current.files[0].type !== "application/pdf") {
-				alert("Por favor, carregue um arquivo PDF.");
+				toast.warn("Por favor, carregue um arquivo PDF.");
 				return;
 			}
 			
 			formData.append("pdf", fileInputRef.current.files[0]);
 		}else {
-			alert("Por favor, carregue um arquivo PDF.");
+			toast.warn("Por favor, carregue um arquivo PDF.");
 			return;
 		}
 
 		mutate({values: formData});
-
 	};
 
 	useEffect(() => {
-		if(isError || isSuccess) {
-			setLoading(false);
-		}
-
 		if(isSuccess) {
 			onClose();
 		}
 	},[isError, isSuccess]);
 
-	
-
-	// if(loading){
-	// 	return <p>Carregando...</p>;
-	// }
 	return (
 		<Dialog open={open} onOpenChange={() => {onClose(); form.reset();}}>
 			<DialogContent className="sm:max-w-xl">
@@ -129,7 +116,9 @@ export function CriarHorario({open, onClose}) {
 
 						<div className="flex items-center justify-between">
 							<p className="text-sm font-semibold ml-8"><span className="text-xl font-extrabold">*</span> obrigatorio</p>
-							<Button type="submit">Criar</Button>
+							<Button type="submit" disabled={status === "pending" ? true : false}s>
+								{status === "pending" ? <> <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Carregando...</>: "Salvar"}
+							</Button>
 						</div>
 					</form>
 				</Form>
