@@ -10,7 +10,7 @@ import { useCriarCursoSuperior } from "@/src/queries/cursosSuperiores/criarCurso
 import { Loader2 } from "lucide-react";
 
 export function CriarCursoSuperior({open, onClose}) {
-	const {mutate, isError, isSuccess, status} = useCriarCursoSuperior();
+	const {mutate, isSuccess, status} = useCriarCursoSuperior();
 
 
 	const formSchema = yup.object().shape({
@@ -36,7 +36,7 @@ export function CriarCursoSuperior({open, onClose}) {
 			onClose();
 			form.reset();
 		}
-	},[isError, isSuccess]);
+	},[isSuccess]);
 
 	return (
 		<Dialog open={open} onOpenChange={() =>{ onClose();  form.reset();}}>

@@ -5,18 +5,17 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useCalendario } from "@/src/store/useCalendario";
 import { useAtualizarCalendario } from "@/src/queries/calendario/atualizarCalendario";
 import { Loader2 } from "lucide-react";
+import { toast } from "react-toastify";
 
 export function AtualizarCalendario({id, open, onClose}) {
 	const fileInputRef = useRef();
 	const pegarCalendarioPorId = useCalendario(state => state.pegarCalendarioPorId);
 	pegarCalendarioPorId(id);
 	const calendario = useCalendario(state => state.calendario);
-
-	const [loading, setLoading] = useState(false);
 
 	const formSchema = yup.object().shape({
 		nome: yup.string().strict().optional().nonNullable().min(3),
@@ -31,10 +30,8 @@ export function AtualizarCalendario({id, open, onClose}) {
 	});
 
 	const {mutate, isError, isSuccess, status} = useAtualizarCalendario();
-    
 
 	const onSubmit = (values) => {
-		setLoading(true);
 
 		const formData = new FormData();
 		for (const key in values) {
@@ -44,26 +41,20 @@ export function AtualizarCalendario({id, open, onClose}) {
 		}
 		if (fileInputRef.current.files[0]) {
 			if (fileInputRef.current.files[0].type !== "application/pdf") {
-				alert("Por favor, carregue um arquivo PDF.");
+				toast.warn("Por favor, carregue um arquivo PDF.");
 				return;
 			}
 			
 			formData.append("pdf", fileInputRef.current.files[0]);
 		}
-
 		mutate({id,  values: formData});
-
 	};
 
 	useEffect(() => {
-		if(isError || isSuccess) {
-			setLoading(false);
-		}
-
 		if(isSuccess) {
 			onClose();
 		}
-	},[isError, isSuccess]);
+	},[isSuccess]);
 
 	return (
 		<Dialog open={open} onOpenChange={() => onClose()}>

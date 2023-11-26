@@ -15,7 +15,7 @@ import ReactInputMask from "react-input-mask";
 export function CriarSetorEContato({open, onClose}) {
 	const [contatos, setContatos] = useState([{ email: "", nome: "", telefone: null }]);
 
-	const {mutate, isError, isSuccess, status} = useCriarSetorEContato();
+	const {mutate, isSuccess, status} = useCriarSetorEContato();
 
 	const validarContato = yup.object().shape({
 		email: yup.string().required().email().min(5),
@@ -43,7 +43,7 @@ export function CriarSetorEContato({open, onClose}) {
 		if(isSuccess) {
 			onClose();
 		}
-	},[isError, isSuccess]);
+	},[isSuccess]);
 
 	const removerContato = (index) => {
 		const array = contatos.filter((_, indexItem) => indexItem !== index);

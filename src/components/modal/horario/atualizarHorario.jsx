@@ -33,7 +33,7 @@ export function AtualizarHorario({id, open, onClose}) {
 		}
 	});
 
-	const {mutate, isError, isSuccess, status} = useAtualizarHorario();
+	const {mutate, isSuccess, status} = useAtualizarHorario();
     
 	const onSubmit = (values) => {
 		const formData = new FormData();
@@ -58,7 +58,7 @@ export function AtualizarHorario({id, open, onClose}) {
 		if(isSuccess) {
 			onClose();
 		}
-	},[isError, isSuccess]);
+	},[isSuccess]);
 
 	return (
 		<Dialog open={open} onOpenChange={() => {onClose(), form.reset();}}>

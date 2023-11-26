@@ -21,7 +21,6 @@ import { useAtualizarUsuario } from "@/src/queries/usuario/atualizarUsuario";
 
 export function AtualizUrusaurio() {
 	const user = useUsuario(state => state.user);
-	const [loading, setLoading] = useState(false);
 	const [isOpen, setIsOpen] = useState(false);
 
 	const formSchema = yup.object().shape({
@@ -39,29 +38,18 @@ export function AtualizUrusaurio() {
 	});
 
     
-	const {mutate, isError, isSuccess} = useAtualizarUsuario(form.getValues());
+	const {mutate, isSuccess} = useAtualizarUsuario(form.getValues());
 
 	const onSubmit = (values) => {
-		// setLoading(true);
 		mutate();
 	};
 
 	useEffect(() => {
-		if(isError || isSuccess) {
-			setLoading(false);
-			setIsOpen(false);
-		}
-
 		if(isSuccess) {
 			setIsOpen(false);
 		}
-	},[isError, isSuccess]);
+	},[isSuccess]);
 
-	
-
-	// if(loading){
-	// 	return <p>Carregando...</p>;
-	// }
 	return (
 		<Dialog open={isOpen} onOpenChange={() => setIsOpen(current => !current)}>
 			<DialogTrigger asChild>

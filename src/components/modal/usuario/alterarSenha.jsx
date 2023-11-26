@@ -21,10 +21,9 @@ import { useAtualizarUsuario } from "@/src/queries/usuario/atualizarUsuario";
 
 export function AlterarSenha() {
 	const user = useUsuario(state => state.user);
-	const [loading, setLoading] = useState(false);
 	const [isOpen, setIsOpen] = useState(false);
 
-	const {mutate, isError, isSuccess} = useAtualizarUsuario();
+	const {mutate, isSuccess} = useAtualizarUsuario();
 
 
 	const formSchema = yup.object().shape({
@@ -48,22 +47,12 @@ export function AlterarSenha() {
 	};
 
 	useEffect(() => {
-		if(isError || isSuccess) {
-			setLoading(false);
-			setIsOpen(false);
-		}
-
 		if(isSuccess) {
 			form.reset();
 			setIsOpen(false);
 		}
-	},[isError, isSuccess]);
+	},[isSuccess]);
 
-	
-
-	// if(loading){
-	// 	return <p>Carregando...</p>;
-	// }
 	return (
 		<Dialog open={isOpen} onOpenChange={() => setIsOpen(current => !current)}>
 			<DialogTrigger asChild>

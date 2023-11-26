@@ -10,7 +10,7 @@ import { useCriarCursoTecnico } from "@/src/queries/cursosTecnicos/criarCursoTec
 import { Loader2 } from "lucide-react";
 
 export function CriarCursoTecnico({open, onClose}) {
-	const {mutate, isError, isSuccess, status} = useCriarCursoTecnico();
+	const {mutate, isSuccess, status} = useCriarCursoTecnico();
 
 	const formSchema = yup.object().shape({
 		nome: yup.string().strict().required().nonNullable().min(3),
@@ -35,7 +35,7 @@ export function CriarCursoTecnico({open, onClose}) {
 			onClose();
 			form.reset();
 		}
-	},[isError, isSuccess]);
+	},[isSuccess]);
 
 	return (
 		<Dialog open={open} onOpenChange={() =>{ onClose();  form.reset();}}>

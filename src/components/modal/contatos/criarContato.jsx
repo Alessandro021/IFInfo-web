@@ -15,7 +15,7 @@ import { useCriarContato } from "@/src/queries/contatos/criarContato";
 export function CriarContato({open, onClose, idSetor}) {
 	const [contatos, setContatos] = useState([{ email: "", nome: "", telefone: ""}]);
 
-	const {mutate, isError, isSuccess, status} = useCriarContato();
+	const {mutate, isSuccess, status} = useCriarContato();
 
 	const validarContato = yup.object().shape({
 		email: yup.string().required().email().min(5),
@@ -41,7 +41,7 @@ export function CriarContato({open, onClose, idSetor}) {
 		if(isSuccess) {
 			onClose();
 		}
-	},[isError, isSuccess]);
+	},[isSuccess]);
 
 	const removerContato = (index) => {
 		const array = contatos.filter((_, indexItem) => indexItem !== index);

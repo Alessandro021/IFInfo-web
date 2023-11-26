@@ -1,6 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { useUsuario } from "@/src/store/useUsuario.js";
 import api from "@/src/services/api";
+import { toast } from "react-toastify";
 
 
 const atualizarUsuario = async ({values}) => {
@@ -14,10 +15,10 @@ export const useAtualizarUsuario = () => {
 	const mutation = useMutation({mutationKey: ["usuario"], mutationFn: atualizarUsuario, 
 		onSuccess: (data) => {
 			alterarUsuario(data?.result);
-			alert("Perfil atualizado com sucesso");
+			toast.success("Perfil atualizado com sucesso");
 		},
 		onError: (data) => {
-			alert(data.message);
+			toast.error(data.message);
 		}
 	});
 

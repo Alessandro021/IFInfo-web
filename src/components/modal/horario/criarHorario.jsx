@@ -57,7 +57,7 @@ export function CriarHorario({open, onClose}) {
 		if(isSuccess) {
 			onClose();
 		}
-	},[isError, isSuccess]);
+	},[isSuccess]);
 
 	return (
 		<Dialog open={open} onOpenChange={() => {onClose(); form.reset();}}>

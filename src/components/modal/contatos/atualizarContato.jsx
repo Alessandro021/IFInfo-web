@@ -19,7 +19,7 @@ export function AtualizarContato({open, onClose, idSetor, idContato}) {
 
 	const contato = useContatos(state => state.contato);
 
-	const {mutate, isError, isSuccess, status} = useAtualizarContato();
+	const {mutate, isSuccess, status} = useAtualizarContato();
 
 	useEffect(() => {
 		pegarContatoPorId(idSetor, idContato);
@@ -49,7 +49,7 @@ export function AtualizarContato({open, onClose, idSetor, idContato}) {
 		if(isSuccess) {
 			onClose();
 		}
-	},[isError, isSuccess]);
+	},[ isSuccess]);
 
 	return (
 		<Dialog open={open} onOpenChange={() => {onClose(); form.reset();}}>

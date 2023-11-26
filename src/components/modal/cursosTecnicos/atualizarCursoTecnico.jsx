@@ -16,7 +16,7 @@ export function AtualizarCursoTecnico({id, open, onClose}) {
 	pegarCursoTecnicoPorId(id);
 	const cursoTecnico = useCursos(state => state.cursoTecnico);
 
-	const {mutate, isError, isSuccess, status} = useAtualizarCursoTecnico();
+	const {mutate, isSuccess, status} = useAtualizarCursoTecnico();
 
 	const formSchema = yup.object().shape({
 		nome: yup.string().strict().optional().nonNullable().min(3),
@@ -41,7 +41,7 @@ export function AtualizarCursoTecnico({id, open, onClose}) {
 		if(isSuccess) {
 			onClose();
 		}
-	},[isError, isSuccess]);
+	},[isSuccess]);
 
 	return (
 		<Dialog open={open} onOpenChange={() => onClose()}>

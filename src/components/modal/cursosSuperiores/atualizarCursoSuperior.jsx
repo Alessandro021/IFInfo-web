@@ -16,7 +16,7 @@ export function AtualizarCursoSuperior({id, open, onClose}) {
 	pegarCursoSuperiorPorId(id);
 	const cursoSuperior = useCursos(state => state.cursoSuperior);
 
-	const {mutate, isError, isSuccess, status} = useAtualizarCursoSuperior();
+	const {mutate, isSuccess, status} = useAtualizarCursoSuperior();
 
 	const formSchema = yup.object().shape({
 		nome: yup.string().strict().optional().nonNullable().min(3),
@@ -40,7 +40,7 @@ export function AtualizarCursoSuperior({id, open, onClose}) {
 		if(isSuccess) {
 			onClose();
 		}
-	},[isError, isSuccess]);
+	},[isSuccess]);
 
 	return (
 		<Dialog open={open} onOpenChange={() => onClose()}>

@@ -5,13 +5,13 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useCriarCalendario } from "@/src/queries/calendario/criarCalendario";
 import { Loader2 } from "lucide-react";
+import { toast } from "react-toastify";
 
 export function CriarCalendario({open, onClose}) {
 	const fileInputRef = useRef();
-	const [loading, setLoading] = useState(false);
 
 	const formSchema = yup.object().shape({
 		nome: yup.string().strict().required().nonNullable().min(3),
@@ -25,17 +25,9 @@ export function CriarCalendario({open, onClose}) {
 		}
 	});
 
-	const {mutate, isError, isSuccess, status} = useCriarCalendario();
-    
+	const {mutate, isSuccess, status} = useCriarCalendario();
 
 	const onSubmit = (values) => {
-		//TODO: validar pdf
-		// if ((values.pdf && values.pdf[0] && values.pdf[0].type !== "application/pdf" ) || values.pdf === "") {
-		// 	alert("Por favor, carregue um arquivo PDF.");
-		// 	return;
-		// }
-		setLoading(true);
-
 		const formData = new FormData();
 		for (const key in values) {
 			if (key !== "pdf") {
@@ -44,12 +36,12 @@ export function CriarCalendario({open, onClose}) {
 		}
 		if (fileInputRef.current.files[0]) {
 			if (fileInputRef.current.files[0].type !== "application/pdf") {
-				alert("Por favor, carregue um arquivo PDF.");
+				toast.warn("Por favor, carregue um arquivo PDF.");
 				return;
 			}
 			formData.append("pdf", fileInputRef.current.files[0]);
 		} else {
-			alert("Por favor, carregue um arquivo PDF.");
+			toast.warn("Por favor, carregue um arquivo PDF.");
 			return;
 		}
 
@@ -58,15 +50,11 @@ export function CriarCalendario({open, onClose}) {
 	};
 
 	useEffect(() => {
-		if(isError || isSuccess) {
-			setLoading(false);
-		}
-
 		if(isSuccess) {
 			onClose();
 			form.reset();
 		}
-	},[isError, isSuccess]);
+	},[isSuccess]);
 
 
 	return (

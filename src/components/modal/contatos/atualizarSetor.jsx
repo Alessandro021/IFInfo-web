@@ -17,7 +17,7 @@ export function AtualizarSetor({open, onClose, idSetor}) {
 	pegarSetorPorId(idSetor);
 	const setor = useContatos(state => state.setor);
 
-	const {mutate, isError, isSuccess, status} = useAtualizarSetor();
+	const {mutate, isSuccess, status} = useAtualizarSetor();
 
 	const formSchema = yup.object().shape({
 		setor: yup.string().strict().optional().nonNullable().min(3),
@@ -38,7 +38,7 @@ export function AtualizarSetor({open, onClose, idSetor}) {
 		if(isSuccess) {
 			onClose();
 		}
-	},[isError, isSuccess]);
+	},[isSuccess]);
 
 	return (
 		<Dialog open={open} onOpenChange={() => {onClose(); form.reset();}}>
