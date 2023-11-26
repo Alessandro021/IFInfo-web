@@ -6,6 +6,7 @@ import { CriarContato } from "../../modal/contatos/criarContato";
 import { useDeletarContato } from "@/src/queries/contatos/deletarContato";
 import { AtualizarContato } from "../../modal/contatos/atualizarContato";
 import { useContatos } from "@/src/store/useContatos";
+import { toast } from "react-toastify";
 
 export const colunasVerContatos = [
 	{
@@ -72,7 +73,7 @@ export const colunasVerContatos = [
 				if(quantConatatos?.contato?.length > 1){
 					return mutate({ id: Number(contato.id) });
 				}
-				alert("Pelo menos um contato deve ser mantido");
+				toast.warn("Pelo menos um contato deve ser mantido");
 
 			};
 			return (
