@@ -4,6 +4,8 @@ import { DataTable } from "../../components/tabela/data-table";
 import { useCalendario } from "@/src/store/useCalendario";
 import { CriarCalendario } from "@/src/components/modal/calendario/criarCalendario";
 import { useState } from "react";
+import Loading from "@/src/components/Loading";
+import Error from "@/src/components/Error";
 
 const Calendario = () => {
 	const {isLoading, status} = useBuscarCalendarios();
@@ -15,11 +17,11 @@ const Calendario = () => {
 	};
 	
 	if(isLoading) {
-		return <p>Carregando...</p>;
+		return <Loading />;
 	}
 	
 	if(status === "error") {
-		return <p>Erro ao acessar api...</p>;
+		return <Error messagem={"Erro ao acessar servidor"} />;
 	}
 
 	return ( 

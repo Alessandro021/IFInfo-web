@@ -1,6 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import api from "../../services/api";
 import { useCalendario } from "@/src/store/useCalendario";
+import { toast } from "react-toastify";
 
 const fecthDeletarCalendario = async ({id}) => {
 	const {data} = await api.delete(`/calendario/${id}`);
@@ -12,11 +13,11 @@ export const useDeletarCalendario = () => {
 
 	const mutation = useMutation({mutationKey: ["calendario"], mutationFn: fecthDeletarCalendario, 
 		onSuccess: (data) => {
-			alert("Calendário deletado com sucesso.");
+			toast.success("Calendário deletado com sucesso.");
 			deletarCalendario(data?.result);
 		}, onError: (err) => {
 			// console.log(err.message);
-			alert("Erro ao deletar calendário");
+			toast.error("Erro ao deletar calendário");
 		}});
 
 	return mutation;

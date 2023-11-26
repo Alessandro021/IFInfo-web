@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { useEffect, useRef, useState } from "react";
 import { useCalendario } from "@/src/store/useCalendario";
 import { useAtualizarCalendario } from "@/src/queries/calendario/atualizarCalendario";
+import { Loader2 } from "lucide-react";
 
 export function AtualizarCalendario({id, open, onClose}) {
 	const fileInputRef = useRef();
@@ -33,10 +34,6 @@ export function AtualizarCalendario({id, open, onClose}) {
     
 
 	const onSubmit = (values) => {
-		// if (values.pdf && values.pdf !== calendario?.pdf && values.pdf[0] && values.pdf[0].type !== "application/pdf") {
-		// 	alert("Por favor, carregue um arquivo PDF.");
-		// 	return;
-		// }
 		setLoading(true);
 
 		const formData = new FormData();
@@ -68,11 +65,6 @@ export function AtualizarCalendario({id, open, onClose}) {
 		}
 	},[isError, isSuccess]);
 
-	
-
-	// if(loading){
-	// 	return <p>Carregando...</p>;
-	// }
 	return (
 		<Dialog open={open} onOpenChange={() => onClose()}>
 			<DialogContent className="sm:max-w-[425px]">
@@ -106,7 +98,9 @@ export function AtualizarCalendario({id, open, onClose}) {
 						</FormItem>
 
 						<DialogFooter>
-							<Button type="submit">Salvar</Button>
+							<Button type="submit" disabled={status === "pending" ? true : false}>
+								{status === "pending" ? <> <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Carregando...</>: "Salvar"}
+							</Button>
 						</DialogFooter>
 					</form>
 				</Form>
