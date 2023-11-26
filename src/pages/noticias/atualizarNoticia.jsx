@@ -12,6 +12,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@
 import { useEffect, useState } from "react";
 import { useNoticia } from "@/src/store/useNoticias";
 import { useAtualizarNoticia } from "@/src/queries/noticias/atualizarNoticia";
+import { Loader2 } from "lucide-react";
 
 const AtualizarNoticia = () => {
 	const {id} = useParams();
@@ -50,24 +51,13 @@ const AtualizarNoticia = () => {
 
 	});
 
-	const {mutate, isError, isSuccess} = useAtualizarNoticia(id, form.getValues());
+	const {mutate, status} = useAtualizarNoticia(id, form.getValues());
 
 	const onSubmit = () => {
 		setLoading(true);
 		mutate();
 	};
-
-	useEffect(() => {
-		if(isError || isSuccess) {
-			setLoading(false);
-		}
-	},[isError, isSuccess]);
-
 	
-
-	if(loading){
-		return <p>Carregando...</p>;
-	}
 	return ( 
 		<div className="flex h-auto justify-center p-8 bg-slate-100">
 			<Card className="w-11/12 h-full">
@@ -179,7 +169,9 @@ const AtualizarNoticia = () => {
 							/>
 							<CardFooter className="flex justify-between mt-10">
 								<Button variant="outline" onClick={() => navigate("/")}>Voltar</Button>
-								<Button type="submit">Atualizar</Button>
+								<Button type="submit" disabled={status === "pending" ? true : false} >
+									{status === "pending" ? <> <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Carregando...</>: "Salvar"}
+								</Button>
 							</CardFooter>
 						</form>
 					</Form>

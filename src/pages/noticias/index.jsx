@@ -3,6 +3,7 @@ import { DataTable } from "../../components/tabela/data-table";
 import { useNoticia } from "@/src/store/useNoticias";
 import { useBuscarNoticias } from "@/src/queries/noticias/buscarTodasNoticias";
 import Loading from "@/src/components/Loading";
+import Error from "@/src/components/Error";
 
 const Noticias = () => {
 	const {isLoading, status} = useBuscarNoticias();
@@ -13,7 +14,7 @@ const Noticias = () => {
 	}
 	
 	if(status === "error") {
-		return <p>Erro ao acessar api...</p>;
+		return <Error messagem="Error ao acessar servidor." />;
 	}
 
 	return ( 

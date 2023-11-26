@@ -1,37 +1,10 @@
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import { ImageIcon, ImageOffIcon, MoreHorizontal} from "lucide-react";
 import { useNavigate} from "react-router-dom";
-import {
-	DropdownMenu,
-	DropdownMenuContent,
-	DropdownMenuItem,
-	DropdownMenuLabel,
-	DropdownMenuSeparator,
-	DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger} from "@/components/ui/dropdown-menu";
 import { useDeletarNoticia } from "@/src/queries/noticias/deletarNoticia";
 
 export const colunasNoticias = [
-	{
-		id: "select",
-		header: ({ table }) => (
-			<Checkbox
-				checked={table.getIsAllPageRowsSelected()}
-				onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-				aria-label="Select all"
-			/>
-		),
-		cell: ({ row }) => (
-			<Checkbox
-				checked={row.getIsSelected()}
-				onCheckedChange={(value) => row.toggleSelected(!!value)}
-				aria-label="Select row"
-			/>
-		),
-		enableSorting: false,
-		enableHiding: false,
-	},
 	{
 		accessorKey: "id",
 		header: "id",

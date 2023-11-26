@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 
 export function DataTable({ columns , data, ComponenteCriarItem, criar, ...props}) {
-	const [rowSelection, setRowSelection] = useState({});
 	const [columnVisibility, setColumnVisibility] = useState({});
 	const [sorting, setSorting] = useState([]);
 
@@ -17,12 +16,10 @@ export function DataTable({ columns , data, ComponenteCriarItem, criar, ...props
 		columns,
 		getCoreRowModel: getCoreRowModel(),
 		getPaginationRowModel: getPaginationRowModel(),
-		onRowSelectionChange: setRowSelection,
 		onColumnVisibilityChange: setColumnVisibility,
 		onSortingChange: setSorting,
 		getSortedRowModel: getSortedRowModel(),
 		state: {
-			rowSelection,
 			columnVisibility,
 			sorting,
 		},
@@ -36,25 +33,20 @@ export function DataTable({ columns , data, ComponenteCriarItem, criar, ...props
 						<Button variant="outline" className="mr-auto">colunas</Button>
 					</DropdownMenuTrigger>
 					<DropdownMenuContent align="start">
-						{table
-							.getAllColumns()
-							.filter(
-								(column) => column.getCanHide()
-							)
-							.map((column) => {
-								return (
-									<DropdownMenuCheckboxItem
-										key={column.id}
-										className="capitalize"
-										checked={column.getIsVisible()}
-										onCheckedChange={(value) =>
-											column.toggleVisibility(!!value)
-										}
-									>
-										{column.id}
-									</DropdownMenuCheckboxItem>
-								);
-							})}
+						{table.getAllColumns().filter((column) => column.getCanHide()).map((column) => {
+							return (
+								<DropdownMenuCheckboxItem
+									key={column.id}
+									className="capitalize"
+									checked={column.getIsVisible()}
+									onCheckedChange={(value) =>
+										column.toggleVisibility(!!value)
+									}
+								>
+									{column.id}
+								</DropdownMenuCheckboxItem>
+							);
+						})}
 					</DropdownMenuContent>
 				</DropdownMenu>
 				{ComponenteCriarItem && <Button onClick={criar} >Criar</Button>}
@@ -103,31 +95,16 @@ export function DataTable({ columns , data, ComponenteCriarItem, criar, ...props
 					</TableBody>
 				</Table>
 			</div>
-			<div className="flex justify-between">
-				<div className="flex text-sm text-muted-foreground space-x-2 py-4">
-					{/* {table.getFilteredSelectedRowModel().rows.map(item => console.log(item.original.id))} */}
-					{table.getFilteredSelectedRowModel().rows.length} of{" "}
-					{table.getFilteredRowModel().rows.length} linhas(s) selecionadas.
-				</div>
-				<div className="flex items-center justify-end gap-4">
-					<Button
-						variant="outline"
-						size="sm"
-						onClick={() => table.previousPage()}
-						disabled={!table.getCanPreviousPage()}
-					>
+
+			<div className="flex items-center justify-end gap-4">
+				<Button variant="outline" size="sm" onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
                     Anterior
-					</Button>
-					<Button
-						variant="outline"
-						size="sm"
-						onClick={() => table.nextPage()}
-						disabled={!table.getCanNextPage()}
-					>
+				</Button>
+				<Button variant="outline" size="sm" onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
                     Proximo
-					</Button>
-				</div>
+				</Button>
 			</div>
+
 		</div>
 	);
     

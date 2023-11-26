@@ -47,7 +47,7 @@ const VerNoticia = () => {
 						<textarea ref={textAreaRef} className="rounded-md outline-none resize-none w-full overflow-hidden border-2 p-2 text-sm text-justify font-medium" value={noticia?.conteudo} readOnly />
 					</div>
 
-					<div className="flex gap-4">
+					<div className="grid grid-cols-2 gap-4">
 						<div>
 							<h1 className="text-xl font-bold">data:</h1>
 							<div className="rounded-md w-auto border-2 px-4 py-2 ">
@@ -64,7 +64,7 @@ const VerNoticia = () => {
 					</div>
 
 					<div>
-						<h1 className="text-xl font-bold">imagem da notícia:</h1>
+						<h1 className="text-xl font-bold">foto:</h1>
 						{noticia?.url_foto ? (
 							<div className="rounded-md w-[340px] border-2 p-2 ">
 								<img className="w-80 h-96" src={noticia?.url_foto} alt={noticia?.titulo} />
