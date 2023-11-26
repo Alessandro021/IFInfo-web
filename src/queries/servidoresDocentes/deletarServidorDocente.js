@@ -1,6 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import api from "../../services/api";
 import { useServidoresDocentes } from "@/src/store/useServidoresDocentes";
+import { toast } from "react-toastify";
 
 const fetchDeletarServiudorDocente = async ({id}) => {
 	const {data} = await api.delete(`/servidor/docente/${id}`);
@@ -12,11 +13,11 @@ export const useDeletarServidorDocente = () => {
 
 	const mutation = useMutation({mutationKey: ["servidores-docentes"], mutationFn: fetchDeletarServiudorDocente,  
 		onSuccess: (data) => {
-			alert("Servidor Docente deletado com sucesso.");
+			toast.success("Servidor Docente deletado com sucesso.");
 			deletarServidorDocente(data?.result);
 		}, onError: (err) => {
 			// console.log(err.message);
-			alert("Erro ao deletar servidor Docente");
+			toast.error("Erro ao deletar servidor Docente");
 		}});
 
 	return mutation;

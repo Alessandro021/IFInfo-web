@@ -1,6 +1,7 @@
 import api from "../../services/api.js";
 import { useMutation } from "@tanstack/react-query";
 import { useServidoresDocentes } from "@/src/store/useServidoresDocentes.js";
+import { toast } from "react-toastify";
 
 
 const fetchAtualizarServidorDocente = async ({id, values}) => {
@@ -14,10 +15,10 @@ export const useAtualizarServidoresDocentes = () => {
 	const mutation = useMutation({mutationKey: ["servidores-docentes"], mutationFn: fetchAtualizarServidorDocente,
 		onSettled: (data, error, variables) => {
 			if (error) {
-				alert(error.message);
+				toast.error(error.message);
 			} else {
 				atualizarServidorDocente(variables.id, data?.result);
-				alert("Update realizado com sucesso");
+				toast.success("Servidor docente atualizado com sucesso");
 			}
 		}    
 	});

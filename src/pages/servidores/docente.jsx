@@ -1,3 +1,5 @@
+import Error from "@/src/components/Error";
+import Loading from "@/src/components/Loading";
 import { CriarServidorDocente } from "@/src/components/modal/servidoresDocentes/criarServidorDocente";
 import { colunasServidoresDocentes } from "@/src/components/tabela/colunas/servidoresDocentes";
 import { DataTable } from "@/src/components/tabela/data-table";
@@ -15,11 +17,11 @@ const ServidoresDocentes = () => {
 	};
 	
 	if(isLoading) {
-		return <p>Carregando...</p>;
+		return <Loading />;
 	}
 	
 	if(status === "error") {
-		return <p>Erro ao acessar api...</p>;
+		return <Error messagem={"Erro ao acessar servidor."}/>;
 	}
 
 	return ( 

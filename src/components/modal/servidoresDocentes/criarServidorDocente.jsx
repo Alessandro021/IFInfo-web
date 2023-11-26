@@ -5,13 +5,12 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useCriarServidorDocente } from "@/src/queries/servidoresDocentes/criarServidorDocente";
+import { Loader2 } from "lucide-react";
 
 export function CriarServidorDocente({open, onClose}) {
-	const [loading, setLoading] = useState(false);
 	const {mutate, isError, isSuccess, status} = useCriarServidorDocente();
-
 
 	const formSchema = yup.object().shape({
 		nome: yup.string().strict().required().nonNullable().min(3),
@@ -31,29 +30,16 @@ export function CriarServidorDocente({open, onClose}) {
 	});
 
 	const onSubmit = (values) => {
-		setLoading(true);
-		// console.log(values);
-
 		mutate({values: values});
-
 	};
 
 	useEffect(() => {
-		if(isError || isSuccess) {
-			setLoading(false);
-		}
-
 		if(isSuccess) {
 			onClose();
 			form.reset();
 		}
-	},[isError, isSuccess]);
+	},[isSuccess]);
 
-	
-
-	// if(loading){
-	// 	return <p>Carregando...</p>;
-	// }
 	return (
 		<Dialog open={open} onOpenChange={() =>{ onClose();  form.reset();}}>
 			<DialogContent className="sm:max-w-xl">
@@ -123,7 +109,9 @@ export function CriarServidorDocente({open, onClose}) {
 
 						<div className="flex items-center justify-between">
 							<p className="text-sm font-semibold ml-8"><span className="text-xl font-extrabold">*</span> obrigatorio</p>
-							<Button type="submit">Criar</Button>
+							<Button type="submit" disabled={status === "pending" ? true : false}>
+								{status === "pending" ? <> <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Carregando...</>: "Criar"}
+							</Button>
 						</div>
 					</form>
 				</Form>
