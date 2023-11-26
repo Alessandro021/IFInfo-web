@@ -5,9 +5,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useServidoresAdministrativos } from "@/src/store/useServidoresAdministrativos";
 import { useAtualizarServidorAdministrativo } from "@/src/queries/servidortesAdministrativos/atualizarServidorAdministrativo";
+import { Loader2 } from "lucide-react";
 
 export function AtualizarServidorAdministrativo({open, onClose, id}) {
 	const pegarServidoradministrativoPorId = useServidoresAdministrativos(state => state.pegarServidoradministrativoPorId);
@@ -15,8 +16,6 @@ export function AtualizarServidorAdministrativo({open, onClose, id}) {
 	const administrativo = useServidoresAdministrativos(state => state.administrativo);
 
 	const {mutate, isError, isSuccess, status} = useAtualizarServidorAdministrativo();
-
-	const [loading, setLoading] = useState(false);
 
 	const formSchema = yup.object().shape({
 		nome: yup.string().strict().optional().nonNullable().min(3),
@@ -32,29 +31,16 @@ export function AtualizarServidorAdministrativo({open, onClose, id}) {
 	});
 
 	const onSubmit = (values) => {
-		setLoading(true);
-		// console.log(values);
-
 		mutate({id: id,  values: values});
-
 	};
 
 	useEffect(() => {
-		if(isError || isSuccess) {
-			setLoading(false);
-		}
-
 		if(isSuccess) {
 			onClose();
 			form.reset();
 		}
-	},[isError, isSuccess]);
+	},[ isSuccess]);
 
-	
-
-	// if(loading){
-	// 	return <p>Carregando...</p>;
-	// }
 	return (
 		<Dialog open={open} onOpenChange={() =>{ onClose();  form.reset();}}>
 			<DialogContent className="sm:max-w-lg">
@@ -95,7 +81,9 @@ export function AtualizarServidorAdministrativo({open, onClose, id}) {
 						/>
 
 						<DialogFooter>
-							<Button type="submit">Salvar</Button>
+							<Button type="submit" disabled={status === "pending" ? true : false}>
+								{status === "pending" ? <> <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Carregando...</>: "Salvar"}
+							</Button>
 						</DialogFooter>
 					</form>
 				</Form>

@@ -1,6 +1,7 @@
 import api from "../../services/api.js";
 import { useMutation } from "@tanstack/react-query";
 import { useServidoresAdministrativos } from "@/src/store/useServidoresAdministrativos.js";
+import { toast } from "react-toastify";
 
 
 const fetchAtualizarServidorAdministrativo = async ({id, values}) => {
@@ -14,10 +15,10 @@ export const useAtualizarServidorAdministrativo = () => {
 	const mutation = useMutation({mutationKey: ["servidores-administrativo"], mutationFn: fetchAtualizarServidorAdministrativo,
 		onSettled: (data, error, variables) => {
 			if (error) {
-				alert(error.message);
+				toast.error(error.message);
 			} else {
 				atualizarServidorAdministrativo(variables.id, data?.result);
-				alert("Update realizado com sucesso");
+				toast.success("Update realizado com sucesso");
 			}
 		}    
 	});

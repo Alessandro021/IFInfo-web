@@ -1,3 +1,5 @@
+import Error from "@/src/components/Error";
+import Loading from "@/src/components/Loading";
 import { CriarServidorAdministrativo } from "@/src/components/modal/servidoresAdministrativos/criarServidorAdministrativo";
 import { colunasServidoresAdministrativos } from "@/src/components/tabela/colunas/servidoresAdministrativos";
 import { DataTable } from "@/src/components/tabela/data-table";
@@ -17,11 +19,11 @@ const ServidoresAdministrativo = () => {
 	};
 	
 	if(isLoading) {
-		return <p>Carregando...</p>;
+		return <Loading />;
 	}
 	
 	if(status === "error") {
-		return <p>Erro ao acessar api...</p>;
+		return <Error messagem={"Erro ao acessar servidor."}/>;
 	}
 
 	return ( 

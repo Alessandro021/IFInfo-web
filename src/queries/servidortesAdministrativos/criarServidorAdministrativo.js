@@ -1,6 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import api from "../../services/api";
 import { useServidoresAdministrativos } from "@/src/store/useServidoresAdministrativos";
+import { toast } from "react-toastify";
 
 const fetchCriarServidorAdministrativo = async ({values}) => {
 	const {data} = await api.post("/servidor/administrativo", values);
@@ -12,11 +13,10 @@ export const useCriarServidorAdministrativo = () => {
 
 	const mutation = useMutation({mutationKey: ["servidores-administrativo"], mutationFn: fetchCriarServidorAdministrativo, 
 		onSuccess: (data) => {
-			alert("Servidor administrativo criado com sucesso.");
+			toast.success("Servidor administrativo criado com sucesso.");
 			adicionarServidorAdministrativo(data?.result);
 		}, onError: (err) => {
-
-			alert("Erro ao criar servidor administrativo");
+			toast.error("Erro ao criar servidor administrativo");
 		}});
 
 	return mutation;
