@@ -9,23 +9,27 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
 
-import { useEffect, useState } from "react";
 import { useNoticia } from "@/src/store/useNoticias";
 import { useAtualizarNoticia } from "@/src/queries/noticias/atualizarNoticia";
 import { Loader2 } from "lucide-react";
+import { useEffect } from "react";
 
 const AtualizarNoticia = () => {
-	const {id} = useParams();
-	const {mutate, status} = useAtualizarNoticia();
+	const navigate = useNavigate();
 
+	const {id} = useParams();
 	const pegarNoticiaPorId = useNoticia(state => state.pegarNoticiaPorId);
 	const noticia = useNoticia(state => state.noticia);
-
-	const navigate = useNavigate();
 
 	useEffect(() => {
 		pegarNoticiaPorId(id);
 	}, [id, pegarNoticiaPorId]);
+	
+
+	const {mutate, status} = useAtualizarNoticia();
+
+
+	//TODO: Corrigir atraso na atulização do estado
 
 	const formSchema = yup.object().shape({
 		titulo: yup.string().min(3).optional(),
@@ -50,8 +54,28 @@ const AtualizarNoticia = () => {
 
 	});
 
+	useEffect(() => {
+		form.reset({
+			id: noticia?.id,
+			titulo: noticia?.titulo || "",
+			conteudo: noticia?.conteudo?.trim() || "",
+			hora: noticia?.hora || "",
+			data: noticia?.data || "",
+			link: noticia?.link || "",
+			url_foto: noticia?.url_foto || "",
+		});
+	}, [noticia, form]);
+
 
 	const onSubmit = (values) => {
+
+		for (let key in values) {
+			if (values[key] === "") {
+				values[key] = null;
+			}
+		}
+		delete values.id;
+
 		mutate({id: id, values: values});
 	};
 	

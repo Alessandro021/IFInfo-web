@@ -9,15 +9,15 @@ const buscarNoticias = async () => {
 };
 
 export const useBuscarNoticias = () => {
-	const pegarToadaAsNoticias = useNoticia(state => state.pegarToadaAsNoticias);
+	const pegarTodasNoticias = useNoticia(state => state.pegarTodasNoticias);
 
 	const query = useQuery({queryKey: ["noticias"], queryFn: buscarNoticias});
 
 	useEffect(() => {
 		if(query.status === "success"){
-			pegarToadaAsNoticias(query.data?.result);
+			pegarTodasNoticias(query?.data?.result);
 		}
-    
-	},[query.status]);
+	},[query.status, query.data]);
+
 	return query;
 };
