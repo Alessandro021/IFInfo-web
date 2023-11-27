@@ -38,10 +38,10 @@ export function AtualizUrusaurio() {
 	});
 
     
-	const {mutate, isSuccess} = useAtualizarUsuario(form.getValues());
+	const {mutate, isSuccess} = useAtualizarUsuario();
 
 	const onSubmit = (values) => {
-		mutate();
+		mutate({values: values});
 	};
 
 	useEffect(() => {

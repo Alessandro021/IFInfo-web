@@ -16,8 +16,7 @@ import { Loader2 } from "lucide-react";
 
 const AtualizarNoticia = () => {
 	const {id} = useParams();
-
-	const [loading, setLoading] = useState(false);
+	const {mutate, status} = useAtualizarNoticia();
 
 	const pegarNoticiaPorId = useNoticia(state => state.pegarNoticiaPorId);
 	const noticia = useNoticia(state => state.noticia);
@@ -51,11 +50,9 @@ const AtualizarNoticia = () => {
 
 	});
 
-	const {mutate, status} = useAtualizarNoticia(id, form.getValues());
 
-	const onSubmit = () => {
-		setLoading(true);
-		mutate();
+	const onSubmit = (values) => {
+		mutate({id: id, values: values});
 	};
 	
 	return ( 
