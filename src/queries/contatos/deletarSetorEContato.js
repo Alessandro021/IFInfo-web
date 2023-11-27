@@ -15,7 +15,10 @@ export const useDeletarSetorEContato = () => {
 		onSuccess: (data) => {
 			toast.success("Setor e contatos deletados com sucesso.");
 			deletarSetorEContato(data?.result);
-		}, onError: (err) => {
+		}, onError: (data) => {
+			if(data.message === "Request failed with status code 401"){
+				return toast.error("Usuário não autorizado ou token expirado.");
+			}
 			toast.error("Erro ao deletar setor e contatos");
 		}});
 

@@ -15,7 +15,10 @@ export const useAtualizarServidoresDocentes = () => {
 	const mutation = useMutation({mutationKey: ["servidores-docentes"], mutationFn: fetchAtualizarServidorDocente,
 		onSettled: (data, error, variables) => {
 			if (error) {
-				toast.error(error.message);
+				if(data.message === "Request failed with status code 401"){
+					return toast.error("Usuário não autorizado ou token expirado.");
+				}
+				toast.error(data.message);
 			} else {
 				atualizarServidorDocente(variables.id, data?.result);
 				toast.success("Servidor docente atualizado com sucesso");

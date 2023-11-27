@@ -15,9 +15,11 @@ export const useDeletarCalendario = () => {
 		onSuccess: (data) => {
 			toast.success("Calendário deletado com sucesso.");
 			deletarCalendario(data?.result);
-		}, onError: (err) => {
-			// console.log(err.message);
-			toast.error("Erro ao deletar calendário");
+		}, onError: (data) => {
+			if(data.message === "Request failed with status code 401"){
+				return toast.error("Usuário não autorizado ou token expirado.");
+			}
+			toast.error("Erro ao deletar calendario.");
 		}});
 
 	return mutation;

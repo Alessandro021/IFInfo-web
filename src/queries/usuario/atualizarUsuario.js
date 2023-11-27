@@ -18,6 +18,9 @@ export const useAtualizarUsuario = () => {
 			toast.success("Perfil atualizado com sucesso");
 		},
 		onError: (data) => {
+			if(data.message === "Request failed with status code 401"){
+				return toast.error("Usuário não autorizado ou token expirado.");
+			}
 			toast.error(data.message);
 		}
 	});

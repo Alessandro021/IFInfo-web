@@ -15,7 +15,10 @@ export const useAtualizarCursoSuperior = () => {
 	const mutation = useMutation({mutationKey: ["cursos-superiores"], mutationFn: fetchAtualizarCursoSuperior,
 		onSettled: (data, error, variables) => {
 			if (error) {
-				toast.error(error.message);
+				if(data.message === "Request failed with status code 401"){
+					return toast.error("Usuário não autorizado ou token expirado.");
+				}
+				toast.error(data.message);
 			} else {
 				atualizarCursoSuperior(variables.id, data?.result);
 				toast.success("Curso superior atualizado com sucesso");

@@ -15,7 +15,11 @@ export const useEditarUsuario = () => {
 	const mutation = useMutation({mutationKey: ["administrador"], mutationFn: fetchAtualizarUsuario,
 		onSettled: (data, error, variables) => {
 			if (error) {
-				toast.error(error.message);
+
+				if(data.message === "Request failed with status code 401"){
+					return toast.error("Usuário não autorizado ou token expirado.");
+				}
+				toast.error(data.message);
 			} else {
 				atualizarUsuario(variables.id, data?.result);
 				toast.success("Update realizado com sucesso");
@@ -25,3 +29,5 @@ export const useEditarUsuario = () => {
 
 	return mutation;
 };
+
+

@@ -15,8 +15,11 @@ export const useDeletarServidorAdministrativo = () => {
 		onSuccess: (data) => {
 			toast.success("Servidor administrativo deletado com sucesso.");
 			deletarServidorAdministrativo(data?.result);
-		}, onError: (err) => {
-			toast.error("Erro ao deletar servidor administrativo");
+		}, onError: (data) => {
+			if(data.message === "Request failed with status code 401"){
+				return toast.error("Usuário não autorizado ou token expirado.");
+			}
+			toast.error("Erro ao deletar servidores administrativos.");
 		}});
 
 	return mutation;

@@ -15,8 +15,11 @@ export const useCriarCursoTecnico = () => {
 		onSuccess: (data) => {
 			toast.success("Curso tecnico criado com sucesso.");
 			adicionarcursoTecnico(data?.result);
-		}, onError: (err) => {
-			toast.error("Erro ao curso tecnico");
+		}, onError: (data) => {
+			if(data.message === "Request failed with status code 401"){
+				return toast.error("Usuário não autorizado ou token expirado.");
+			}
+			toast.error("Erro ao criar curso tecnico.");
 		}});
 
 	return mutation;

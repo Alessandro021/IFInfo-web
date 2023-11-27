@@ -15,9 +15,11 @@ export const useCriarCalendario = () => {
 		onSuccess: (data) => {
 			toast.success("Calendário criado com sucesso.");
 			adicionarCalendario(data?.result);
-		}, onError: (err) => {
-			// console.log(err.message);
-			toast.error("Erro ao criar calendário");
+		}, onError: (data) => {
+			if(data.message === "Request failed with status code 401"){
+				return toast.error("Usuário não autorizado ou token expirado.");
+			}
+			toast.error("Erro ao criar calendario.");
 		}});
 
 	return mutation;

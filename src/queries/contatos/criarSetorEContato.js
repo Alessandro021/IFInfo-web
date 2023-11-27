@@ -15,8 +15,11 @@ export const useCriarSetorEContato = () => {
 		onSuccess: (data) => {
 			toast.success("Setor e Contato criado com sucesso.");
 			adicionarContatoESetor(data?.result);
-		}, onError: (err) => {
-			toast.error("Erro ao criar setor e contato");
+		}, onError: (data) => {
+			if(data.message === "Request failed with status code 401"){
+				return toast.error("Usuário não autorizado ou token expirado.");
+			}
+			toast.error("Erro ao criar contato e setor.");
 		}});
 
 	return mutation;

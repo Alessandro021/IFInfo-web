@@ -15,8 +15,11 @@ export const useCriarServidorAdministrativo = () => {
 		onSuccess: (data) => {
 			toast.success("Servidor administrativo criado com sucesso.");
 			adicionarServidorAdministrativo(data?.result);
-		}, onError: (err) => {
-			toast.error("Erro ao criar servidor administrativo");
+		}, onError: (data) => {
+			if(data.message === "Request failed with status code 401"){
+				return toast.error("Usuário não autorizado ou token expirado.");
+			}
+			toast.error("Erro ao criar servidores administrativos.");
 		}});
 
 	return mutation;

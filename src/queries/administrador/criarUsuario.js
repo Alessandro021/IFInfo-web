@@ -15,8 +15,11 @@ export const useCriarUsuario = () => {
 		onSuccess: (data) => {
 			toast.success("Usuario criado com sucesso.");
 			adicionarUsuario(data?.result);
-		}, onError: (err) => {
-			toast.error("Erro ao criar usuario.");
+		}, onError: (data) => {
+			if(data.message === "Request failed with status code 401"){
+				return toast.error("Usuário não autorizado ou token expirado.");
+			}
+			toast.error("Erro ao criar usuário.");
 		}});
 
 	return mutation;

@@ -15,9 +15,11 @@ export const useDeletarNoticia = (id) => {
 		onSuccess: (data) => {
 			toast.success("Notícia deletada com sucesso.");
 			deletarNoticia(data?.result);
-		}, onError: (err) => {
-			// console.log(err.message);
-			toast.error("Erro ao deletar noticia");
+		}, onError: (data) => {
+			if(data.message === "Request failed with status code 401"){
+				return toast.error("Usuário não autorizado ou token expirado.");
+			}
+			toast.error("Erro ao deletar noticias.");
 		}});
 
 	return mutation;

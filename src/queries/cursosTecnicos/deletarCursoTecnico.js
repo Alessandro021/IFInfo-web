@@ -15,8 +15,11 @@ export const useDeletarCursoTecnico = () => {
 		onSuccess: (data) => {
 			toast.success("Curso tecnico deletado com sucesso.");
 			deletarCursoTecnico(data?.result);
-		}, onError: (err) => {
-			toast.error("Erro ao deletar curso tecnico");
+		}, onError: (data) => {
+			if(data.message === "Request failed with status code 401"){
+				return toast.error("Usuário não autorizado ou token expirado.");
+			}
+			toast.error("Erro ao deletar curso tecnico.");
 		}});
 
 	return mutation;

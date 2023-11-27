@@ -15,7 +15,10 @@ export const useAtualizarSetor = () => {
 	const mutation = useMutation({mutationKey: ["contato"], mutationFn: fecthAtualizarSetor,
 		onSettled: (data, error, variables) => {
 			if (error) {
-				toast.error(error.message);
+				if(data.message === "Request failed with status code 401"){
+					return toast.error("Usuário não autorizado ou token expirado.");
+				}
+				toast.error(data.message);
 			} else {
 				atualizarSetor(variables?.idSetor, data?.result);
 				toast.success("Contato atualizado com sucesso");

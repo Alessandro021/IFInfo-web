@@ -15,9 +15,11 @@ export const useCriarServidorDocente = () => {
 		onSuccess: (data) => {
 			toast.success("Servidor docente criado com sucesso.");
 			adicionarServidorDocente(data?.result);
-		}, onError: (err) => {
-
-			toast.error("Erro ao criar servidor docente");
+		}, onError: (data) => {
+			if(data.message === "Request failed with status code 401"){
+				return toast.error("Usuário não autorizado ou token expirado.");
+			}
+			toast.error("Erro ao criar servidor docente.");
 		}});
 
 	return mutation;

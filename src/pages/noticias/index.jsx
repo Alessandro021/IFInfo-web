@@ -8,7 +8,6 @@ import Error from "@/src/components/Error";
 const Noticias = () => {
 	const {isLoading, status} = useBuscarNoticias();
 	const noticias = useNoticia(state => state.noticias);
-	console.log(noticias);
 	if(isLoading) {
 		return <Loading />;
 	}

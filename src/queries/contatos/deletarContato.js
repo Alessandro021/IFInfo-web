@@ -16,7 +16,10 @@ export const useDeletarContato = () => {
 			toast.success("Contato deletado com sucesso.");
 			// TODO: ver possivel erro ao deltar cotato e ele nao sumir da estato
 			deletarContatoPorId(data?.result);
-		}, onError: (err) => {
+		}, onError: (data) => {
+			if(data.message === "Request failed with status code 401"){
+				return toast.error("Usuário não autorizado ou token expirado.");
+			}
 			toast.error("Erro ao deletar contato");
 		}});
 
