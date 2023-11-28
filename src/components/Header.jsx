@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { BookUserIcon, CalendarClockIcon, CalendarDaysIcon, ChevronDown, ChevronsUpDownIcon, GraduationCapIcon, LogOutIcon, MenuIcon, NewspaperIcon, ShieldCheckIcon, Users2Icon } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useUsuario } from "../store/useUsuario";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator,DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
@@ -11,6 +11,7 @@ import { useState } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 const Header = () => {
+	const location = useLocation();
 	const deslogarUsuario = useUsuario(state => state.deslogarUsuario);
 	const user = useUsuario(state => state.user);
 
@@ -33,10 +34,11 @@ const Header = () => {
 					<ScrollArea  className="h-full">
 						<div className="mt-4 flex flex-col gap-4">
 							{user?.eAdmin && (
-								<SheetClose asChild>
-									<Link to="/admin">
+								<SheetClose asChild >
+									<Link to="/admin" >
 										<Button
-											variant={"outline"}
+											// className={location.pathname === "/admin" ? "w-full justify-start gap-2" : "w-full justify-start gap-2"}
+											variant={location.pathname === "/admin" ? "default" : "outline"}
 											className="w-full justify-start gap-2"
 										>
 											<ShieldCheckIcon size={16} /> Administrador
@@ -48,7 +50,7 @@ const Header = () => {
 							<SheetClose asChild>
 								<Link to="/">
 									<Button
-										variant={"outline"}
+										variant={location.pathname === "/" ? "default" : "outline"}
 										className="w-full justify-start gap-2"
 									>
 										<NewspaperIcon size={16} /> Notícias
@@ -59,7 +61,7 @@ const Header = () => {
 							<SheetClose asChild>
 								<Link to="/calendario">
 									<Button
-										variant={"outline"}
+										variant={location.pathname === "/calendario" ? "default" : "outline"}
 										className="w-full justify-start gap-2"
 									>
 										<CalendarDaysIcon size={16} /> Calendário
@@ -69,7 +71,7 @@ const Header = () => {
 
 							<Collapsible open={abrirCurso} onOpenChange={setAbrirCurso} className="w-full">
 								<CollapsibleTrigger asChild>
-									<Button variant="outline" className="w-full justify-between transition-all [&[data-state=open]>svg]:rotate-180">
+									<Button variant={location.pathname.startsWith("/cursos") ? "default" : "outline"} className="w-full justify-between transition-all [&[data-state=open]>svg]:rotate-180">
 										<div className="flex flex-row items-center gap-2">
 											<GraduationCapIcon size={16} /> Cursos
 										</div>
@@ -78,17 +80,17 @@ const Header = () => {
 									</Button>
 								</CollapsibleTrigger>
 	
-								<CollapsibleContent className={`flex flex-col px-2 ${abrirCurso && "border"} rounded-lg mt-1`}>
+								<CollapsibleContent className={`flex flex-col px-2 ${abrirCurso && "border py-1"} rounded-lg mt-1 gap-y-1`}>
 									<SheetClose asChild onClick={() => setAbrirCurso(false)}>
 										<Link to="/cursos/tecnicos">
-											<Button variant={"link"} className="w-full">
+											<Button variant={location.pathname === "/cursos/tecnicos" ? "default" : "link"} className="w-full">
 										Tecnicos
 											</Button>
 										</Link>
 									</SheetClose>
 									<SheetClose asChild onClick={() => setAbrirCurso(false)} >
 										<Link to="/cursos/superiores">
-											<Button variant={"link"} className="w-full">
+											<Button variant={location.pathname === "/cursos/superiores" ? "default" : "link"} className="w-full">
 										Superiores
 											</Button>
 										</Link>
@@ -99,7 +101,7 @@ const Header = () => {
 							<SheetClose asChild>
 								<Link to="/horarios">
 									<Button
-										variant={"outline"}
+										variant={location.pathname === "/horarios" ? "default" : "outline"}
 										className="w-full justify-start gap-2"
 									>
 										<CalendarClockIcon size={16} /> Horários
@@ -111,7 +113,7 @@ const Header = () => {
 							<SheetClose asChild>
 								<Link to="/contatos">
 									<Button
-										variant={"outline"}
+										variant={location.pathname === "/contatos" ? "default" : "outline"}
 										className="w-full justify-start gap-2"
 									>
 										<BookUserIcon size={16} /> Contatos
@@ -122,7 +124,7 @@ const Header = () => {
 
 							<Collapsible open={abrirServidor} onOpenChange={setAbrirServidor} className="w-full">
 								<CollapsibleTrigger asChild>
-									<Button variant="outline" className="w-full justify-between transition-all [&[data-state=open]>svg]:rotate-180">
+									<Button variant={location.pathname.startsWith("/servidores") ? "default" : "outline"} className="w-full justify-between transition-all [&[data-state=open]>svg]:rotate-180">
 										<div className="flex flex-row items-center gap-2">
 											<GraduationCapIcon size={16} /> Servidores
 										</div>
@@ -131,17 +133,17 @@ const Header = () => {
 									</Button>
 								</CollapsibleTrigger>
 	
-								<CollapsibleContent className={`flex flex-col px-2 ${abrirServidor && "border"} rounded-lg mt-1`}>
+								<CollapsibleContent className={`flex flex-col px-2 ${abrirServidor && "border py-1"} rounded-lg mt-1 gap-1`}>
 									<SheetClose asChild onClick={() => setAbrirServidor(false)} >
 										<Link to="/servidores/docente">
-											<Button variant={"link"} className="w-full">
+											<Button variant={location.pathname === "/servidores/docente" ? "default" : "link"} className="w-full">
 										Docente
 											</Button>
 										</Link>
 									</SheetClose>
 									<SheetClose asChild onClick={() => setAbrirServidor(false)}>
 										<Link to="/servidores/administrativo">
-											<Button variant={"link"} className="w-full">
+											<Button variant={location.pathname === "/servidores/administrativo" ? "default" : "link"} className="w-full">
 										Administrativos
 											</Button>
 										</Link>
