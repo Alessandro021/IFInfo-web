@@ -3,7 +3,7 @@ import api from "../../services/api";
 import { useCalendario } from "@/src/store/useCalendario";
 import { toast } from "react-toastify";
 
-const fecthDeletarCalendario = async ({id}) => {
+const fetchDeletarCalendario = async ({id}) => {
 	const {data} = await api.delete(`/calendario/${id}`);
 	return data;
 };
@@ -11,7 +11,7 @@ const fecthDeletarCalendario = async ({id}) => {
 export const useDeletarCalendario = () => {
 	const deletarCalendario = useCalendario(state => state.deletarCalendario);
 
-	const mutation = useMutation({mutationKey: ["calendario"], mutationFn: fecthDeletarCalendario, 
+	const mutation = useMutation({mutationKey: ["calendario"], mutationFn: fetchDeletarCalendario, 
 		onSuccess: (data) => {
 			toast.success("Calendário deletado com sucesso.");
 			deletarCalendario(data?.result);

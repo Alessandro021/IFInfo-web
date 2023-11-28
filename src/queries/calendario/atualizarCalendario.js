@@ -4,7 +4,7 @@ import { useCalendario } from "@/src/store/useCalendario.js";
 import { toast } from "react-toastify";
 
 
-const fecthCalendario = async ({id, values}) => {
+const fetchCalendario = async ({id, values}) => {
 	const {data} = await api.put(`/calendario/${id}`, values);
 	return data;
 };
@@ -12,7 +12,7 @@ const fecthCalendario = async ({id, values}) => {
 export const useAtualizarCalendario = () => {
 	const atualizarCalendario = useCalendario(state => state.atualizarCalendario);
 
-	const mutation = useMutation({mutationKey: ["calendario"], mutationFn: fecthCalendario,
+	const mutation = useMutation({mutationKey: ["calendario"], mutationFn: fetchCalendario,
 		onSettled: (data, error, variables) => {
 			if (error) {
 				if(data.message === "Request failed with status code 401"){

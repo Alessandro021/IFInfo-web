@@ -3,7 +3,7 @@ import api from "../../services/api";
 import { useHorarios } from "@/src/store/useHorarios";
 import { toast } from "react-toastify";
 
-const fecthCriarHorario = async ({values}) => {
+const fetchCriarHorario = async ({values}) => {
 	const {data} = await api.post("/horarios", values);
 	return data;
 };
@@ -11,7 +11,7 @@ const fecthCriarHorario = async ({values}) => {
 export const useCriarHorario = () => {
 	const adicionarHorario = useHorarios(state => state.adicionarHorario);
 
-	const mutation = useMutation({mutationKey: ["horario"], mutationFn: fecthCriarHorario, 
+	const mutation = useMutation({mutationKey: ["horario"], mutationFn: fetchCriarHorario, 
 		onSuccess: (data) => {
 			toast.success("Horário criado com sucesso.");
 			adicionarHorario(data?.result);

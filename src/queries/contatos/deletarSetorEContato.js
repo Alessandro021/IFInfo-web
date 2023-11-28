@@ -3,7 +3,7 @@ import api from "../../services/api";
 import { useContatos } from "@/src/store/useContatos";
 import { toast } from "react-toastify";
 
-const fecthDeletarSetorEContato = async ({idSetor}) => {
+const fetchDeletarSetorEContato = async ({idSetor}) => {
 	const {data} = await api.delete(`/contatos/setor/${idSetor}`);
 	return data;
 };
@@ -11,7 +11,7 @@ const fecthDeletarSetorEContato = async ({idSetor}) => {
 export const useDeletarSetorEContato = () => {
 	const deletarSetorEContato = useContatos(state => state.deletarSetorEContato);
 
-	const mutation = useMutation({mutationKey: ["contato"], mutationFn: fecthDeletarSetorEContato, 
+	const mutation = useMutation({mutationKey: ["contato"], mutationFn: fetchDeletarSetorEContato, 
 		onSuccess: (data) => {
 			toast.success("Setor e contatos deletados com sucesso.");
 			deletarSetorEContato(data?.result);

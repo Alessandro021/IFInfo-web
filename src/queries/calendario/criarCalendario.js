@@ -3,7 +3,7 @@ import api from "../../services/api";
 import { useCalendario } from "@/src/store/useCalendario";
 import { toast } from "react-toastify";
 
-const fecthCriarCalendario = async ({values}) => {
+const fetchCriarCalendario = async ({values}) => {
 	const {data} = await api.post("/calendario", values);
 	return data;
 };
@@ -11,7 +11,7 @@ const fecthCriarCalendario = async ({values}) => {
 export const useCriarCalendario = () => {
 	const adicionarCalendario = useCalendario(state => state.adicionarCalendario);
 
-	const mutation = useMutation({mutationKey: ["calendario"], mutationFn: fecthCriarCalendario, 
+	const mutation = useMutation({mutationKey: ["calendario"], mutationFn: fetchCriarCalendario, 
 		onSuccess: (data) => {
 			toast.success("Calendário criado com sucesso.");
 			adicionarCalendario(data?.result);

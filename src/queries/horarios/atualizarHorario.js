@@ -4,7 +4,7 @@ import { useHorarios } from "@/src/store/useHorarios.js";
 import { toast } from "react-toastify";
 
 
-const fecthHorario = async ({id, values}) => {
+const fetchHorario = async ({id, values}) => {
 	const {data} = await api.put(`/horarios/${id}`, values);
 	return data;
 };
@@ -12,7 +12,7 @@ const fecthHorario = async ({id, values}) => {
 export const useAtualizarHorario = () => {
 	const atualizarHorario = useHorarios(state => state.atualizarHorario);
 
-	const mutation = useMutation({mutationKey: ["horario"], mutationFn: fecthHorario,
+	const mutation = useMutation({mutationKey: ["horario"], mutationFn: fetchHorario,
 		onSettled: (data, error, variables) => {
 			if (error) {
 				if(data.message === "Request failed with status code 401"){

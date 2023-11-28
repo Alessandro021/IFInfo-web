@@ -3,7 +3,7 @@ import api from "../../services/api";
 import { useHorarios } from "@/src/store/useHorarios";
 import { toast } from "react-toastify";
 
-const fecthDeletarHorario = async ({id}) => {
+const fetchDeletarHorario = async ({id}) => {
 	const {data} = await api.delete(`/horarios/${id}`);
 	return data;
 };
@@ -11,7 +11,7 @@ const fecthDeletarHorario = async ({id}) => {
 export const useDeletarHorario = () => {
 	const deletarHorario = useHorarios(state => state.deletarHorario);
 
-	const mutation = useMutation({mutationKey: ["horario"], mutationFn: fecthDeletarHorario, 
+	const mutation = useMutation({mutationKey: ["horario"], mutationFn: fetchDeletarHorario, 
 		onSuccess: (data) => {
 			toast.success("Horário deletado com sucesso.");
 			deletarHorario(data?.result);

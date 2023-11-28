@@ -3,7 +3,7 @@ import api from "../../services/api";
 import { useContatos } from "@/src/store/useContatos";
 import { toast } from "react-toastify";
 
-const fecthDeletarEContato = async ({id}) => {
+const fetchDeletarEContato = async ({id}) => {
 	const {data} = await api.delete(`/contato/${id}`);
 	return data;
 };
@@ -11,7 +11,7 @@ const fecthDeletarEContato = async ({id}) => {
 export const useDeletarContato = () => {
 	const deletarContatoPorId = useContatos(state => state.deletarContatoPorId);
 
-	const mutation = useMutation({mutationKey: ["contato"], mutationFn: fecthDeletarEContato, 
+	const mutation = useMutation({mutationKey: ["contato"], mutationFn: fetchDeletarEContato, 
 		onSuccess: (data) => {
 			toast.success("Contato deletado com sucesso.");
 			// TODO: ver possivel erro ao deltar cotato e ele nao sumir da estato

@@ -4,7 +4,7 @@ import { useStorage } from "../../useHooks/useStorage";
 import { useUsuario } from "../../store/useUsuario";
 import { toast } from "react-toastify";
 
-const fecthLogin = async ({usuario}) => {
+const fetchLogin = async ({usuario}) => {
 	const {data} = await api.post("/entrar", usuario, {
 		headers: { "Content-Type": "application/json" },
 	});
@@ -19,7 +19,7 @@ const fecthLogin = async ({usuario}) => {
 export const useLogin = () => {
 	const setUsuario = useUsuario(state => state.setUsuario);
 	const {salvar} = useStorage();
-	const mutation = useMutation({mutationKey: ["login"], mutationFn: fecthLogin,
+	const mutation = useMutation({mutationKey: ["login"], mutationFn: fetchLogin,
 		onSuccess: (data) => {
 			salvar(data?.result);
 			setUsuario();

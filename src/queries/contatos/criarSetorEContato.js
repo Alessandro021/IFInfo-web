@@ -3,7 +3,7 @@ import api from "../../services/api";
 import { useContatos } from "@/src/store/useContatos";
 import { toast } from "react-toastify";
 
-const fecthCriarSetorEContato = async ({values}) => {
+const fetchCriarSetorEContato = async ({values}) => {
 	const {data} = await api.post("/contato/setor", values);
 	return data;
 };
@@ -11,7 +11,7 @@ const fecthCriarSetorEContato = async ({values}) => {
 export const useCriarSetorEContato = () => {
 	const adicionarContatoESetor = useContatos(state => state.adicionarContatoESetor);
 
-	const mutation = useMutation({mutationKey: ["contato"], mutationFn: fecthCriarSetorEContato, 
+	const mutation = useMutation({mutationKey: ["contato"], mutationFn: fetchCriarSetorEContato, 
 		onSuccess: (data) => {
 			toast.success("Setor e Contato criado com sucesso.");
 			adicionarContatoESetor(data?.result);
