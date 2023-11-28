@@ -35,10 +35,10 @@ const Login = () => {
 		mutate({usuario: values});
 	};
 	return ( 
-		<div className="flex h-screen justify-center items-center bg-slate-400">
-			<Card>
+		<div className="flex h-[100vh] justify-center items-center bg-slate-400">
+			<Card className="w-full sm:max-w-sm h-auto">
 				<Form {...form}>
-					<form onSubmit={form.handleSubmit(onSubmit)} className=" flex flex-col w-96 h-auto gap-10 p-8">
+					<form onSubmit={form.handleSubmit(onSubmit)} className=" flex flex-col gap-10 p-8">
 						<FormField 
 							control={form.control}
 							name="email"
@@ -70,7 +70,7 @@ const Login = () => {
 								</FormItem>
 							)}
 						/>
-						<Button type="submit" disabled={status === "pending" ? true : false} className="w-full max-w-sm">
+						<Button type="submit" disabled={status === "pending" ? true : false} className="w-full">
 							{status === "pending" ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Carregando... </> : "Entrar"}
 						</Button>
 					</form>
