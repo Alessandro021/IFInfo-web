@@ -10,7 +10,6 @@ const App = () => {
 		// Listen for the 'unauthorized' event and log out the user when it's fired
 		const logoutOnUnauthorized = () => deslogarUsuario();
 		window.addEventListener("unauthorized", logoutOnUnauthorized);
-	
 		// Clean up the event listener when the component is unmounted
 		return () => {
 			window.removeEventListener("unauthorized", logoutOnUnauthorized);
@@ -20,7 +19,7 @@ const App = () => {
 	return (
 		<>
 			<Rotas />
-			<ToastContainer autoClose={2600} position="top-center"  />
+			<ToastContainer autoClose={2600} position="top-center" className={"w-2/5"}/>
 		</>
 
 	);
