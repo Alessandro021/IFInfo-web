@@ -20,27 +20,26 @@ import Loading from "../components/Loading";
 export const Rotas = () => {
 	const {logado, loading} = useLogado();
 	const user = useUsuario(state => state.user);
-
 	if(loading){
 		return <Loading />;
 	}
 	return (
 		<BrowserRouter className="flex flex-col h-screen">
-			{logado && <Header />}
+			{(logado && user) && <Header />}
 			<Routes className="flex-grow">
-				<Route  path="/" element={logado ? <Noticias /> : <Navigate to={"/login"} /> } />
-				<Route  path="/admin" element={logado && user?.eAdmin ? <Administrador /> : <Navigate to={"/login"} /> } />
-				<Route  path="/:id" element={logado ? <VerNoticia /> : <Navigate to={"/login"} /> } />
-				<Route  path="/atualizar/:id" element={logado ? <AtualizarNoticia /> : <Navigate to={"/login"} /> } />
-				<Route  path="/perfil" element={logado ? <Perfil /> : <Navigate to={"/login"} /> } />
-				<Route  path="/calendario" element={logado ? <Calendario /> : <Navigate to={"/login"} /> } />
-				<Route  path="/horarios" element={logado ? <Horarios /> : <Navigate to={"/login"} /> } />
-				<Route  path="/contatos" element={logado ? <Contatos /> : <Navigate to={"/login"} /> } />
-				<Route  path="/cursos/tecnicos" element={logado ? <CursosTecnicos /> : <Navigate to={"/login"} /> } />
-				<Route  path="/cursos/superiores" element={logado ? <CursosSuperiores /> : <Navigate to={"/login"} /> } />
-				<Route  path="/servidores/docente" element={logado ? <ServidoresDocentes /> : <Navigate to={"/login"} /> } />
-				<Route  path="/servidores/administrativo" element={logado ? <ServidoresAdministrativo /> : <Navigate to={"/login"} /> } />
-				<Route  path="/login" element={!logado ? <Login /> : <Navigate to={"/"} /> } />
+				<Route  path="/" element={(logado && user) ? <Noticias /> : <Navigate to={"/login"} /> } />
+				<Route  path="/admin" element={(logado && user) && user?.eAdmin ? <Administrador /> : <Navigate to={"/login"} /> } />
+				<Route  path="/:id" element={(logado && user) ? <VerNoticia /> : <Navigate to={"/login"} /> } />
+				<Route  path="/atualizar/:id" element={(logado && user) ? <AtualizarNoticia /> : <Navigate to={"/login"} /> } />
+				<Route  path="/perfil" element={(logado && user) ? <Perfil /> : <Navigate to={"/login"} /> } />
+				<Route  path="/calendario" element={(logado && user) ? <Calendario /> : <Navigate to={"/login"} /> } />
+				<Route  path="/horarios" element={(logado && user) ? <Horarios /> : <Navigate to={"/login"} /> } />
+				<Route  path="/contatos" element={(logado && user) ? <Contatos /> : <Navigate to={"/login"} /> } />
+				<Route  path="/cursos/tecnicos" element={(logado && user) ? <CursosTecnicos /> : <Navigate to={"/login"} /> } />
+				<Route  path="/cursos/superiores" element={(logado && user) ? <CursosSuperiores /> : <Navigate to={"/login"} /> } />
+				<Route  path="/servidores/docente" element={(logado && user) ? <ServidoresDocentes /> : <Navigate to={"/login"} /> } />
+				<Route  path="/servidores/administrativo" element={(logado && user) ? <ServidoresAdministrativo /> : <Navigate to={"/login"} /> } />
+				<Route  path="/login" element={!(logado && user) ? <Login /> : <Navigate to={"/"} /> } />
 				
 			</Routes>
 		</BrowserRouter>
