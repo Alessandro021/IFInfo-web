@@ -3,9 +3,10 @@ import api from "../../services/api";
 import { useEffect } from "react";
 import { useServidoresDocentes } from "@/src/store/useServidoresDocentes";
 
+
 const fetchBuscarServidoresDocentes = async () => {
-	// TODO: refatora a query params de filtrar
-	const {data} = await api.get("/servidor/docente?limite=200");
+	const LIMITE = 200;
+	const {data} = await api.get(`/servidor/docente?limite=${LIMITE}`);
 	return data;
 };
 

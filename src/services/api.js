@@ -29,7 +29,7 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
 	response => response,
 	error => {
-		if (error.response.status === 401) {
+		if (error?.response?.status === 401) {
 		// Dispatch a global event when a 401 error is detected
 			window.dispatchEvent(new CustomEvent("unauthorized"));
 		}

@@ -1,8 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
 import api from "../../services/api";
 import { useStorage } from "../../useHooks/useStorage";
-import { useUsuario } from "../../store/useUsuario";
 import { toast } from "react-toastify";
+import { useBuscarUsuario } from "./buscarUsuario";
 
 const fetchLogin = async ({usuario}) => {
 	const {data} = await api.post("/entrar", usuario, {
@@ -17,12 +17,12 @@ const fetchLogin = async ({usuario}) => {
 };
 
 export const useLogin = () => {
-	const setUsuario = useUsuario(state => state.setUsuario);
+	const {refetch} = useBuscarUsuario();
 	const {salvar} = useStorage();
 	const mutation = useMutation({mutationKey: ["login"], mutationFn: fetchLogin,
 		onSuccess: (data) => {
 			salvar(data?.result);
-			setUsuario();
+			refetch();
 		}, 
 		onError: (error) => {
 			if(error?.message === "Network Error") {

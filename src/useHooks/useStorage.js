@@ -7,6 +7,7 @@ export const useStorage = () => {
 
 	const deletar = () => {
 		localStorage.removeItem(KEY);
+		localStorage.removeItem("noticias");
 	};
 
 	const pegar = () => {
