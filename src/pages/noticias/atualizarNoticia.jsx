@@ -28,9 +28,6 @@ const AtualizarNoticia = () => {
 
 	const {mutate, status} = useAtualizarNoticia();
 
-
-	//TODO: Corrigir atraso na atulização do estado
-
 	const formSchema = yup.object().shape({
 		titulo: yup.string().min(3).optional(),
 		hora: yup.string().matches(/^([01]\d|2[0-3]):([0-5]\d)$/, "O formato da hora deve ser hh:mm").min(3).optional(),
