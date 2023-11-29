@@ -1,27 +1,21 @@
-import { flexRender, getCoreRowModel, useReactTable, getPaginationRowModel, getSortedRowModel } from "@tanstack/react-table";
+import { flexRender, getCoreRowModel, useReactTable, getPaginationRowModel } from "@tanstack/react-table";
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table";
 
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { DataTablePaginacao } from "./data-table-paginacao";
 
 export function DataTable({ columns , data, ComponenteCriarItem, criar, ...props}) {
-	const [columnVisibility, setColumnVisibility] = useState({});
-	const [sorting, setSorting] = useState([]);
 
 	const table = useReactTable({
 		data,
 		columns,
 		getCoreRowModel: getCoreRowModel(),
 		getPaginationRowModel: getPaginationRowModel(),
-		onColumnVisibilityChange: setColumnVisibility,
-		onSortingChange: setSorting,
-		getSortedRowModel: getSortedRowModel(),
 		state: {
-			columnVisibility,
-			sorting,
+
 		},
 	});
 
@@ -30,7 +24,7 @@ export function DataTable({ columns , data, ComponenteCriarItem, criar, ...props
 			<div className="flex">
 				<DropdownMenu>
 					<DropdownMenuTrigger asChild>
-						<Button variant="outline" className="mr-auto">colunas</Button>
+						<Button variant="outline" className="mr-auto">visualizar</Button>
 					</DropdownMenuTrigger>
 					<DropdownMenuContent align="start">
 						{table.getAllColumns().filter((column) => column.getCanHide()).map((column) => {
@@ -96,13 +90,8 @@ export function DataTable({ columns , data, ComponenteCriarItem, criar, ...props
 				</Table>
 			</div>
 
-			<div className="flex items-center justify-end gap-4">
-				<Button variant="outline" size="sm" onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
-                    Anterior
-				</Button>
-				<Button variant="outline" size="sm" onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
-                    Proximo
-				</Button>
+			<div className="flex justify-end">
+				<DataTablePaginacao table={table} />
 			</div>
 
 		</div>
