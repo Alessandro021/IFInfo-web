@@ -1,4 +1,4 @@
-import { flexRender, getCoreRowModel, useReactTable, getPaginationRowModel } from "@tanstack/react-table";
+import { flexRender, getCoreRowModel, useReactTable, getPaginationRowModel, getSortedRowModel } from "@tanstack/react-table";
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table";
 
@@ -8,14 +8,13 @@ import { Button } from "@/components/ui/button";
 import { DataTablePaginacao } from "./data-table-paginacao";
 
 export function DataTable({ columns , data, ComponenteCriarItem, criar, ...props}) {
-
 	const table = useReactTable({
 		data,
 		columns,
 		getCoreRowModel: getCoreRowModel(),
 		getPaginationRowModel: getPaginationRowModel(),
+		getSortedRowModel: getSortedRowModel(),
 		state: {
-
 		},
 	});
 
