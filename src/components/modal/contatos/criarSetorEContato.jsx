@@ -37,6 +37,7 @@ export function CriarSetorEContato({open, onClose}) {
 
 	const onSubmit = (values) => {
 		mutate({values: values});
+		limparcontatos();
 	};
 
 	useEffect(() => {
@@ -51,9 +52,17 @@ export function CriarSetorEContato({open, onClose}) {
 		setContatos(array);
 	};
 
+	const limparcontatos = () => {
+		form.reset();
+		setContatos([{ email: "", nome: "", telefone: "" }]);
+	};
+	const adicionarContato = () => {
+		setContatos([...contatos, { email: "", nome: "", telefone: "" }]);
+	};
+
 	return (
-		<Dialog open={open} onOpenChange={() => {onClose(); form.reset();}}>
-			<DialogContent className="sm:max-w-screen-lg">
+		<Dialog open={open} onOpenChange={() => {onClose(); limparcontatos(); }}>
+			<DialogContent className="sm:max-w-screen-lg max-h-[95vh] overflow-auto">
 				<DialogHeader>
 					<DialogTitle >Criar setor e contatos</DialogTitle>
 					<DialogDescription>
@@ -76,64 +85,64 @@ export function CriarSetorEContato({open, onClose}) {
 								</FormItem>
 							)}
 						/>
-						<ScrollArea className="max-h-[25vw] py-2">
-							<div className="flex flex-col gap-4 relative">
-								{contatos.map((contato, index) => (
-									<Card key={index} className="grid grid-cols-3 gap-4 p-2 border-">
-										{contatos.length > 1  &&  <Button variant="link" size="icon" className="absolute right-5" onClick={() => removerContato(index)}><XIcon /></Button>}
-										<FormField
-											control={form.control}
-											name={`contato[${index}].nome`}
-											render={({ field }) => (
-												<FormItem>
-													<FormLabel className="text-lg font-bold">Nome*</FormLabel>
-													<FormControl>
-														<Input placeholder="Nome" {...field} />
-													</FormControl>
-													<FormMessage />
-												</FormItem>
-											)}
-										/>
+						{/* <ScrollArea className="max-h-[25vw] py-2"> */}
+						<div className="flex flex-col gap-4 relative">
+							{contatos.map((contato, index) => (
+								<Card key={index} className="grid grid-cols-3 gap-4 p-2 border-">
+									{contatos.length > 1  &&  <Button variant="link" size="icon" className="absolute right-5" onClick={() => removerContato(index)}><XIcon /></Button>}
+									<FormField
+										control={form.control}
+										name={`contato[${index}].nome`}
+										render={({ field }) => (
+											<FormItem>
+												<FormLabel className="text-lg font-bold">Nome*</FormLabel>
+												<FormControl>
+													<Input placeholder="Nome" {...field} />
+												</FormControl>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
 
-										<FormField
-											control={form.control}
-											name={`contato[${index}].email`}
-											render={({ field }) => (
-												<FormItem>
-													<FormLabel className="text-lg font-bold">Email*</FormLabel>
-													<FormControl>
-														<Input placeholder="Email" {...field} />
-													</FormControl>
-													<FormMessage />
-												</FormItem>
-											)}
-										/>
+									<FormField
+										control={form.control}
+										name={`contato[${index}].email`}
+										render={({ field }) => (
+											<FormItem>
+												<FormLabel className="text-lg font-bold">Email*</FormLabel>
+												<FormControl>
+													<Input placeholder="Email" {...field} />
+												</FormControl>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
 
-										<FormField
-											control={form.control}
-											name={`contato[${index}].telefone`}
-											render={({ field }) => (
-												<FormItem>
-													<FormLabel className="text-lg font-bold">Telefone</FormLabel>
-													<FormControl>
-														<ReactInputMask mask={"99 9999-9999"}  {...field}>
-															{(inputProps) => <Input placeholder="Telefone" {...inputProps} />}
-														</ReactInputMask>
-													</FormControl>
-													<FormMessage />
-												</FormItem>
-											)}
-										/>
-									</Card>
+									<FormField
+										control={form.control}
+										name={`contato[${index}].telefone`}
+										render={({ field }) => (
+											<FormItem>
+												<FormLabel className="text-lg font-bold">Telefone</FormLabel>
+												<FormControl>
+													<ReactInputMask mask={"99 9999-9999"}  {...field}>
+														{(inputProps) => <Input placeholder="Telefone" {...inputProps} />}
+													</ReactInputMask>
+												</FormControl>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+								</Card>
                                 
-								))}
-							</div>
-						</ScrollArea>
+							))}
+						</div>
+						{/* </ScrollArea> */}
 
 						<div className="flex items-center justify-between">
 							<p className="text-sm font-semibold ml-8"><span className="text-xl font-extrabold">*</span> obrigatorio</p>
-							<div className="flex gap-4 mr-1">
-								<Button onClick={() => setContatos([...contatos, { email: "", nome: "", telefone: "" }])}>  Adicionar contato </Button>
+							<div className="flex gap-4 mr-1 my-8">
+								<Button onClick={() => adicionarContato()}>  Adicionar contato </Button>
 								<Button type="submit" disabled={status === "pending" ? true : false}>
 									{status === "pending" ? <> <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Carregando...</>: "Criar"}
 								</Button>

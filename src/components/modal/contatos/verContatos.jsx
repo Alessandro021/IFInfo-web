@@ -9,11 +9,11 @@ export function VerContatos({contatos}) {
 	const [isOpen, setIsOpen] = useState(false);
 	
 	return (
-		<Dialog open={isOpen} onOpenChange={() => setIsOpen(current => !current)}>
+		<Dialog open={isOpen} onOpenChange={() => setIsOpen(current => !current)} >
 			<DialogTrigger asChild>
 				<Button>{contatos?.length} {contatos?.length > 1 ? "contatos" : "contato" }</Button>
 			</DialogTrigger>
-			<DialogContent className="sm:max-w-screen-lg" >
+			<DialogContent className="sm:max-w-screen-lg max-h-[95vh] overflow-auto" >
 				<DialogHeader>
 					<DialogTitle >Ver cotatos</DialogTitle>
 					<DialogDescription>
