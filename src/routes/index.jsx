@@ -4,8 +4,6 @@ import Noticias from "../pages/noticias";
 import Contatos from "../pages/contatos";
 import Login from "../pages/login";
 import Horarios from "../pages/horarios";
-import VerNoticia from "../pages/noticias/verNoticia";
-import AtualizarNoticia from "../pages/noticias/atualizarNoticia";
 import { useLogado } from "../useHooks/useLogado";
 import Perfil from "../pages/usuario";
 import Calendario from "../pages/calendario";
@@ -29,8 +27,6 @@ export const Rotas = () => {
 			<Routes className="flex-grow">
 				<Route  path="/" element={(logado && user) ? <Noticias /> : <Navigate to={"/login"} /> } />
 				<Route  path="/admin" element={(logado && user) && user?.eAdmin ? <Administrador /> : <Navigate to={"/login"} /> } />
-				<Route  path="/:id" element={(logado && user) ? <VerNoticia /> : <Navigate to={"/login"} /> } />
-				<Route  path="/atualizar/:id" element={(logado && user) ? <AtualizarNoticia /> : <Navigate to={"/login"} /> } />
 				<Route  path="/perfil" element={(logado && user) ? <Perfil /> : <Navigate to={"/login"} /> } />
 				<Route  path="/calendario" element={(logado && user) ? <Calendario /> : <Navigate to={"/login"} /> } />
 				<Route  path="/horarios" element={(logado && user) ? <Horarios /> : <Navigate to={"/login"} /> } />
@@ -39,7 +35,7 @@ export const Rotas = () => {
 				<Route  path="/cursos/superiores" element={(logado && user) ? <CursosSuperiores /> : <Navigate to={"/login"} /> } />
 				<Route  path="/servidores/docente" element={(logado && user) ? <ServidoresDocentes /> : <Navigate to={"/login"} /> } />
 				<Route  path="/servidores/administrativo" element={(logado && user) ? <ServidoresAdministrativo /> : <Navigate to={"/login"} /> } />
-				<Route  path="/login" element={!(logado && user) ? <Login /> : <Navigate to={"/"} /> } />
+				<Route  path="/login" element={(logado && user) ? <Navigate to={"/"} /> : <Login /> } />
 				
 			</Routes>
 		</BrowserRouter>

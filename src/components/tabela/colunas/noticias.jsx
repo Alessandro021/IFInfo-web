@@ -1,8 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { ImageIcon, ImageOffIcon, MoreHorizontal} from "lucide-react";
-import { useNavigate} from "react-router-dom";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger} from "@/components/ui/dropdown-menu";
 import { useDeletarNoticia } from "@/src/queries/noticias/deletarNoticia";
+import { useState } from "react";
+import { VerNoticias } from "../../modal/noticias/verNoticias";
+import { AtualizarNoticia } from "../../modal/noticias/atualizarNoticia";
 
 export const colunasNoticias = [
 	{
@@ -49,34 +51,41 @@ export const colunasNoticias = [
 		id: "actions",
 		cell: ({ row }) => { 
 			const noticia = row.original;
-
-			const navigate = useNavigate();
-			const verNoticia = (id) => {
-				return navigate(`/${id}`);
+			const [abrirVerNoticia, setAbrirVerNoticia] = useState(false);
+			const [abrirAtualizar, setAbrirAtualizar] = useState(false);
+		
+			const verNoticia = () => {
+				setAbrirVerNoticia(true);
 			};
 
-			const atualizarNoticia = (id) => {
-				return navigate(`/atualizar/${id}`);
+			const atualizarNoticia = () => {
+				setAbrirAtualizar(true);
 			};
 			const {mutate} = useDeletarNoticia(noticia?.id);
 
+
 			return (
-				<DropdownMenu>
-					<DropdownMenuTrigger asChild>
-						<Button variant="ghost" className="h-8 w-8 p-0">
-							<span className="sr-only">Escolha</span>
-							<MoreHorizontal className="h-4 w-4" />
-						</Button>
-					</DropdownMenuTrigger>
-					<DropdownMenuContent align="end">
-						<DropdownMenuLabel>Selecione</DropdownMenuLabel>
-						<DropdownMenuSeparator />
-						<DropdownMenuItem onClick={() => mutate(noticia.id)}>Deletar</DropdownMenuItem>
-						<DropdownMenuItem onClick={() => atualizarNoticia(noticia.id)}>Atualizar</DropdownMenuItem>
-						<DropdownMenuItem onClick={() => verNoticia(noticia.id)}>Ver</DropdownMenuItem>
-					</DropdownMenuContent>
-				</DropdownMenu>
+				<>
+					<DropdownMenu>
+						<DropdownMenuTrigger asChild>
+							<Button variant="ghost" className="h-8 w-8 p-0">
+								<span className="sr-only">Escolha</span>
+								<MoreHorizontal className="h-4 w-4" />
+							</Button>
+						</DropdownMenuTrigger>
+						<DropdownMenuContent align="end">
+							<DropdownMenuLabel>Selecione</DropdownMenuLabel>
+							<DropdownMenuSeparator />
+							<DropdownMenuItem onClick={() => mutate(noticia.id)}>Deletar</DropdownMenuItem>
+							<DropdownMenuItem onClick={() => atualizarNoticia(noticia.id)}>Atualizar</DropdownMenuItem>
+							<DropdownMenuItem onClick={() => verNoticia()}>Ver</DropdownMenuItem>
+						</DropdownMenuContent>
+					</DropdownMenu>
+
+					{abrirVerNoticia && (<VerNoticias open={abrirVerNoticia} id={noticia?.id} onClose={() => setAbrirVerNoticia(false)}/>)}
+					{abrirAtualizar && (<AtualizarNoticia open={abrirAtualizar} id={noticia?.id} onClose={() => setAbrirAtualizar(false)}/>)}
+				</>
 			);
 		},
 	},
-];
+]; 
