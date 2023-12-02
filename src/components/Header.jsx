@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { BookUserIcon, CalendarClockIcon, CalendarDaysIcon, ChevronDown, ChevronsUpDownIcon, GraduationCapIcon, LogOutIcon, MenuIcon, NewspaperIcon, ShieldCheckIcon, Users2Icon } from "lucide-react";
+import { BookUserIcon, CalendarClockIcon, CalendarDaysIcon, ChevronDown, ChevronsUpDownIcon, GraduationCapIcon, LogOutIcon, MenuIcon, NewspaperIcon, ShieldCheckIcon, Users2Icon, UsersIcon } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { useUsuario } from "../store/useUsuario";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -126,7 +126,7 @@ const Header = () => {
 								<CollapsibleTrigger asChild>
 									<Button variant={location.pathname.startsWith("/servidores") ? "default" : "outline"} className="w-full justify-between transition-all [&[data-state=open]>svg]:rotate-180">
 										<div className="flex flex-row items-center gap-2">
-											<GraduationCapIcon size={16} /> Servidores
+											<UsersIcon size={16} /> Servidores
 										</div>
 										<ChevronDown className="h-4 w-4 shrink-0 transition-transform duration-200" />
 
