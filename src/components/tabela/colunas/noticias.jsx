@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ImageIcon, ImageOffIcon, MoreHorizontal} from "lucide-react";
+import { ArrowUpDown, ImageIcon, ImageOffIcon, MoreHorizontal} from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger} from "@/components/ui/dropdown-menu";
 import { useDeletarNoticia } from "@/src/queries/noticias/deletarNoticia";
 import { useState } from "react";
@@ -9,7 +9,14 @@ import { AtualizarNoticia } from "../../modal/noticias/atualizarNoticia";
 export const colunasNoticias = [
 	{
 		accessorKey: "id",
-		header: "id",
+		header: ({ column }) => {
+			return (
+				<Button className="p-0" variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+					id
+					<ArrowUpDown className="ml-2 h-4 w-4" />
+				</Button>
+			);
+		},
 	},
 	{
 		accessorKey: "titulo",
