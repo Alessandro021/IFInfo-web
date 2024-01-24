@@ -14,11 +14,17 @@ export const useAtualizarCalendario = () => {
 
 	const mutation = useMutation({mutationKey: ["calendario"], mutationFn: fetchCalendario,
 		onSettled: (data, error, variables) => {
-			if (error) {
-				if(data.message === "Request failed with status code 401"){
+			if(error) {
+				console.log(error);
+
+				if(error.message === "Request failed with status code 401"){
 					return toast.error("Usuário não autorizado ou token expirado.");
 				}
-				toast.error(data.message);
+				if(error.response?.data?.message){
+					toast.error(error.response?.data?.message);
+				} else {
+					toast.error("Erro ao atualizar calendario.");
+				}
 			} else {
 				atualizarCalendario(variables.id, data?.result);
 				toast.success("Calendario atualizado com sucesso");
