@@ -15,10 +15,14 @@ export const useAtualizarHorario = () => {
 	const mutation = useMutation({mutationKey: ["horario"], mutationFn: fetchHorario,
 		onSettled: (data, error, variables) => {
 			if (error) {
-				if(data.message === "Request failed with status code 401"){
+				if(error.message === "Request failed with status code 401"){
 					return toast.error("Usuário não autorizado ou token expirado.");
 				}
-				toast.error(data.message);
+				if(error.response?.data?.message){
+					toast.error(error.response?.data?.message);
+				} else {
+					toast.error("Error ao atualizar horario.");
+				}
 			} else {
 				atualizarHorario(variables.id, data?.result);
 				toast.success("Horario atualizado com sucesso");
