@@ -19,7 +19,12 @@ export const useCriarHorario = () => {
 			if(data.message === "Request failed with status code 401"){
 				return toast.error("Usuário não autorizado ou token expirado.");
 			}
-			toast.error("Erro ao criar horario.");
+			if(data.response?.data?.message){
+				toast.error(data.response?.data?.message);
+			} else {
+				toast.error("Erro ao criar horario.");
+			}
+			
 		}});
 
 	return mutation;
