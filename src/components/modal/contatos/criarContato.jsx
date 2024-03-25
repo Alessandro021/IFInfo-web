@@ -20,7 +20,7 @@ export function CriarContato({open, onClose, idSetor}) {
 	const validarContato = yup.object().shape({
 		email: yup.string().required().email().min(5),
 		nome: yup.string().strict().required().min(5).nonNullable(),
-		telefone: yup.string().transform(value => (value === "" ? null : value)).matches(/^\d{2} \d{4,5}-\d{4}$/, "Telefone deve ser no formato (99) 9999-9999 ou (99) 99999-9999").optional().nullable(),
+		telefone: yup.string().transform(value => (value === "" ? null : value)).matches(/^\d{2} \d{4,5}-\d{4}$/, "Telefone deve ser no formato (99) 99999-9999").optional().nullable(),
 	});
 
 	const formSchema = yup.object().shape({
@@ -110,7 +110,7 @@ export function CriarContato({open, onClose, idSetor}) {
 											<FormItem>
 												<FormLabel className="text-lg font-bold">Telefone</FormLabel>
 												<FormControl>
-													<ReactInputMask mask={"99 9999-9999"}  {...field}>
+													<ReactInputMask mask={"99 99999-9999"}  {...field}>
 														{(inputProps) => <Input placeholder="Telefone" {...inputProps} />}
 													</ReactInputMask>
 												</FormControl>
